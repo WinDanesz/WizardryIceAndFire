@@ -1,0 +1,10 @@
+{
+    "spell.ice_chest":         {"category": "spells", "sounds": ["ebwizardry:conjure_large"]},
+    "spell.ice_shroud":        {"category": "spells", "sounds": ["ebwizardry:buff"]},
+    "spell.knock":             {"category": "spells", "sounds": ["ebwizardry:conjure"]},
+    "spell.lock":              {"category": "spells", "sounds": ["ebwizardry:conjure"]},
+    "spell.summon_mimic": 	   {"category": "spells", "sounds": ["ebwizardry:conjure_large"]},
+    "spell.summon_bound_soul": {"category": "spells", "sounds": ["ebwizardry:summon1", "ebwizardry:summon2"]},
+    "spell.mass_warp.start":   {"category": "spells", "sounds": ["portal/trigger"]},
+    "spell.summon_ally.start": {"category": "spells", "sounds": ["portal/trigger"]}
+}
