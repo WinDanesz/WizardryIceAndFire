@@ -152,7 +152,7 @@ dependencies {
     //// Content Mods
     implementation fg.deobf("curse.maven:MixinBooter-${mixinbooter_projectid}:${mixinbooter_fileid}")
     implementation fg.deobf("curse.maven:IceAndFireRLCraft-${iceandfire_projectid}:${iceandfire_fileid}")
-//  3558882
+    implementation fg.deobf("curse.maven:LLibrary-${llibrary_projectid}:${llibrary_fileid}")
     //// Content Mods
 
 
