@@ -24,4 +24,4 @@ libraries
 eclipse
 run
 /classes/*
-#libs/
+libs/
