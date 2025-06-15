@@ -6,7 +6,7 @@ buildscript {
         gradlePluginPortal()
         maven {
             name 'MinecraftForge'
-            url 'https://maven.minecraftforge.net/'
+            url 'https://maven.neoforged.net/'
         }
         maven {
             name 'Garden of Fancy'
@@ -21,6 +21,9 @@ buildscript {
         maven {
             name = 'Sponge / Mixin'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+        maven {
+            url 'https://maven.cleanroommc.com'
         }
     }
     dependencies {
@@ -148,18 +151,19 @@ dependencies {
     implementation fg.deobf("curse.maven:baubles-${baubles_projectid}:${baubles_fileid}")
     implementation fg.deobf("mezz.jei:jei_${mc_version}:${jei_version}")
     implementation fg.deobf("curse.maven:antique-atlas-${antiqueatlas_projectid}:${antiqueatlas_fileid}")
-
-    //// Content Mods
     implementation fg.deobf("curse.maven:MixinBooter-${mixinbooter_projectid}:${mixinbooter_fileid}")
     implementation fg.deobf("curse.maven:IceAndFireROTN-${iceandfire_projectid}:${iceandfire_fileid}")
     implementation fg.deobf("curse.maven:LLibrary-${llibrary_projectid}:${llibrary_fileid}")
-    //// Content Mods
-
+    implementation fg.deobf("curse.maven:WizardryUtils-${wizardryutils_projectid}:${wizardryutils_fileid}")
+    annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
+    annotationProcessor 'com.google.guava:guava:32.1.2-jre'
+    annotationProcessor 'com.google.code.gson:gson:2.8.9'
 
 }
 
 mixin {
     add sourceSets.main, "ifspellpack.refmap.json"
+    disableAnnotationProcessorCheck()
 }
 
 //// Project manifest data ////
@@ -247,21 +251,21 @@ if (System.getenv('USE_ALPHAS').equals('true')) {
         }
         def rawLog = grgit.log(includes: ['HEAD'], excludes: [getLastTag()]);
         def log = "";
-        for (org.ajoberstar.grgit.Commit commit: rawLog) {
+        for (org.ajoberstar.grgit.Commit commit : rawLog) {
             log = log + "[`" + commit.abbreviatedId + "`](https://github.com/${project.github}/commit/" + commit.id + ") " + commit.shortMessage + " - " + commit.author.name + "\\n";
         }
         doLast {
             exec {
                 commandLine "echo", "##[set-output name=jar_name;]${project.jar_name}";
             }
-            if(project.hasProperty('curse_project_id')) {
+            if (project.hasProperty('curse_project_id')) {
                 exec {
                     commandLine "echo", "##[set-output name=curse_project_id;]${project.curse_project_id}";
                 }
                 exec {
                     commandLine "echo", "##[set-output name=curse_versions;]${project.curse_versions}";
                 }
-                if(project.hasProperty('curse_relations')) {
+                if (project.hasProperty('curse_relations')) {
                     exec {
                         commandLine "echo", "##[set-output name=curse_relations;]${project.curse_relations}";
                     }
@@ -287,14 +291,14 @@ if (System.getenv('USE_ALPHAS').equals('true')) {
             exec {
                 commandLine "echo", "##[set-output name=jar_name;]${project.jar_name}";
             }
-            if(project.hasProperty('curse_project_id')) {
+            if (project.hasProperty('curse_project_id')) {
                 exec {
                     commandLine "echo", "##[set-output name=curse_project_id;]${project.curse_project_id}";
                 }
                 exec {
                     commandLine "echo", "##[set-output name=curse_versions;]${project.curse_versions}";
                 }
-                if(project.hasProperty('curse_relations')) {
+                if (project.hasProperty('curse_relations')) {
                     exec {
                         commandLine "echo", "##[set-output name=curse_relations;]${project.curse_relations}";
                     }
@@ -372,5 +376,28 @@ fancyGradle {
         resources
         coremods
         asm
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = project.maven_group
+            artifactId = project.jar_name.toLowerCase()
+            // version = "${project.mc_version}-" + System.getenv('PROJECT_VERSION')
+            project.mod_version = System.getenv('PROJECT_VERSION')
+            println "version: " + version
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/WinDanesz/AncientSpellcraft")
+            credentials {
+                username = System.getenv("GITHUB_USER")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
