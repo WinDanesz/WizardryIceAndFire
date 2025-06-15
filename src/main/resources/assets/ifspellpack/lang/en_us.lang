@@ -8,5 +8,6 @@ item.ifspellpack:charm_stonebreaker_sigil.desc=Trolls you summon do not turn to 
 # Spell
 
 spell.ifspellpack:troll_troop=Troll Troop
-spell.ifspellpack:troll_troop.desc=They come from the forest, mountains, and frost and are here to help.
+spell.ifspellpack:troll_troop.desc=From wood and peak and icy shore, the trolls arise to fight once more
 entity.ifspellpack:troll_minion.name=Troll Minion
+spell.ifspellpack:troll_troop.no_space=You cannot summon trolls in sunlight

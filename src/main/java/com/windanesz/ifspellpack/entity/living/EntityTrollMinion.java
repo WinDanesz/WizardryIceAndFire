@@ -5,17 +5,22 @@ import com.github.alexthe666.iceandfire.entity.IHumanoid;
 import com.github.alexthe666.iceandfire.entity.IVillagerFear;
 import com.github.alexthe666.iceandfire.entity.ai.TrollAIFleeSun;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
+import com.windanesz.wizardryutils.entity.ai.EntityAIMinionOwnerHurtByTarget;
+import com.windanesz.wizardryutils.entity.ai.EntityAIMinionOwnerHurtTarget;
 import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.entity.living.ISummonedCreature;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNavigateGround;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -41,16 +46,26 @@ public class EntityTrollMinion extends EntityTroll implements ISummonedCreature,
 	}
 
 	protected void initEntityAI() {
-		this.tasks.addTask(1, new EntityAISwimming(this));
 		if (!isSunlightImmune()) {
-			this.tasks.addTask(2, new TrollAIFleeSun(this, 1.0D));
+			super.initEntityAI();
+			this.targetTasks.taskEntries.clear();
+			this.tasks.taskEntries.clear();
 		}
+
+		this.tasks.addTask(1, new EntityAISwimming(this));
+		this.tasks.addTask(2, new TrollAIFleeSun(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
 		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F, 1.0F));
 		this.tasks.addTask(5, new EntityAILookIdle(this));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityVillager>(this, EntityVillager.class, false));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, false));
+
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityLivingBase.class, 0, false, true, this.getTargetSelector()));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityLivingBase.class, 0, false, true, this.getTargetSelector()));
+		this.targetTasks.addTask(3, new EntityAIMinionOwnerHurtByTarget(this));
+		this.targetTasks.addTask(4, new EntityAIMinionOwnerHurtTarget(this));
 	}
 
 	@Override
@@ -132,22 +147,21 @@ public class EntityTrollMinion extends EntityTroll implements ISummonedCreature,
 		return false;
 	}
 
+	@Override
+	public void onDeath(DamageSource cause) {
+
+	}
+
 	// This vanilla method has nothing to do with the custom despawn() method.
 	@Override
 	protected boolean canDespawn() {
-		return getCaster() == null && getOwnerId() == null;
+		return true; //() == null && getOwnerId() == null;
 	}
 
 	@Override
 	public boolean getCanSpawnHere() {
 		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL;
 	}
-
-//    @Override
-//    public boolean canAttackClass(Class<? extends EntityLivingBase> entityType){
-//        // Returns true unless the given entity type is a flying entity.
-//        return !EntityFlying.class.isAssignableFrom(entityType);
-//    }
 
 	@Override
 	public ITextComponent getDisplayName() {
