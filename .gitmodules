@@ -1,6 +1,0 @@
-[submodule "libs/IceAndFireROTN"]
-	path = libs/IceAndFireROTN
-	url = https://github.com/Rebirth-of-the-Night/Ice_and_Fire.git
-[submodule "libs/Wizardry"]
-	path = libs/Wizardry
-	url = https://github.com/Electroblob77/Wizardry.git
