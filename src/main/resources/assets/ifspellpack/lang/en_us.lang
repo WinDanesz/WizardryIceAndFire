@@ -3,7 +3,7 @@
 # Item
 
 item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
-item.ifspellpack:charm_stonebreaker_sigil.desc=Trolls you summon do not turn to stone in the sunlight
+item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to daylight
 
 # Spell
 
