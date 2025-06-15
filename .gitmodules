@@ -1,6 +1,0 @@
-[submodule "libs/Ice_and_Fire_RLCraft"]
-	path = libs/Ice_and_Fire_RLCraft
-	url = https://github.com/kotlin-programmer/Ice_and_Fire_RLCraft.git
-[submodule "libs/Wizardry"]
-	path = libs/Wizardry
-	url = https://github.com/Electroblob77/Wizardry.git
