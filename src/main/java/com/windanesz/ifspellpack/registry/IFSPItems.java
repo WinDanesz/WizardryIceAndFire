@@ -1,6 +1,10 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.item.ItemArtefactIFSP;
+import com.windanesz.wizardryutils.registry.ItemRegistry;
+import electroblob.wizardry.item.ItemArtefact;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -14,12 +18,15 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber
 public final class IFSPItems {
 
+	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
+
 	private IFSPItems() {
 	} // No instances!
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
+		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);
 	}
 
 	@Nonnull

@@ -1,0 +1,13 @@
+# Entity
+
+entity.ifspellpack:
+
+# Item
+
+item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
+item.ifspellpack:charm_stonebreaker_sigil.desc=Trolls you summon do not turn to stone in the sunlight
+
+# Spell
+
+spell.ifspellpack:troll_troop=Troll Troop
+spell.ifspellpack:troll_troop.desc=They come from the forest, mountains, and frost and are here to help.

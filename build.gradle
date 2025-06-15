@@ -26,7 +26,7 @@ buildscript {
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:5.+'
         classpath 'org.ajoberstar.grgit:grgit-gradle:3.1.1'
-        classpath group: 'wtf.gofancy.fancygradle', name: 'wtf.gofancy.fancygradle.gradle.plugin', version: '1.1.+'
+        //classpath group: 'wtf.gofancy.fancygradle', name: 'wtf.gofancy.fancygradle.gradle.plugin', version: '1.1.+'
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 
@@ -42,7 +42,7 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: org.ajoberstar.grgit.gradle.GrgitPlugin
-apply plugin: 'wtf.gofancy.fancygradle'
+//apply plugin: 'wtf.gofancy.fancygradle'
 
 //// Project Settings ////
 // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -151,7 +151,7 @@ dependencies {
 
     //// Content Mods
     implementation fg.deobf("curse.maven:MixinBooter-${mixinbooter_projectid}:${mixinbooter_fileid}")
-    implementation fg.deobf("curse.maven:IceAndFireRLCraft-${iceandfire_projectid}:${iceandfire_fileid}")
+    implementation fg.deobf("curse.maven:IceAndFireROTN-${iceandfire_projectid}:${iceandfire_fileid}")
     implementation fg.deobf("curse.maven:LLibrary-${llibrary_projectid}:${llibrary_fileid}")
     //// Content Mods
 
@@ -367,10 +367,10 @@ compileJava {
     source = replaceTokens.outputs
 }
 
-fancyGradle {
+/*fancyGradle {
     patches {
         resources
         coremods
         asm
     }
-}
+}*/

@@ -2,6 +2,7 @@ package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.spell.TestSpell;
+import com.windanesz.ifspellpack.spell.TrollTroop;
 import electroblob.wizardry.spell.Spell;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -16,6 +17,7 @@ import javax.annotation.Nonnull;
 public final class IFSPSpells {
 
 	public static final Spell testspell = placeholder();
+	public static final Spell TROLL_TROOP = new TrollTroop();
 
 	private IFSPSpells() {
 	} // no instances
@@ -31,6 +33,7 @@ public final class IFSPSpells {
 
 		IForgeRegistry<Spell> registry = event.getRegistry();
 		registry.register(new TestSpell());
+		registry.register(TROLL_TROOP);
 
 	}
 }

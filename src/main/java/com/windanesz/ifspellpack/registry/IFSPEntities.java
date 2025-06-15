@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.entity.living.EntityTrollMinion;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -8,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber
 public class IFSPEntities {
@@ -22,6 +24,8 @@ public class IFSPEntities {
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<EntityEntry> event) {
+		IForgeRegistry<EntityEntry> registry = event.getRegistry();
+		registry.register(createEntry(EntityTrollMinion.class, "troll_minion", TrackingType.LIVING).build());
 	}
 
 	/**
