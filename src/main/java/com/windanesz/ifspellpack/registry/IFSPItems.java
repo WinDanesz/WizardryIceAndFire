@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber
 public final class IFSPItems {
 
-	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
+	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 
 	private IFSPItems() {
 	} // No instances!
