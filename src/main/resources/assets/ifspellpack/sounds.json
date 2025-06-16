@@ -1,5 +1,6 @@
 {
   "spell.hydras_heart":              {"category": "spells", "sounds": ["iceandfire:hydra_regen_head"]},
+  "spell.stymphalian_barrage":       {"category": "spells", "sounds": ["random/bow"]},
   "spell.stymphalian_storm":         {"category": "spells", "sounds": ["mob/chicken/plop"]},
   "spell.tide_guardian":             {"category": "spells", "sounds": ["iceandfire:sea_serpent_roar"]},
   "spell.troll_troop":               {"category": "spells", "sounds": ["iceandfire:troll_roar"]}

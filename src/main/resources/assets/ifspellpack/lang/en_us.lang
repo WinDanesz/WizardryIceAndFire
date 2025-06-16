@@ -11,10 +11,12 @@ item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to 
 
 spell.ifspellpack:hydras_heart=Hydra's Heart
 spell.ifspellpack:hydras_heart.desc=You will feel as though you have regrown a head!
+spell.ifspellpack:stymphalian_barrage=Stymphalian Barrage
+spell.ifspellpack:stymphalian_barrage.desc=Fire a series of stymphalian feathers in the direction you are pointing.
 spell.ifspellpack:stymphalian_storm=Stymphalian Storm
-spell.ifspellpack:stymphalian_storm.desc=Fire a series of stymphalian feathers radially around you
+spell.ifspellpack:stymphalian_storm.desc=Fire a series of stymphalian feathers radially around you.
 spell.ifspellpack:tide_guardian=Tide Guardian
-spell.ifspellpack:tide_guardian.desc=Embrace the power of the serpent
+spell.ifspellpack:tide_guardian.desc=Embrace the power of the serpent.
 spell.ifspellpack:troll_troop=Troll Troop
-spell.ifspellpack:troll_troop.desc=From wood and peak and icy shore, the trolls arise to fight once more
+spell.ifspellpack:troll_troop.desc=From wood and peak and icy shore, the trolls arise to fight once more.
 spell.ifspellpack:troll_troop.no_space=You cannot summon trolls in sunlight

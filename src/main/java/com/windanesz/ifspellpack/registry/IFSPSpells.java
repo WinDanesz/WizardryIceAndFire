@@ -20,6 +20,7 @@ public final class IFSPSpells {
 	public static final Spell HYDRAS_HEART = new HydrasHeart();
 	public static final Spell TIDE_GUARDIAN = new TideGuardian();
 	public static final Spell STYMPHALIAN_STORM = new StymphalianStorm();
+	public static final Spell STYMPHALIAN_BARRAGE = new StymphalianBarrage();
 
 	private IFSPSpells() {
 	} // no instances
@@ -39,6 +40,6 @@ public final class IFSPSpells {
 		registry.register(HYDRAS_HEART);
 		registry.register(TIDE_GUARDIAN);
 		registry.register(STYMPHALIAN_STORM);
-
+		registry.register(STYMPHALIAN_BARRAGE);
 	}
 }
