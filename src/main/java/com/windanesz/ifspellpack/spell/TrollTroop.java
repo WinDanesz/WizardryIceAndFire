@@ -5,7 +5,6 @@ import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.entity.living.EntityTrollMinion;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import com.windanesz.wizardryutils.tools.WizardryUtilsTools;
-import electroblob.wizardry.entity.living.ISummonedCreature;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.SpellMinion;

@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.potion.PotionTideGuardian;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -13,6 +14,8 @@ import javax.annotation.Nonnull;
 @GameRegistry.ObjectHolder(IFSpellPack.MODID)
 @Mod.EventBusSubscriber
 public class IFSPPotions {
+
+	public static final Potion TIDE_GUARDIAN = new PotionTideGuardian();
 
 	private IFSPPotions() {
 	}
@@ -32,8 +35,8 @@ public class IFSPPotions {
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Potion> event) {
-
 		IForgeRegistry<Potion> registry = event.getRegistry();
+		registerPotion(registry, "tide_guardian", TIDE_GUARDIAN);
 	}
 
 }

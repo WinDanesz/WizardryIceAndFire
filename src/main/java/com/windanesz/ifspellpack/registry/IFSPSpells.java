@@ -1,8 +1,7 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
-import com.windanesz.ifspellpack.spell.TestSpell;
-import com.windanesz.ifspellpack.spell.TrollTroop;
+import com.windanesz.ifspellpack.spell.*;
 import electroblob.wizardry.spell.Spell;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -18,6 +17,9 @@ public final class IFSPSpells {
 
 	public static final Spell testspell = placeholder();
 	public static final Spell TROLL_TROOP = new TrollTroop();
+	public static final Spell HYDRAS_HEART = new HydrasHeart();
+	public static final Spell TIDE_GUARDIAN = new TideGuardian();
+	public static final Spell STYMPHALIAN_STORM = new StymphalianStorm();
 
 	private IFSPSpells() {
 	} // no instances
@@ -34,6 +36,9 @@ public final class IFSPSpells {
 		IForgeRegistry<Spell> registry = event.getRegistry();
 		registry.register(new TestSpell());
 		registry.register(TROLL_TROOP);
+		registry.register(HYDRAS_HEART);
+		registry.register(TIDE_GUARDIAN);
+		registry.register(STYMPHALIAN_STORM);
 
 	}
 }
