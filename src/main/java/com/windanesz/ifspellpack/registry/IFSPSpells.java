@@ -21,6 +21,7 @@ public final class IFSPSpells {
 	public static final Spell TIDE_GUARDIAN = new TideGuardian();
 	public static final Spell STYMPHALIAN_STORM = new StymphalianStorm();
 	public static final Spell STYMPHALIAN_BARRAGE = new StymphalianBarrage();
+	public static final Spell COCKATRICES_STARE = new CockatricesStare();
 
 	private IFSPSpells() {
 	} // no instances
@@ -41,5 +42,6 @@ public final class IFSPSpells {
 		registry.register(TIDE_GUARDIAN);
 		registry.register(STYMPHALIAN_STORM);
 		registry.register(STYMPHALIAN_BARRAGE);
+		registry.register(COCKATRICES_STARE);
 	}
 }

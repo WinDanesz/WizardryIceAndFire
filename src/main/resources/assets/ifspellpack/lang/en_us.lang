@@ -9,6 +9,8 @@ item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to 
 
 # Spell
 
+spell.ifspellpack:cockatrices_stare=Cockatrice's Stare
+spell.ifspellpack:cockatrices_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
 spell.ifspellpack:hydras_heart=Hydra's Heart
 spell.ifspellpack:hydras_heart.desc=You will feel as though you have regrown a head!
 spell.ifspellpack:stymphalian_barrage=Stymphalian Barrage

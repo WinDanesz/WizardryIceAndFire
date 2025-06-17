@@ -18,10 +18,11 @@ import net.minecraft.world.World;
 public class StymphalianStorm extends Spell {
 
 	public static final String DAMAGE_SCALE = "damage_scale";
+	public static final String VELOCITY = "velocity";
 
 	public StymphalianStorm() {
 		super(IFSpellPack.MODID, "stymphalian_storm", SpellActions.SUMMON, false);
-		this.addProperties(DAMAGE_SCALE, BLAST_RADIUS, RANGE);
+		this.addProperties(DAMAGE_SCALE, BLAST_RADIUS, VELOCITY);
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class StymphalianStorm extends Spell {
 		float rotation = caster.rotationYawHead;
 		int featherCount = (int)(this.getProperty(BLAST_RADIUS).floatValue() * modifiers.get(WizardryItems.blast_upgrade));
 		float damage_multiplier = this.getProperty(DAMAGE_SCALE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
-		float velocity = this.getProperty(RANGE).floatValue() * modifiers.get(WizardryItems.range_upgrade);
+		float velocity = this.getProperty(VELOCITY).floatValue() * modifiers.get(WizardryItems.range_upgrade);
 		float rotate = 360f / featherCount;
 		for (int i = 0; i < featherCount; i++) {
 			EntityStymphalianFeather feather = new EntityStymphalianFeather(world, caster);
@@ -58,7 +59,7 @@ public class StymphalianStorm extends Spell {
 		float rotation = caster.rotationYawHead;
 		int featherCount = (int)(this.getProperty(BLAST_RADIUS).floatValue() * modifiers.get(WizardryItems.blast_upgrade));
 		float damage_multiplier = this.getProperty(DAMAGE_SCALE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
-		float velocity = this.getProperty(RANGE).floatValue() * modifiers.get(WizardryItems.range_upgrade);
+		float velocity = this.getProperty(VELOCITY).floatValue() * modifiers.get(WizardryItems.range_upgrade);
 		float rotate = 360f / featherCount;
 		for (int i = 0; i < featherCount; i++) {
 			EntityStymphalianFeather feather = new EntityStymphalianFeather(world, caster);
