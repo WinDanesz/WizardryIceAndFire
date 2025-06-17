@@ -1,0 +1,48 @@
+name: Deploy JAR to GitHub Packages
+
+on:
+  workflow_dispatch:
+
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4
+      with:
+        maven-version: 3.9.6
+    
+    - name: Setup Maven authentication for GitHub Packages
+      run: |
+        mkdir -p ~/.m2
+        echo "<settings>
+          <servers>
+            <server>
+              <id>github</id>
+              <username>WinDanesz</username>
+              <password>${{ secrets.GH_TOKEN }}</password>
+            </server>
+          </servers>
+        </settings>" > ~/.m2/settings.xml
+
+    - name: Deploy JAR to GitHub Packages
+      run: |
+        mvn deploy:deploy-file \
+          -DgroupId=wtf.gofancy.fancygradle \
+          -DartifactId=wtf.gofancy.fancygradle.gradle.plugin \
+          -Dversion=1.1.3-0 \
+          -Dpackaging=jar \
+          -Dfile=upload/wtf.gofancy.fancygradle.gradle.plugin-1.1.3-0.jar \
+          -DrepositoryId=github \
+          -Durl=https://maven.pkg.github.com/WinDanesz/WizardryIceAndFire \
+          -DgeneratePom=true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
