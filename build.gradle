@@ -65,7 +65,7 @@ minecraft {
     mappings channel: project.mappings_channel, version: "${project.mappings_version}-${project.mappings_mc_version}"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
-    def args = ["-Dmixin.debug.export=true",
+    def argsz = ["-Dmixin.debug.export=true",
                 '-Dmixin.hotSwap=true',
                 '-Dmixin.checks.interfaces=true',
                 '--username', 'WinDanesz', '--user', 'WinDanesz', '--uuid', '7faee354-8c60-4f5c-9862-fc0ce5f7f575']
@@ -83,6 +83,7 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'info'
+            args argsz
         }
 
         server {
