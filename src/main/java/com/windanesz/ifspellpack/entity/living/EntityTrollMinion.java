@@ -19,7 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -31,12 +30,12 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class EntityTrollMinion extends EntityTroll implements ISummonedCreature, IAnimatedEntity, IVillagerFear, IHumanoid {
+public class EntityTrollMinion extends EntityTroll implements ISummonedCreature {
 
 	private int lifetime = -1;
 	private UUID casterUUID;
 
-	private static final DataParameter<Boolean> SUNIMMUNE = EntityDataManager.createKey(EntityTrollMinion.class, DataSerializers.BOOLEAN);
+	//private static final DataParameter<Boolean> SUNLIGHT_IMMUNE = EntityDataManager.createKey(EntityTrollMinion.class, DataSerializers.BOOLEAN);
 
 	public EntityTrollMinion(World worldIn) {
 		super(worldIn);
@@ -46,23 +45,9 @@ public class EntityTrollMinion extends EntityTroll implements ISummonedCreature,
 	}
 
 	protected void initEntityAI() {
-		if (!isSunlightImmune()) {
-			super.initEntityAI();
-			this.targetTasks.taskEntries.clear();
-			this.tasks.taskEntries.clear();
-		}
-
-		this.tasks.addTask(1, new EntityAISwimming(this));
-		this.tasks.addTask(2, new TrollAIFleeSun(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
-		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F, 1.0F));
-		this.tasks.addTask(5, new EntityAILookIdle(this));
+		super.initEntityAI();
+		this.targetTasks.taskEntries.clear();
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityVillager>(this, EntityVillager.class, false));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, false));
-
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityLivingBase.class, 0, false, true, this.getTargetSelector()));
 		this.targetTasks.addTask(3, new EntityAIMinionOwnerHurtByTarget(this));
 		this.targetTasks.addTask(4, new EntityAIMinionOwnerHurtTarget(this));
@@ -97,12 +82,10 @@ public class EntityTrollMinion extends EntityTroll implements ISummonedCreature,
 
 	@Override
 	public void onSpawn() {
-
 	}
 
 	@Override
 	public void onDespawn() {
-
 	}
 
 	@Override
@@ -110,11 +93,11 @@ public class EntityTrollMinion extends EntityTroll implements ISummonedCreature,
 		return true;
 	}
 
-	@Override
+/*	@Override
 	protected void entityInit() {
 		super.entityInit();
-		this.dataManager.register(SUNIMMUNE, false);
-	}
+		this.dataManager.register(SUNLIGHT_IMMUNE, false);
+	}*/
 
 	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
 		return this.interactDelegate(player, hand) || super.processInteract(player, hand);
@@ -179,25 +162,25 @@ public class EntityTrollMinion extends EntityTroll implements ISummonedCreature,
 		return Wizardry.settings.summonedCreatureNames && getCaster() != null;
 	}
 
-	public void setSunlightImmune(boolean b) {
-		this.dataManager.set(SUNIMMUNE, b);
-	}
+/*	public void setSunlightImmune(boolean b) {
+		this.dataManager.set(SUNLIGHT_IMMUNE, b);
+	}*/
 
-	public boolean isSunlightImmune() {
-		return this.dataManager.get(SUNIMMUNE);
-	}
+/*	public boolean isSunlightImmune() {
+		return this.dataManager.get(SUNLIGHT_IMMUNE);
+	}*/
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		writeNBTDelegate(compound);
-		compound.setBoolean("SunImmune", this.dataManager.get(SUNIMMUNE));
+//		compound.setBoolean("SunImmune", this.dataManager.get(SUNLIGHT_IMMUNE));
 		return super.writeToNBT(compound);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		readNBTDelegate(compound);
-		this.setSunlightImmune(compound.getBoolean("SunImmune"));
+//		this.setSunlightImmune(compound.getBoolean("SunImmune"));
 		super.readFromNBT(compound);
 	}
 
