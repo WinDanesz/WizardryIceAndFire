@@ -2,6 +2,7 @@ package com.windanesz.ifspellpack.spell;
 
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.accessor.AccessorEntityTroll;
 import com.windanesz.ifspellpack.entity.living.EntityTrollMinion;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import com.windanesz.wizardryutils.tools.WizardryUtilsTools;
@@ -9,6 +10,7 @@ import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.SpellMinion;
 import electroblob.wizardry.util.BlockUtils;
+import electroblob.wizardry.util.EntityUtils;
 import electroblob.wizardry.util.GeometryUtils;
 import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.entity.Entity;
@@ -32,9 +34,11 @@ import java.util.List;
 public class TrollTroop extends SpellMinion<EntityTrollMinion> {
 
     private int trollVariant;
+    public static final String STAT_SCALE = "stat_scale";
 
     public TrollTroop() {
         super(IFSpellPack.MODID, "troll_troop", EntityTrollMinion::new);
+        this.addProperties(STAT_SCALE);
     }
 
     @Override
@@ -61,8 +65,11 @@ public class TrollTroop extends SpellMinion<EntityTrollMinion> {
         minion.setType(EnumTroll.values()[(alreadySpawned + trollVariant) % i]);
         minion.setWeaponType(EnumTroll.getWeaponForType(minion.getType()));
         if (caster instanceof EntityPlayer && ItemArtefact.isArtefactActive((EntityPlayer)caster, IFSPItems.CHARM_STONEBREAKER_SIGIL)) {
-            minion.setSunlightImmune(true);
+            ((AccessorEntityTroll)minion).ifspellpack$setSunlightImmune(true);
+            //minion.setSunlightImmune(true);
         }
+        float statScale = this.getProperty(STAT_SCALE).floatValue();
+        modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * statScale, false);
     }
 
     @Override
@@ -84,15 +91,15 @@ public class TrollTroop extends SpellMinion<EntityTrollMinion> {
                 }
 
                 EntityTrollMinion minion = this.createMinion(world, caster, modifiers);
-                minion.setPosition((double)pos.getX() + (double)0.5F, (double)pos.getY(), (double)pos.getZ() + (double)0.5F);
+                minion.setPosition((double)pos.getX() + (double)0.5F, pos.getY(), (double)pos.getZ() + (double)0.5F);
                 minion.setCaster(caster);
                 minion.setLifetime((int)(this.getProperty("minion_lifetime").floatValue() * modifiers.get(WizardryItems.duration_upgrade)));
                 IAttributeInstance attribute = minion.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
                 if (attribute != null) {
-                    attribute.applyModifier(new AttributeModifier("potency", (double)(modifiers.get("potency") - 1.0F), 2));
+                    attribute.applyModifier(new AttributeModifier("potency", modifiers.get("potency") - 1.0F, 2));
                 }
 
-                minion.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("minion_health", (double)(modifiers.get("minion_health") - 1.0F), 2));
+                minion.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("minion_health", modifiers.get("minion_health") - 1.0F, 2));
                 minion.setHealth(minion.getMaxHealth());
                 this.addMinionExtras(minion, pos, caster, modifiers, i);
                 world.spawnEntity(minion);
@@ -116,7 +123,7 @@ public class TrollTroop extends SpellMinion<EntityTrollMinion> {
 
     @Nullable
     public static BlockPos findNearbyFloorSpace(World world, BlockPos origin, int horizontalRange, int verticalRange, boolean lineOfSight, boolean hasArtefact) {
-        List<BlockPos> possibleLocations = new ArrayList();
+        List<BlockPos> possibleLocations = new ArrayList<>();
         Vec3d centre = GeometryUtils.getCentre(origin);
 
         for(int x = -horizontalRange; x <= horizontalRange; ++x) {
@@ -144,7 +151,7 @@ public class TrollTroop extends SpellMinion<EntityTrollMinion> {
         if (possibleLocations.isEmpty()) {
             return null;
         } else {
-            return (BlockPos)possibleLocations.get(world.rand.nextInt(possibleLocations.size()));
+            return possibleLocations.get(world.rand.nextInt(possibleLocations.size()));
         }
     }
 
