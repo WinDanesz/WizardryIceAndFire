@@ -25,6 +25,7 @@ public final class IFSPSpells {
 	public static final Spell HYDRAS_BREATH = new HydrasBreath();
 	public static final Spell TROLL_SKIN = new TrollSkin();
 	public static final Spell SHACKLES = new Shackles();
+	public static final Spell NO_ESCAPE = new NoEscape();
 
 	private IFSPSpells() {
 	} // no instances
@@ -49,5 +50,6 @@ public final class IFSPSpells {
 		registry.register(HYDRAS_BREATH);
 		registry.register(TROLL_SKIN);
 		registry.register(SHACKLES);
+		registry.register(NO_ESCAPE);
 	}
 }

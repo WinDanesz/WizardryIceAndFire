@@ -18,6 +18,7 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber
 public final class IFSPItems {
 
+	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item HEAD_COCKATRICE_COMB = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.HEAD);
 	public static final Item HEAD_COCKATRICE_COMB_INACTIVE = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.HEAD);
@@ -28,6 +29,7 @@ public final class IFSPItems {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
+		ItemRegistry.registerItemArtefact(registry, "charm_dwarven_gearbox", IFSpellPack.MODID, CHARM_DWARVEN_GEARBOX);
 		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);
 		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb", IFSpellPack.MODID, HEAD_COCKATRICE_COMB, false);
 		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb_inactive", IFSpellPack.MODID, HEAD_COCKATRICE_COMB_INACTIVE);

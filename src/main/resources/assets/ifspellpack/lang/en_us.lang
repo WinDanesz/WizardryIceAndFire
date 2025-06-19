@@ -5,8 +5,10 @@ entity.ifspellpack:troll_minion.name=Troll Minion
 
 # Item
 
+item.ifspellpack:charm_dwarven_gearbox.name=Dwarven Gearbox
+item.ifspellpack:charm_dwarven_gearbox.desc=Hold chain spells to pull chained targets toward you.
 item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
-item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to daylight
+item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to daylight.
 item.ifspellpack:head_cockatrice_comb.name=Cockatrice Comb
 item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice's stare when making eye contact with enemies.
 item.ifspellpack:head_cockatrice_comb_inactive.name=Cockatrice Comb
@@ -24,6 +26,8 @@ spell.ifspellpack:hydras_heartbeat=Hydra's Heartbeat
 spell.ifspellpack:hydras_heartbeat.desc=You will feel as though you have regrown a head!
 spell.ifspellpack:hydras_breath=Hydra's Breath
 spell.ifspellpack:hydras_breath.desc=Spew venom, damage and poisoning targets hit.
+spell.ifspellpack:no_escape=No Escape
+spell.ifspellpack:no_escape.desc=No one escapes!
 spell.ifspellpack:shackles=Shackles
 spell.ifspellpack:shackles.desc=Chain your target to yourself.
 spell.ifspellpack:stymphalian_barrage=Stymphalian Barrage

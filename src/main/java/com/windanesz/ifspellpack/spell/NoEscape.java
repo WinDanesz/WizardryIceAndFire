@@ -7,32 +7,29 @@ import com.windanesz.ifspellpack.accessor.AccessorChainEntityProperties;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.item.SpellActions;
-import electroblob.wizardry.spell.SpellRay;
+import electroblob.wizardry.spell.SpellAreaEffect;
 import electroblob.wizardry.util.EntityUtils;
 import electroblob.wizardry.util.SpellModifiers;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityDispenser;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Shackles extends SpellRay {
+public class NoEscape extends SpellAreaEffect {
 
 	public static final String PULL_STRENGTH = "pull_strength";
 
-	public Shackles() {
-		super(IFSpellPack.MODID, "shackles", SpellActions.POINT, true);
+	public NoEscape() {
+		super(IFSpellPack.MODID, "no_escape", SpellActions.POINT_UP, true);
 		this.addProperties(PULL_STRENGTH);
 	}
 
@@ -88,44 +85,19 @@ public class Shackles extends SpellRay {
 	}
 
 	@Override
-	public boolean cast(World world, EntityLiving caster, EnumHand hand, int ticksInUse, EntityLivingBase target, SpellModifiers modifiers) {
-		if (ticksInUse == 0) {
-			return super.cast(world, caster, hand, ticksInUse, target, modifiers);
-		}
-		return false;
-	}
-
-	@Override
-	protected boolean onEntityHit(World world, Entity target, Vec3d hit, @Nullable EntityLivingBase caster, Vec3d origin, int ticksInUse, SpellModifiers modifiers) {
-		ChainEntityProperties chainProperties = EntityPropertiesHandler.INSTANCE.getProperties(target, ChainEntityProperties.class);
-		if (chainProperties != null) {
-			if (!chainProperties.isConnectedToEntity(target, caster)) {
-				chainProperties.addChain(target, caster);
-				((AccessorChainEntityProperties)chainProperties).ifspellpack$setDropsChain(false);
-				this.playSound(world, caster, ticksInUse, -1, modifiers);
-				return true;
-			} else {
-				chainProperties.removeChain(target, caster);
-				this.playSound(world, caster, ticksInUse, -1, modifiers);
-				if (((AccessorChainEntityProperties) chainProperties).ifspellpack$getDropsChain()) {
-					EntityItem entityitem = new EntityItem(caster.world, caster.posX, caster.posY + (double) 1, caster.posZ, new ItemStack(IafItemRegistry.chain));
-					entityitem.setDefaultPickupDelay();
-					if (!world.isRemote) {
-						caster.world.spawnEntity(entityitem);
-					}
+	protected boolean affectEntity(World world, Vec3d origin, @Nullable EntityLivingBase caster, EntityLivingBase target, int targetCount, int ticksInUse, SpellModifiers modifiers) {
+		if (caster.canEntityBeSeen(target)) {
+			ChainEntityProperties chainProperties = EntityPropertiesHandler.INSTANCE.getProperties(target, ChainEntityProperties.class);
+			if (chainProperties != null) {
+				if (!chainProperties.isConnectedToEntity(target, caster)) {
+					chainProperties.addChain(target, caster);
+					((AccessorChainEntityProperties)chainProperties).ifspellpack$setDropsChain(false);
+					this.playSound(world, caster, ticksInUse, -1, modifiers);
+					return true;
 				}
 			}
 		}
 		return false;
 	}
 
-	@Override
-	protected boolean onBlockHit(World world, BlockPos pos, EnumFacing side, Vec3d hit, @Nullable EntityLivingBase caster, Vec3d origin, int ticksInUse, SpellModifiers modifiers) {
-		return false;
-	}
-
-	@Override
-	protected boolean onMiss(World world, @Nullable EntityLivingBase caster, Vec3d origin, Vec3d direction, int ticksInUse, SpellModifiers modifiers) {
-		return false;
-	}
 }
