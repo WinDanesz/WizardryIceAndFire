@@ -8,12 +8,12 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class HydrasHeart extends SpellBuff {
+public class HydrasHeartbeat extends SpellBuff {
 
 	public static final Potion POTION = MobEffects.REGENERATION;
 
-	public HydrasHeart() {
-		super(IFSpellPack.MODID, "hydras_heart", 0.43137254f, 0.43137254f, 0f, ()-> POTION);
+	public HydrasHeartbeat() {
+		super(IFSpellPack.MODID, "hydras_heartbeat", 0.43137254f, 0.43137254f, 0f, ()-> POTION);
 	}
 
 	@Override

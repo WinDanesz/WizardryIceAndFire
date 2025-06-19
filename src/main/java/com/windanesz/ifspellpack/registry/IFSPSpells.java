@@ -17,11 +17,13 @@ public final class IFSPSpells {
 
 	public static final Spell testspell = placeholder();
 	public static final Spell TROLL_TROOP = new TrollTroop();
-	public static final Spell HYDRAS_HEART = new HydrasHeart();
+	public static final Spell HYDRAS_HEARTBEAT = new HydrasHeartbeat();
 	public static final Spell TIDE_GUARDIAN = new TideGuardian();
 	public static final Spell STYMPHALIAN_STORM = new StymphalianStorm();
 	public static final Spell STYMPHALIAN_BARRAGE = new StymphalianBarrage();
 	public static final Spell COCKATRICES_STARE = new CockatricesStare();
+	public static final Spell HYDRAS_BREATH = new HydrasBreath();
+	public static final Spell TROLL_SKIN = new TrollSkin();
 
 	private IFSPSpells() {
 	} // no instances
@@ -38,10 +40,12 @@ public final class IFSPSpells {
 		IForgeRegistry<Spell> registry = event.getRegistry();
 		registry.register(new TestSpell());
 		registry.register(TROLL_TROOP);
-		registry.register(HYDRAS_HEART);
+		registry.register(HYDRAS_HEARTBEAT);
 		registry.register(TIDE_GUARDIAN);
 		registry.register(STYMPHALIAN_STORM);
 		registry.register(STYMPHALIAN_BARRAGE);
 		registry.register(COCKATRICES_STARE);
+		registry.register(HYDRAS_BREATH);
+		registry.register(TROLL_SKIN);
 	}
 }

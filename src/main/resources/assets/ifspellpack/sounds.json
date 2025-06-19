@@ -1,7 +1,9 @@
 {
-  "spell.hydras_heart":              {"category": "spells", "sounds": ["iceandfire:hydra_regen_head"]},
+  "spell.hydras_breath":             {"category": "spells", "sounds": ["iceandfire:hydra_spit_0", "iceandfire:hydra_spit_1"]},
+  "spell.hydras_heartbeat":          {"category": "spells", "sounds": ["iceandfire:hydra_regen_head"]},
   "spell.stymphalian_barrage":       {"category": "spells", "sounds": [""]},
   "spell.stymphalian_storm":         {"category": "spells", "sounds": ["mob/chicken/plop"]},
   "spell.tide_guardian":             {"category": "spells", "sounds": ["iceandfire:sea_serpent_roar"]},
+  "spell.troll_skin":                {"category": "spells", "sounds": ["iceandfire:troll_roar"]},
   "spell.troll_troop":               {"category": "spells", "sounds": ["iceandfire:troll_roar"]}
 }

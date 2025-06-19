@@ -45,7 +45,7 @@ public class CockatricesStare extends Spell {
 			List<EntityLivingBase> targets = EntityUtils.getLivingWithinRadius(range, caster.posX, caster.posY, caster.posZ, world);
 			List<EntityPlayer> allies = new ArrayList<>();
 			//placeholder artefact
-			if (ItemArtefact.isArtefactActive(caster, IFSPItems.HEAD_COCKATRICES_COMB)) {
+			if (ItemArtefact.isArtefactActive(caster, IFSPItems.HEAD_COCKATRICE_COMB)) {
 				for (EntityLivingBase entityLivingBase : targets) {
 					if (entityLivingBase instanceof EntityPlayer && AllyDesignationSystem.isPlayerAlly(caster, (EntityPlayer)entityLivingBase)) {
 						allies.add((EntityPlayer)entityLivingBase);

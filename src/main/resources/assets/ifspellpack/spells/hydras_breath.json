@@ -7,18 +7,17 @@
     "dispensers": true,
     "commands": true,
     "treasure": true,
-	"trades": true,
+    "trades": true,
     "looting": true
   },
-  "tier": "master",
+  "tier": "apprentice",
   "element": "earth",
-  "type": "buff",
-  "cost": 75,
-  "chargeup": 20,
-  "cooldown": 400,
+  "type": "attack",
+  "cost": 10,
+  "chargeup": 10,
+  "cooldown": 15,
   "base_properties": {
-    "effect_scale": 1,
-    "tide_guardian_duration": 600,
-    "tide_guardian_strength": 0
+    "acceleration": 0.1,
+    "effect_duration": 60
   }
 }

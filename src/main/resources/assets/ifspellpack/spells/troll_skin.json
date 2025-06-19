@@ -10,15 +10,16 @@
 	"trades": true,
     "looting": true
   },
-  "tier": "master",
+  "tier": "apprentice",
   "element": "earth",
   "type": "buff",
-  "cost": 75,
-  "chargeup": 20,
-  "cooldown": 400,
+  "cost": 20,
+  "chargeup": 10,
+  "cooldown": 200,
   "base_properties": {
     "effect_scale": 1,
-    "tide_guardian_duration": 600,
-    "tide_guardian_strength": 0
+    "damage_reduction": 0.7,
+    "troll_skin_duration": 600,
+    "troll_skin_strength": 0
   }
 }

@@ -19,7 +19,8 @@ import javax.annotation.Nonnull;
 public final class IFSPItems {
 
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
-	public static final Item HEAD_COCKATRICES_COMB = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.HEAD);
+	public static final Item HEAD_COCKATRICE_COMB = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.HEAD);
+	public static final Item HEAD_COCKATRICE_COMB_INACTIVE = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.HEAD);
 
 	private IFSPItems() {
 	} // No instances!
@@ -28,7 +29,8 @@ public final class IFSPItems {
 	public static void register(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
 		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);
-		ItemRegistry.registerItemArtefact(registry, "head_cockatrices_comb", IFSpellPack.MODID, HEAD_COCKATRICES_COMB);
+		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb", IFSpellPack.MODID, HEAD_COCKATRICE_COMB, false);
+		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb_inactive", IFSpellPack.MODID, HEAD_COCKATRICE_COMB_INACTIVE);
 	}
 
 	@Nonnull

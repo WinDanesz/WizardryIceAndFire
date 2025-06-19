@@ -2,6 +2,7 @@ package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.entity.living.EntityTrollMinion;
+import com.windanesz.ifspellpack.entity.projectile.EntityHydraBreathIFSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -25,6 +26,7 @@ public class IFSPEntities {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<EntityEntry> event) {
 		IForgeRegistry<EntityEntry> registry = event.getRegistry();
+		registry.register(createEntry(EntityHydraBreathIFSP.class, "hydra_breath", TrackingType.PROJECTILE).build());
 		registry.register(createEntry(EntityTrollMinion.class, "troll_minion", TrackingType.LIVING).build());
 	}
 

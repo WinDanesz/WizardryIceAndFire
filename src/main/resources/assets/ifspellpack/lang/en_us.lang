@@ -1,24 +1,37 @@
 # Entity
 
+entity.ifspellpack:hydra_breath.name=Hydra Breath
 entity.ifspellpack:troll_minion.name=Troll Minion
 
 # Item
 
 item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
 item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to daylight
+item.ifspellpack:head_cockatrice_comb.name=Cockatrice Comb
+item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice's stare when making eye contact with enemies.
+item.ifspellpack:head_cockatrice_comb_inactive.name=Cockatrice Comb
+item.ifspellpack:head_cockatrice_comb_inactive.desc=Forge this with a cockatrice's eye to activate it.
+
+# Potion
+
+potion.ifspellpack:troll_skin=Troll Skin
 
 # Spell
 
 spell.ifspellpack:cockatrices_stare=Cockatrice's Stare
 spell.ifspellpack:cockatrices_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
-spell.ifspellpack:hydras_heart=Hydra's Heart
-spell.ifspellpack:hydras_heart.desc=You will feel as though you have regrown a head!
+spell.ifspellpack:hydras_heartbeat=Hydra's Heartbeat
+spell.ifspellpack:hydras_heartbeat.desc=You will feel as though you have regrown a head!
+spell.ifspellpack:hydras_breath=Hydra's Breath
+spell.ifspellpack:hydras_breath.desc=Spew venom, damage and poisoning targets hit.
 spell.ifspellpack:stymphalian_barrage=Stymphalian Barrage
 spell.ifspellpack:stymphalian_barrage.desc=Fire a series of stymphalian feathers in the direction you are pointing.
 spell.ifspellpack:stymphalian_storm=Stymphalian Storm
 spell.ifspellpack:stymphalian_storm.desc=Fire a series of stymphalian feathers radially around you.
 spell.ifspellpack:tide_guardian=Tide Guardian
 spell.ifspellpack:tide_guardian.desc=Embrace the power of the serpent.
+spell.ifspellpack:troll_skin=Troll Skin
+spell.ifspellpack:troll_skin.desc=Harden your skin to that of a troll's and reduce incoming arrow damage.
 spell.ifspellpack:troll_troop=Troll Troop
 spell.ifspellpack:troll_troop.desc=From wood and peak and icy shore, the trolls arise to fight once more.
 spell.ifspellpack:troll_troop.no_space=You cannot summon trolls in sunlight

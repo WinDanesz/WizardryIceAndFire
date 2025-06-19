@@ -1,17 +1,33 @@
 package com.windanesz.ifspellpack.event;
 
 import com.github.alexthe666.iceandfire.entity.StoneEntityProperties;
+import com.windanesz.ifspellpack.potion.PotionTrollSkin;
+import com.windanesz.ifspellpack.registry.IFSPPotions;
+import com.windanesz.ifspellpack.registry.IFSPSpells;
+import com.windanesz.ifspellpack.spell.TrollSkin;
 import electroblob.wizardry.entity.living.ISummonedCreature;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class IFSPServerEvents {
+
+	@SubscribeEvent
+	public static void onLivingHurtEvent(LivingHurtEvent event) {
+		EntityLivingBase entity = event.getEntityLiving();
+		DamageSource source = event.getSource();
+		float amount = event.getAmount();
+		if (entity.isPotionActive(IFSPPotions.TROLL_SKIN) && source.getDamageType().contains("arrow")) {
+			event.setAmount((float)(amount * Math.pow(1 - IFSPSpells.TROLL_SKIN.getProperty(TrollSkin.DAMAGE_REDUCTION).doubleValue(), entity.getActivePotionEffect(IFSPPotions.TROLL_SKIN).getAmplifier() + 1)));
+		}
+	}
 
 	@SubscribeEvent
 	public static void onLivingUpdateEvent(LivingEvent.LivingUpdateEvent event) {

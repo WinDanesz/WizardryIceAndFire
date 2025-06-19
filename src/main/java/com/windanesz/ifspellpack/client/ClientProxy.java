@@ -1,8 +1,11 @@
 package com.windanesz.ifspellpack.client;
 
+import com.github.alexthe666.iceandfire.client.render.entity.RenderNothing;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderTroll;
 import com.windanesz.ifspellpack.CommonProxy;
 import com.windanesz.ifspellpack.entity.living.EntityTrollMinion;
+import com.windanesz.ifspellpack.entity.projectile.EntityHydraBreathIFSP;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -19,6 +22,7 @@ public class ClientProxy extends CommonProxy {
 	 */
 	public void registerRenderers() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrollMinion.class, RenderTroll::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityHydraBreathIFSP.class, RenderNothing::new);
 	}
 
 	@Override

@@ -33,6 +33,11 @@ public class StymphalianBarrage extends Spell {
 	}
 
 	@Override
+	public boolean canBeCastBy(EntityLiving npc, boolean override) {
+		return true;
+	}
+
+	@Override
 	public boolean cast(World world, EntityPlayer caster, EnumHand hand, int ticksInUse, SpellModifiers modifiers) {
 		if (ticksInUse <= 7) {
 			if (ticksInUse == 0 || ticksInUse == 7) {
