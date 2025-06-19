@@ -1,9 +1,10 @@
 {
   "spell.hydras_breath":             {"category": "spells", "sounds": ["iceandfire:hydra_spit_0", "iceandfire:hydra_spit_1"]},
   "spell.hydras_heartbeat":          {"category": "spells", "sounds": ["iceandfire:hydra_regen_head"]},
+  "spell.shackles":                  {"category": "spells", "sounds": ["item/armor/equip_chain1", "item/armor/equip_chain2", "item/armor/equip_chain3", "item/armor/equip_chain4", "item/armor/equip_chain5"]},
   "spell.stymphalian_barrage":       {"category": "spells", "sounds": [""]},
-  "spell.stymphalian_storm":         {"category": "spells", "sounds": ["mob/chicken/plop"]},
+  "spell.stymphalian_storm":         {"category": "spells", "sounds": [""]},
   "spell.tide_guardian":             {"category": "spells", "sounds": ["iceandfire:sea_serpent_roar"]},
-  "spell.troll_skin":                {"category": "spells", "sounds": ["iceandfire:troll_roar"]},
+  "spell.troll_skin":                {"category": "spells", "sounds": ["iceandfire:troll_idle0", "iceandfire:troll_idle1"]},
   "spell.troll_troop":               {"category": "spells", "sounds": ["iceandfire:troll_roar"]}
 }

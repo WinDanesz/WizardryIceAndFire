@@ -24,6 +24,7 @@ public final class IFSPSpells {
 	public static final Spell COCKATRICES_STARE = new CockatricesStare();
 	public static final Spell HYDRAS_BREATH = new HydrasBreath();
 	public static final Spell TROLL_SKIN = new TrollSkin();
+	public static final Spell SHACKLES = new Shackles();
 
 	private IFSPSpells() {
 	} // no instances
@@ -47,5 +48,6 @@ public final class IFSPSpells {
 		registry.register(COCKATRICES_STARE);
 		registry.register(HYDRAS_BREATH);
 		registry.register(TROLL_SKIN);
+		registry.register(SHACKLES);
 	}
 }

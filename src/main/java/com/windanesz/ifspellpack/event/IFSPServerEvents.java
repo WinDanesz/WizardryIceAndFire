@@ -1,18 +1,28 @@
 package com.windanesz.ifspellpack.event;
 
+import com.github.alexthe666.iceandfire.entity.ChainEntityProperties;
 import com.github.alexthe666.iceandfire.entity.StoneEntityProperties;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.windanesz.ifspellpack.accessor.AccessorChainEntityProperties;
 import com.windanesz.ifspellpack.potion.PotionTrollSkin;
 import com.windanesz.ifspellpack.registry.IFSPPotions;
 import com.windanesz.ifspellpack.registry.IFSPSpells;
 import com.windanesz.ifspellpack.spell.TrollSkin;
 import electroblob.wizardry.entity.living.ISummonedCreature;
+import electroblob.wizardry.item.ISpellCastingItem;
+import electroblob.wizardry.util.InventoryUtils;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
