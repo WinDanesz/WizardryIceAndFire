@@ -3,14 +3,19 @@ package com.windanesz.ifspellpack.event;
 import com.github.alexthe666.iceandfire.entity.ChainEntityProperties;
 import com.github.alexthe666.iceandfire.entity.StoneEntityProperties;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.Settings;
 import com.windanesz.ifspellpack.accessor.AccessorChainEntityProperties;
 import com.windanesz.ifspellpack.potion.PotionTrollSkin;
 import com.windanesz.ifspellpack.registry.IFSPPotions;
 import com.windanesz.ifspellpack.registry.IFSPSpells;
 import com.windanesz.ifspellpack.spell.TrollSkin;
 import electroblob.wizardry.entity.living.ISummonedCreature;
+import electroblob.wizardry.event.SpellCastEvent;
 import electroblob.wizardry.item.ISpellCastingItem;
+import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.InventoryUtils;
+import electroblob.wizardry.util.SpellModifiers;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -50,6 +55,15 @@ public class IFSPServerEvents {
 			//entity.setDead();
 			world.removeEntity(entity);
 			//world.removeEntityDangerously(entity);
+		}
+	}
+
+	@SubscribeEvent
+	public static void onSpellCastEventPre(SpellCastEvent.Pre event) {
+		Spell spell = event.getSpell();
+		SpellModifiers modifiers = event.getModifiers();
+		if (spell.getRegistryName().getNamespace().equals(IFSpellPack.MODID)) {
+			modifiers.set(SpellModifiers.POTENCY, IFSpellPack.settings.iafPotencyModifier, false);
 		}
 	}
 

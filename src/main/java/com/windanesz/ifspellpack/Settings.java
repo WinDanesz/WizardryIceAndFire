@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = IFSpellPack.MODID, name = "IFSpellPack") // No fancy configs here so we can use the annotation, hurrah!
 public class Settings {
 
+	public float iafPotencyModifier = generalSettings.iafPotencyModifier;
 
 	@Config.Name("General Settings")
 	public static GeneralSettings generalSettings = new GeneralSettings();
@@ -31,10 +32,10 @@ public class Settings {
 
 	public static class GeneralSettings {
 
-		@Config.Name("Unused placeholder")
-		@Config.Comment("Unused placeholder desc")
-		@Config.RequiresMcRestart
-		public boolean unused_placeholder = true;
+		@Config.Name("IAF Potency Modifier")
+		@Config.Comment("Multiplies the global potency for all IFSpellpack spells")
+		//@Config.RequiresMcRestart do I need this?
+		public float iafPotencyModifier = 1f;
 
 	}
 }

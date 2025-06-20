@@ -26,6 +26,7 @@ public class IFSpellPack {
 	public static final Random rand = new Random();
 
 	public static Logger logger;
+	public static Settings settings;
 
 	// The instance of wizardry that Forge uses.
 	@Mod.Instance(IFSpellPack.MODID)
@@ -38,7 +39,7 @@ public class IFSpellPack {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
-
+		settings = new Settings();
 		proxy.registerRenderers();
 
 		// Loot
