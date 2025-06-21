@@ -22,6 +22,8 @@ potion.ifspellpack:troll_skin=Troll Skin
 
 spell.ifspellpack:cockatrices_stare=Cockatrice's Stare
 spell.ifspellpack:cockatrices_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
+spell.ifspellpack:dragonrend=Dragonrend
+spell.ifspellpack:dragonrend.desc=Temporarily cripple a dragon, forcing it to the ground.
 spell.ifspellpack:hydras_heartbeat=Hydra's Heartbeat
 spell.ifspellpack:hydras_heartbeat.desc=You will feel as though you have regrown a head!
 spell.ifspellpack:hydras_breath=Hydra's Breath

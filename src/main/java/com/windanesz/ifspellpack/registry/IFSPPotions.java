@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.potion.PotionDragonrend;
 import com.windanesz.ifspellpack.potion.PotionTideGuardian;
 import com.windanesz.ifspellpack.potion.PotionTrollSkin;
 import net.minecraft.potion.Potion;
@@ -16,6 +17,7 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber
 public class IFSPPotions {
 
+	public static final Potion DRAGONREND = new PotionDragonrend();
 	public static final Potion TIDE_GUARDIAN = new PotionTideGuardian();
 	public static final Potion TROLL_SKIN = new PotionTrollSkin();
 
@@ -38,6 +40,7 @@ public class IFSPPotions {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Potion> event) {
 		IForgeRegistry<Potion> registry = event.getRegistry();
+		registerPotion(registry, "dragonrend", DRAGONREND);
 		registerPotion(registry, "tide_guardian", TIDE_GUARDIAN);
 		registerPotion(registry, "troll_skin", TROLL_SKIN);
 	}
