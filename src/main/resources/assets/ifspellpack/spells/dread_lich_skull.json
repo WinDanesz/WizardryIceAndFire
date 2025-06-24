@@ -1,0 +1,24 @@
+{
+  "enabled": {
+    "book": true,
+    "scroll": true,
+    "wands": true,
+    "npcs": true,
+    "dispensers": true,
+    "commands": true,
+    "treasure": true,
+    "trades": true,
+    "looting": true
+  },
+  "tier": "apprentice",
+  "element": "necromancy",
+  "type": "projectile",
+  "cost": 15,
+  "chargeup": 10,
+  "cooldown": 25,
+  "base_properties": {
+    "damage": 6,
+    "velocity": 1,
+    "damage_scale": 1
+  }
+}

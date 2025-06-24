@@ -27,6 +27,10 @@ public final class IFSPSpells {
 	public static final Spell SHACKLES = new Shackles();
 	public static final Spell NO_ESCAPE = new NoEscape();
 	public static final Spell DRAGONREND = new Dragonrend();
+	public static final Spell SUMMON_DREAD_THRALL = new SummonDreadThrall();
+	public static final Spell SUMMON_DREAD_GHOUL = new SummonDreadGhoul();
+	public static final Spell SUMMON_DREAD_KNIGHT = new SummonDreadKnight();
+	public static final Spell DREAD_LICH_SKULL = new DreadLichSkull();
 
 	private IFSPSpells() {
 	} // no instances
@@ -53,5 +57,9 @@ public final class IFSPSpells {
 		registry.register(SHACKLES);
 		registry.register(NO_ESCAPE);
 		registry.register(DRAGONREND);
+		registry.register(SUMMON_DREAD_THRALL);
+		registry.register(SUMMON_DREAD_GHOUL);
+		registry.register(SUMMON_DREAD_KNIGHT);
+		registry.register(DREAD_LICH_SKULL);
 	}
 }

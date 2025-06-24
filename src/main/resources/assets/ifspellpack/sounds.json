@@ -1,4 +1,5 @@
 {
+  "spell.dread_lich_skull":          {"category": "spells", "sounds": ["mob/zombie/unfect"]},
   "spell.hydras_breath":             {"category": "spells", "sounds": ["iceandfire:hydra_spit_0", "iceandfire:hydra_spit_1"]},
   "spell.hydras_heartbeat":          {"category": "spells", "sounds": ["iceandfire:hydra_regen_head"]},
   "spell.no_escape":                 {"category": "spells", "sounds": ["item/armor/equip_chain1", "item/armor/equip_chain2", "item/armor/equip_chain3", "item/armor/equip_chain4", "item/armor/equip_chain5"]},

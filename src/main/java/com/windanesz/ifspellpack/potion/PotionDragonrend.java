@@ -8,6 +8,8 @@ import net.minecraft.util.ResourceLocation;
 
 public class PotionDragonrend extends PotionMagicEffect {
 
+	public static final float DAMAGE_INCREASE = IFSpellPack.settings.dragonrendBonusDamage;
+
 	public PotionDragonrend() {
 		super(true, 0xC2FFFF, new ResourceLocation(IFSpellPack.MODID, "textures/potions/dragonrend.png"));
 	}
@@ -26,4 +28,5 @@ public class PotionDragonrend extends PotionMagicEffect {
 	public boolean isReady(int duration, int amplifier) {
 		return true;
 	}
+
 }

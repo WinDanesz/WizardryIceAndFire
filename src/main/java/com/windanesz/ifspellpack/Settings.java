@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = IFSpellPack.MODID, name = "IFSpellPack") // No fancy configs here so we can use the annotation, hurrah!
 public class Settings {
 
+	public float dragonrendBonusDamage = generalSettings.dragonrendBonusDamage;
 	public float iafPotencyModifier = generalSettings.iafPotencyModifier;
 
 	@Config.Name("General Settings")
@@ -31,6 +32,11 @@ public class Settings {
 	}
 
 	public static class GeneralSettings {
+
+		@Config.Name("Dragonrend Damage Increase")
+		@Config.Comment("Bonus damage applied to dragons with the dragonrend effect with the horn of dovakriid")
+		//@Config.RequiresMcRestart do I need this?
+		public float dragonrendBonusDamage = 0.15f;
 
 		@Config.Name("IAF Potency Modifier")
 		@Config.Comment("Multiplies the global potency for all IFSpellpack spells")

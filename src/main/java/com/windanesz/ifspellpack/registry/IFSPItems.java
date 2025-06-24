@@ -1,7 +1,10 @@
 package com.windanesz.ifspellpack.registry;
 
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.item.ItemArtefactIFSP;
+import com.windanesz.ifspellpack.item.ItemChargeableArtefact;
+import com.windanesz.ifspellpack.item.ItemChargedArtefact;
 import com.windanesz.wizardryutils.registry.ItemRegistry;
 import electroblob.wizardry.item.ItemArtefact;
 import net.minecraft.item.EnumRarity;
@@ -18,10 +21,13 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber
 public final class IFSPItems {
 
+	public static final Item CHARM_DOVAHKRIID = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
-	public static final Item HEAD_COCKATRICE_COMB = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.HEAD);
-	public static final Item HEAD_COCKATRICE_COMB_INACTIVE = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.HEAD);
+	public static final Item HEAD_COCKATRICE_COMB = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 1000, IafItemRegistry.cockatrice_eye, 1000, 1);
+	public static final Item HEAD_COCKATRICE_COMB_INACTIVE = new ItemChargeableArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, (ItemChargedArtefact)HEAD_COCKATRICE_COMB);
+	public static final Item HEAD_DREAD_CROWN = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 10000, IafItemRegistry.dread_shard, 100, 25);
+	public static final Item HEAD_DREAD_CROWN_INACTIVE = new ItemChargeableArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, (ItemChargedArtefact)HEAD_DREAD_CROWN);
 
 	private IFSPItems() {
 	} // No instances!
@@ -29,10 +35,13 @@ public final class IFSPItems {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
+		ItemRegistry.registerItemArtefact(registry, "charm_dovahkriid", IFSpellPack.MODID, CHARM_DOVAHKRIID);
 		ItemRegistry.registerItemArtefact(registry, "charm_dwarven_gearbox", IFSpellPack.MODID, CHARM_DWARVEN_GEARBOX);
 		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);
 		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb", IFSpellPack.MODID, HEAD_COCKATRICE_COMB, false);
 		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb_inactive", IFSpellPack.MODID, HEAD_COCKATRICE_COMB_INACTIVE);
+		ItemRegistry.registerItemArtefact(registry, "head_dread_crown", IFSpellPack.MODID, HEAD_DREAD_CROWN, false);
+		ItemRegistry.registerItemArtefact(registry, "head_dread_crown_inactive", IFSpellPack.MODID, HEAD_DREAD_CROWN_INACTIVE);
 	}
 
 	@Nonnull

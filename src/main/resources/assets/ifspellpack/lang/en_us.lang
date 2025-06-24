@@ -1,10 +1,18 @@
 # Entity
 
+entity.ifspellpack:dread_beast_minion.name=Dread Beast
+entity.ifspellpack:dread_ghoul_minion.name=Dread Ghoul
+entity.ifspellpack:dread_horse_minion.name=Dread Horse
+entity.ifspellpack:dread_knight_minion.name=Dread Knight
+entity.ifspellpack:dread_scuttler_minion.name=Dread Scuttler
+entity.ifspellpack:dread_thrall_minion.name=Dread Thrall
 entity.ifspellpack:hydra_breath.name=Hydra Breath
-entity.ifspellpack:troll_minion.name=Troll Minion
+entity.ifspellpack:troll_minion.name=Troll
 
 # Item
 
+item.ifspellpack:charm_dovahkriid.name=Horn of Dovahkriid
+item.ifspellpack:charm_dovahkriid.desc=Dragonrend weakens dragons, making them take more damage.
 item.ifspellpack:charm_dwarven_gearbox.name=Dwarven Gearbox
 item.ifspellpack:charm_dwarven_gearbox.desc=Hold chain spells to pull chained targets toward you.
 item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
@@ -12,7 +20,11 @@ item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to 
 item.ifspellpack:head_cockatrice_comb.name=Cockatrice Comb
 item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice's stare when making eye contact with enemies.
 item.ifspellpack:head_cockatrice_comb_inactive.name=Cockatrice Comb
-item.ifspellpack:head_cockatrice_comb_inactive.desc=Forge this with a cockatrice's eye to activate it.
+item.ifspellpack:head_cockatrice_comb_inactive.desc=Charge this with a cockatrice's eye to activate it.
+item.ifspellpack:head_dread_crown.name=Dread Crown
+item.ifspellpack:head_dread_crown.desc=Your dread thralls summon with armor.
+item.ifspellpack:head_dread_crown_inactive.name=Dread Crown
+item.ifspellpack:head_dread_crown_inactive.desc=Charge this with dread shards to activate it.
 
 # Potion
 
@@ -24,6 +36,8 @@ spell.ifspellpack:cockatrices_stare=Cockatrice's Stare
 spell.ifspellpack:cockatrices_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
 spell.ifspellpack:dragonrend=Dragonrend
 spell.ifspellpack:dragonrend.desc=Temporarily cripple a dragon, forcing it to the ground.
+spell.ifspellpack:dread_lich_skull=Dread Lich Skull
+spell.ifspellpack:dread_lich_skull.desc=Fire a dread lich skull projectile that seeks enemies.
 spell.ifspellpack:hydras_heartbeat=Hydra's Heartbeat
 spell.ifspellpack:hydras_heartbeat.desc=You will feel as though you have regrown a head!
 spell.ifspellpack:hydras_breath=Hydra's Breath
@@ -36,6 +50,12 @@ spell.ifspellpack:stymphalian_barrage=Stymphalian Barrage
 spell.ifspellpack:stymphalian_barrage.desc=Fire a series of stymphalian feathers in the direction you are pointing.
 spell.ifspellpack:stymphalian_storm=Stymphalian Storm
 spell.ifspellpack:stymphalian_storm.desc=Fire a series of stymphalian feathers radially around you.
+spell.ifspellpack:summon_dread_ghoul=Summon Dread Ghoul
+spell.ifspellpack:summon_dread_ghoul.desc=Summons a dread ghoul to fight for you. The dread ghoul will disappear after 30 seconds or if it is killed.
+spell.ifspellpack:summon_dread_knight=Summon Dread Knight
+spell.ifspellpack:summon_dread_knight.desc=Summons a dread knight to fight for you. The dread knight will disappear after 30 seconds or if it is killed.
+spell.ifspellpack:summon_dread_thrall=Summon Dread Thrall
+spell.ifspellpack:summon_dread_thrall.desc=Summons a dread thrall to fight for you. The dread thrall will disappear after 30 seconds or if it is killed.
 spell.ifspellpack:tide_guardian=Tide Guardian
 spell.ifspellpack:tide_guardian.desc=Embrace the power of the serpent.
 spell.ifspellpack:troll_skin=Troll Skin

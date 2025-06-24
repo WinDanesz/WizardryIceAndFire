@@ -1,7 +1,9 @@
 package com.windanesz.ifspellpack.registry;
 
+import com.github.alexthe666.iceandfire.entity.EntityDreadHorse;
+import com.github.alexthe666.iceandfire.entity.EntityDreadScuttler;
 import com.windanesz.ifspellpack.IFSpellPack;
-import com.windanesz.ifspellpack.entity.living.EntityTrollMinion;
+import com.windanesz.ifspellpack.entity.living.*;
 import com.windanesz.ifspellpack.entity.projectile.EntityHydraBreathIFSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -26,8 +28,18 @@ public class IFSPEntities {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<EntityEntry> event) {
 		IForgeRegistry<EntityEntry> registry = event.getRegistry();
-		registry.register(createEntry(EntityHydraBreathIFSP.class, "hydra_breath", TrackingType.PROJECTILE).build());
+
+		//living
+		registry.register(createEntry(EntityDreadBeastMinion.class, "dread_beast_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityDreadGhoulMinion.class, "dread_ghoul_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityDreadHorseMinion.class, "dread_horse_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityDreadKnightMinion.class, "dread_knight_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityDreadScuttlerMinion.class, "dread_scuttler_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityDreadThrallMinion.class, "dread_thrall_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityTrollMinion.class, "troll_minion", TrackingType.LIVING).build());
+
+		//projectile
+		registry.register(createEntry(EntityHydraBreathIFSP.class, "hydra_breath", TrackingType.PROJECTILE).build());
 	}
 
 	/**

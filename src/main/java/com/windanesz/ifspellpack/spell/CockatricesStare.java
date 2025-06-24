@@ -1,8 +1,10 @@
 package com.windanesz.ifspellpack.spell;
 
+import baubles.api.BaublesApi;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityGorgon;
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.item.ItemChargedArtefact;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.item.SpellActions;
@@ -16,6 +18,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
@@ -42,10 +45,11 @@ public class CockatricesStare extends Spell {
 			float damageScale = this.getProperty(DAMAGE_SCALE).floatValue();
 			double range = (double) IceAndFire.CONFIG.cockatriceChickenSearchLength * modifiers.get(WizardryItems.range_upgrade);
 			float view_radius = this.getProperty(VIEW_RADIUS).floatValue();
+			boolean artefactActive = ItemArtefact.isArtefactActive(caster, IFSPItems.HEAD_COCKATRICE_COMB);
 			List<EntityLivingBase> targets = EntityUtils.getLivingWithinRadius(range, caster.posX, caster.posY, caster.posZ, world);
 			List<EntityPlayer> allies = new ArrayList<>();
 			//placeholder artefact
-			if (ItemArtefact.isArtefactActive(caster, IFSPItems.HEAD_COCKATRICE_COMB)) {
+			if (artefactActive) {
 				for (EntityLivingBase entityLivingBase : targets) {
 					if (entityLivingBase instanceof EntityPlayer && AllyDesignationSystem.isPlayerAlly(caster, (EntityPlayer)entityLivingBase)) {
 						allies.add((EntityPlayer)entityLivingBase);
@@ -55,7 +59,11 @@ public class CockatricesStare extends Spell {
 			targets.removeIf(e -> e == caster || !EntityGorgon.isEntityLookingAt(caster, e, view_radius) || !EntityGorgon.isEntityLookingAt(e, caster, view_radius) || !EntityUtils.isLiving(e) || EntityGorgon.isBlindfolded(e) || !AllyDesignationSystem.isValidTarget(caster, e));
 			for (EntityLivingBase target : targets) {
 				if (!world.isRemote) {
-					int attackStrength = (int)((baseDamage + this.getFriendsCount(allies, target)) * damageScale);
+					int friends = 0;
+					if (artefactActive && (caster.isCreative() || ItemChargedArtefact.consumeCharge(IFSPItems.HEAD_COCKATRICE_COMB, BaublesApi.getBaublesHandler(caster).getStackInSlot(4)))) {
+						friends += this.getFriendsCount(allies, target);
+					}
+					int attackStrength = (int)((baseDamage + friends) * damageScale);
 					target.addPotionEffect(new PotionEffect(MobEffects.WITHER, 10, 2 + Math.min(1, attackStrength)));
 					target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 10, Math.min(4, attackStrength)));
 					target.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 200, 0));
