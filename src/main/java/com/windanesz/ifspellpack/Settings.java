@@ -15,6 +15,11 @@ public class Settings {
 	@Config.Name("General Settings")
 	public static GeneralSettings generalSettings = new GeneralSettings();
 
+	public float heartOfDreadDurationMultiplier = artefactSettings.heartOfDreadDurationMultiplier;
+
+	@Config.Name("Artefact Settings")
+	public static ArtefactSettings artefactSettings = new ArtefactSettings();
+
 	@SuppressWarnings("unused")
 	@Mod.EventBusSubscriber(modid = IFSpellPack.MODID)
 	private static class EventHandler {
@@ -42,6 +47,15 @@ public class Settings {
 		@Config.Comment("Multiplies the global potency for all IFSpellpack spells")
 		//@Config.RequiresMcRestart do I need this?
 		public float iafPotencyModifier = 1f;
+
+	}
+
+	public static class ArtefactSettings {
+
+		@Config.Name("Heart of Dread Duration Increase")
+		@Config.Comment("Duration increase of the heart of dread charm")
+		//@Config.RequiresMcRestart do I need this?
+		public float heartOfDreadDurationMultiplier = 2f;
 
 	}
 }

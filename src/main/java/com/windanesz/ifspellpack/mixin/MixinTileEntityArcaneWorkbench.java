@@ -19,7 +19,7 @@ public abstract class MixinTileEntityArcaneWorkbench {
 	@Inject(method = "isItemValidForSlot(ILnet/minecraft/item/ItemStack;)Z", at = @At("HEAD"), cancellable = true)
 	private void injectIsItemValidForSlot(int slotNumber, ItemStack itemStack, CallbackInfoReturnable<Boolean> info) {
 		if (getStackInSlot(ContainerArcaneWorkbench.CENTRE_SLOT).getItem() instanceof ItemChargeableArtefact) {
-			if (itemStack.getItem() == ((ItemChargedArtefact)((ItemChargeableArtefact)getStackInSlot(ContainerArcaneWorkbench.CENTRE_SLOT).getItem()).getChargedItem()).getChargeItem() && slotNumber == ContainerArcaneWorkbench.CRYSTAL_SLOT) {
+			if (itemStack.getItem() == ((ItemChargeableArtefact)getStackInSlot(ContainerArcaneWorkbench.CENTRE_SLOT).getItem()).getChargedItem().getChargeItem() && slotNumber == ContainerArcaneWorkbench.CRYSTAL_SLOT) {
 				info.setReturnValue(true);
 			}
 		}

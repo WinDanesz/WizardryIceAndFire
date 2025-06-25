@@ -55,7 +55,7 @@ public class DreadLichSkull extends Spell {
 	@Override
 	public boolean cast(World world, EntityPlayer caster, EnumHand hand, int ticksInUse, SpellModifiers modifiers){
 		if(!world.isRemote){
-			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
+			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY) * this.getProperty(DAMAGE_SCALE).floatValue();
 			float velocity = this.getProperty(VELOCITY).floatValue() * modifiers.get(WizardryItems.range_upgrade);
 			EntityDreadLichSkull skull = new EntityDreadLichSkull(world, caster, damage);
 			skull.shoot(caster, caster.rotationPitch, caster.rotationYaw, 0, velocity, 1f);
@@ -70,7 +70,7 @@ public class DreadLichSkull extends Spell {
 	public boolean cast(World world, EntityLiving caster, EnumHand hand, int ticksInUse, EntityLivingBase target, SpellModifiers modifiers){
 		if(target != null){
 			if(!world.isRemote){
-				float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
+				float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY) * this.getProperty(DAMAGE_SCALE).floatValue();
 				float velocity = this.getProperty(VELOCITY).floatValue() * modifiers.get(WizardryItems.range_upgrade);
 				EntityDreadLichSkull skull = new EntityDreadLichSkull(world, caster, damage);
 				double d0 = target.posX - caster.posX;
@@ -89,7 +89,7 @@ public class DreadLichSkull extends Spell {
 	@Override
 	public boolean cast(World world, double x, double y, double z, EnumFacing direction, int ticksInUse, int duration, SpellModifiers modifiers){
 		if(!world.isRemote){
-			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
+			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY) * this.getProperty(DAMAGE_SCALE).floatValue();
 			float velocity = this.getProperty(VELOCITY).floatValue() * modifiers.get(WizardryItems.range_upgrade);
 			EntityDreadLichSkull skull = new EntityDreadLichSkull(world, x, y, z);
 			skull.setDamage(damage);

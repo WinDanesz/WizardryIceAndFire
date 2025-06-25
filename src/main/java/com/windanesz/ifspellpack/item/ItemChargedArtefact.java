@@ -33,9 +33,9 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 		return this.chargePerUse;
 	}
 
-	public static boolean consumeCharge(Item item, ItemStack itemStack) {
-		if (item instanceof ItemChargedArtefact) {
-			ItemChargedArtefact itemChargedArtefact = (ItemChargedArtefact)item;
+	public static boolean consumeCharge(ItemStack itemStack) {
+		if (itemStack.getItem() instanceof ItemChargedArtefact) {
+			ItemChargedArtefact itemChargedArtefact = (ItemChargedArtefact)itemStack.getItem();
 			if (itemChargedArtefact.getMaxDamage(itemStack) - itemChargedArtefact.getDamage(itemStack) >= itemChargedArtefact.chargePerUse) {
 				itemChargedArtefact.setDamage(itemStack, itemChargedArtefact.getDamage(itemStack) + itemChargedArtefact.chargePerUse);
 				return true;

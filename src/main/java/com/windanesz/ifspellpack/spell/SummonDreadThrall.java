@@ -25,9 +25,17 @@ public class SummonDreadThrall extends SpellMinion<EntityDreadThrallMinion> {
 
 	@Override
 	protected void addMinionExtras(EntityDreadThrallMinion minion, BlockPos pos, @Nullable EntityLivingBase caster, SpellModifiers modifiers, int alreadySpawned) {
-		if (caster instanceof EntityPlayer && ItemArtefact.isArtefactActive((EntityPlayer)caster, IFSPItems.HEAD_DREAD_CROWN)) {
-			if (((EntityPlayer)caster).isCreative() || ItemChargedArtefact.consumeCharge(IFSPItems.HEAD_DREAD_CROWN, BaublesApi.getBaublesHandler((EntityPlayer)caster).getStackInSlot(4))) {
-				minion.setEquipment(true);
+		if (caster instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)caster;
+			if (ItemArtefact.isArtefactActive(player, IFSPItems.HEAD_DREAD_CROWN)) {
+				if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(4))) {
+					minion.setEquipment(true);
+				}
+			}
+			if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_DREAD_HEART)) {
+				if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6))) {
+					minion.setLifetime((int)(minion.getLifetime() * IFSpellPack.settings.heartOfDreadDurationMultiplier));
+				}
 			}
 		}
 		float statScale = this.getProperty(STAT_SCALE).floatValue();

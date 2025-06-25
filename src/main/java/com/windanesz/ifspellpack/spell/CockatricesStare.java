@@ -60,7 +60,7 @@ public class CockatricesStare extends Spell {
 			for (EntityLivingBase target : targets) {
 				if (!world.isRemote) {
 					int friends = 0;
-					if (artefactActive && (caster.isCreative() || ItemChargedArtefact.consumeCharge(IFSPItems.HEAD_COCKATRICE_COMB, BaublesApi.getBaublesHandler(caster).getStackInSlot(4)))) {
+					if (artefactActive && (caster.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(caster).getStackInSlot(4)))) {
 						friends += this.getFriendsCount(allies, target);
 					}
 					int attackStrength = (int)((baseDamage + friends) * damageScale);

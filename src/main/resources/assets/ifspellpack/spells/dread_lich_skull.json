@@ -14,7 +14,7 @@
   "element": "necromancy",
   "type": "projectile",
   "cost": 15,
-  "chargeup": 10,
+  "chargeup": 5,
   "cooldown": 25,
   "base_properties": {
     "damage": 6,

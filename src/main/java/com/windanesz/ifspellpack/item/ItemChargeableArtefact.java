@@ -16,7 +16,7 @@ public class ItemChargeableArtefact extends ItemArtefactIFSP implements IWorkben
 		this.chargedItem = chargedItem;
 	}
 
-	public Item getChargedItem() {
+	public ItemChargedArtefact getChargedItem() {
 		return this.chargedItem;
 	}
 

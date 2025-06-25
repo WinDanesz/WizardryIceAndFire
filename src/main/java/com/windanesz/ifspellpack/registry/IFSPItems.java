@@ -22,6 +22,8 @@ import javax.annotation.Nonnull;
 public final class IFSPItems {
 
 	public static final Item CHARM_DOVAHKRIID = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
+	public static final Item CHARM_DREAD_HEART = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, IafItemRegistry.dread_shard, 100, 50);
+	public static final Item CHARM_DREAD_HEART_INACTIVE = new ItemChargeableArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, (ItemChargedArtefact)CHARM_DREAD_HEART);
 	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item HEAD_COCKATRICE_COMB = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 1000, IafItemRegistry.cockatrice_eye, 1000, 1);
@@ -36,6 +38,8 @@ public final class IFSPItems {
 	public static void register(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
 		ItemRegistry.registerItemArtefact(registry, "charm_dovahkriid", IFSpellPack.MODID, CHARM_DOVAHKRIID);
+		ItemRegistry.registerItemArtefact(registry, "charm_dread_heart", IFSpellPack.MODID, CHARM_DREAD_HEART);
+		ItemRegistry.registerItemArtefact(registry, "charm_dread_heart_inactive", IFSpellPack.MODID, CHARM_DREAD_HEART_INACTIVE);
 		ItemRegistry.registerItemArtefact(registry, "charm_dwarven_gearbox", IFSpellPack.MODID, CHARM_DWARVEN_GEARBOX);
 		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);
 		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb", IFSpellPack.MODID, HEAD_COCKATRICE_COMB, false);

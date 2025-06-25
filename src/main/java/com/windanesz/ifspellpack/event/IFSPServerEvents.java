@@ -47,7 +47,7 @@ public class IFSPServerEvents {
 	@SubscribeEvent
 	public static void onLivingDeathEvent(LivingDeathEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
-		if (event.getSource().getImmediateSource() instanceof EntityDreadLichSkull && event.getSource().getTrueSource() instanceof EntityPlayer) {
+		if (!(entity instanceof ISummonedCreature) && event.getSource().getImmediateSource() instanceof EntityDreadLichSkull && event.getSource().getTrueSource() instanceof EntityPlayer) {
 			EntityDreadLichSkull skull = (EntityDreadLichSkull)event.getSource().getImmediateSource();
 			EntityPlayer player = (EntityPlayer)event.getSource().getTrueSource();
 			float potency = skull.getEntityData().getFloat(DreadLichSkull.POTENCY_KEY);
@@ -149,7 +149,7 @@ public class IFSPServerEvents {
 		SpellModifiers modifiers = event.getModifiers();
 		//Global IFSpellpack potency modifier
 		if (spell.getRegistryName().getNamespace().equals(IFSpellPack.MODID)) {
-			modifiers.set(SpellModifiers.POTENCY, IFSpellPack.settings.iafPotencyModifier, false);
+			modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * IFSpellPack.settings.iafPotencyModifier, false);
 		}
 	}
 
