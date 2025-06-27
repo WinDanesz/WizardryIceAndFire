@@ -1,11 +1,16 @@
 package com.windanesz.ifspellpack.item;
 
+import baubles.api.BaubleType;
+import electroblob.wizardry.event.ArtefactCheckEvent;
 import electroblob.wizardry.item.IWorkbenchItem;
+import electroblob.wizardry.item.ItemArtefact;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchItem {
 
@@ -38,6 +43,17 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 			ItemChargedArtefact itemChargedArtefact = (ItemChargedArtefact)itemStack.getItem();
 			if (itemChargedArtefact.getMaxDamage(itemStack) - itemChargedArtefact.getDamage(itemStack) >= itemChargedArtefact.chargePerUse) {
 				itemChargedArtefact.setDamage(itemStack, itemChargedArtefact.getDamage(itemStack) + itemChargedArtefact.chargePerUse);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean consumeCharge(ItemStack itemStack, int charge) {
+		if (itemStack.getItem() instanceof ItemChargedArtefact) {
+			ItemChargedArtefact itemChargedArtefact = (ItemChargedArtefact)itemStack.getItem();
+			if (itemChargedArtefact.getMaxDamage(itemStack) - itemChargedArtefact.getDamage(itemStack) >= charge) {
+				itemChargedArtefact.setDamage(itemStack, itemChargedArtefact.getDamage(itemStack) + charge);
 				return true;
 			}
 		}

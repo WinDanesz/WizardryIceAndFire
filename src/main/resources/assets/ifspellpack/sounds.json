@@ -1,4 +1,7 @@
 {
+  "spell.dragon_roar":               {"category": "spells", "sounds": ["iceandfire:firedragon_adult_roar_0", "iceandfire:firedragon_adult_roar_1", "iceandfire:icedragon_adult_roar_0", "iceandfire:icedragon_adult_roar_1",
+    "iceandfire:lightningdragon_adult_roar_0", "iceandfire:lightningdragon_adult_roar_1", "iceandfire:lightningdragon_adult_roar_2"]},
+  "spell.dragonbane":       	     {"category": "spells", "sounds": ["ebwizardry:buff"]},
   "spell.dread_lich_skull":          {"category": "spells", "sounds": ["mob/zombie/unfect"]},
   "spell.hydras_breath":             {"category": "spells", "sounds": ["iceandfire:hydra_spit_0", "iceandfire:hydra_spit_1"]},
   "spell.hydras_heartbeat":          {"category": "spells", "sounds": ["iceandfire:hydra_regen_head"]},

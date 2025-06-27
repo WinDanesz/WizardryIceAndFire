@@ -5,8 +5,12 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "MixinChainEntityProperties",
+    "MixinEntityDreadLich",
+    "MixinEntityDreadMob",
+    "MixinEntityDreadScuttler",
     "MixinEntityStymphalianFeather",
     "MixinEntityTroll",
+    "MixinItemArrow",
     "MixinServerEvents",
     "MixinTileEntityArcaneWorkbench",
     "MixinTrollAIFleeSun"

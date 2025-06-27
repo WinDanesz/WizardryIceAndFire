@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.entity.living;
 
 import com.github.alexthe666.iceandfire.entity.EntityDreadKnight;
+import com.github.alexthe666.iceandfire.entity.EntityDreadThrall;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAIRideHorse;
 import com.windanesz.wizardryutils.entity.ai.EntityAIMinionOwnerHurtByTarget;
 import com.windanesz.wizardryutils.entity.ai.EntityAIMinionOwnerHurtTarget;
@@ -28,7 +29,8 @@ import java.util.UUID;
 
 public class EntityDreadKnightMinion extends EntityDreadKnight implements ISummonedCreature {
 
-	private static final DataParameter<Boolean> SPAWN_PARTICLES = EntityDataManager.createKey(EntityDreadKnightMinion.class, DataSerializers.BOOLEAN);
+	//parent class refers to EntityDreadThrall in its DataManager, so you have to here too, otherwise it will not work *shrug*
+	private static final DataParameter<Boolean> SPAWN_PARTICLES = EntityDataManager.createKey(EntityDreadThrall.class, DataSerializers.BOOLEAN);
 
 	private int lifetime = -1;
 	private UUID casterUUID;

@@ -1,3 +1,7 @@
+# Enchantment
+
+enchantment.ifspellpack:dragonbane=Dragonbane
+
 # Entity
 
 entity.ifspellpack:dread_beast_minion.name=Dread Beast
@@ -19,12 +23,20 @@ item.ifspellpack:charm_dread_heart_inactive.name=Heart of the Dread
 item.ifspellpack:charm_dread_heart_inactive.desc=Charge this with dread shards to activate it.
 item.ifspellpack:charm_dwarven_gearbox.name=Dwarven Gearbox
 item.ifspellpack:charm_dwarven_gearbox.desc=Hold chain spells to pull chained targets toward you.
+item.ifspellpack:charm_enchanted_manuscript.name=Enchanted Manuscript
+item.ifspellpack:charm_enchanted_manuscript.desc=Your spells are 30%% more potent.
+item.ifspellpack:charm_enchanted_manuscript_inactive.name=Enchanted Manuscript
+item.ifspellpack:charm_enchanted_manuscript_inactive.desc=Charge this with manuscripts to activate it.
+item.ifspellpack:charm_regenerating_head.name=Regenerating Head
+item.ifspellpack:charm_regenerating_head.desc=Prevents death and provides regeneration, increasing the lower the player's health.
+item.ifspellpack:charm_regenerating_head_inactive.name=Regenerating Head
+item.ifspellpack:charm_regenerating_head_inactive.desc=Charge this with hydra hearts to activate it.
 item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
 item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to daylight.
 item.ifspellpack:head_cockatrice_comb.name=Cockatrice Comb
 item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice's stare when making eye contact with enemies.
 item.ifspellpack:head_cockatrice_comb_inactive.name=Cockatrice Comb
-item.ifspellpack:head_cockatrice_comb_inactive.desc=Charge this with a cockatrice eyes to activate it.
+item.ifspellpack:head_cockatrice_comb_inactive.desc=Charge this with cockatrice eyes to activate it.
 item.ifspellpack:head_dread_crown.name=Dread Crown
 item.ifspellpack:head_dread_crown.desc=Your dread thralls summon with armor.
 item.ifspellpack:head_dread_crown_inactive.name=Dread Crown
@@ -38,6 +50,10 @@ potion.ifspellpack:troll_skin=Troll Skin
 
 spell.ifspellpack:cockatrices_stare=Cockatrice's Stare
 spell.ifspellpack:cockatrices_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
+spell.ifspellpack:dragon_roar=Dragon Roar
+spell.ifspellpack:dragon_roar.desc=Roar like a dragon, weakening enemies and strengthening allies.
+spell.ifspellpack:dragonbane=Dragonbane
+spell.ifspellpack:dragonbane.desc=Imbue your arrows to fly faster and deal more damage to dragons.
 spell.ifspellpack:dragonrend=Dragonrend
 spell.ifspellpack:dragonrend.desc=Temporarily cripple a dragon, forcing it to the ground.
 spell.ifspellpack:dread_lich_skull=Dread Lich Skull
@@ -54,8 +70,12 @@ spell.ifspellpack:stymphalian_barrage=Stymphalian Barrage
 spell.ifspellpack:stymphalian_barrage.desc=Fire a series of stymphalian feathers in the direction you are pointing.
 spell.ifspellpack:stymphalian_storm=Stymphalian Storm
 spell.ifspellpack:stymphalian_storm.desc=Fire a series of stymphalian feathers radially around you.
+spell.ifspellpack:silver_wind=Silver Wind
+spell.ifspellpack:silver_wind.desc=Fire a silver-infused gust in a cone, damaging and burning undead.
 spell.ifspellpack:summon_dread_ghoul=Summon Dread Ghoul
 spell.ifspellpack:summon_dread_ghoul.desc=Summons a dread ghoul to fight for you. The dread ghoul will disappear after 30 seconds or if it is killed.
+spell.ifspellpack:summon_dread_horse=Summon Dread Horse
+spell.ifspellpack:summon_dread_horse.desc=Summons a dread horse mount. The dread horse will disappear after 60 seconds or if it is killed.
 spell.ifspellpack:summon_dread_knight=Summon Dread Knight
 spell.ifspellpack:summon_dread_knight.desc=Summons a dread knight to fight for you. The dread knight will disappear after 30 seconds or if it is killed.
 spell.ifspellpack:summon_dread_thrall=Summon Dread Thrall

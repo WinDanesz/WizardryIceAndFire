@@ -3,6 +3,7 @@ package com.windanesz.ifspellpack.entity.living;
 import com.github.alexthe666.iceandfire.entity.EntityDreadHorse;
 import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.entity.living.ISummonedCreature;
+import electroblob.wizardry.util.AllyDesignationSystem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,6 +33,14 @@ public class EntityDreadHorseMinion extends EntityDreadHorse implements ISummone
 	public EntityDreadHorseMinion(World world){
 		super(world);
 		this.experienceValue = 0;
+	}
+
+	@Override
+	protected boolean canBeRidden(Entity entityIn) {
+		if (entityIn instanceof EntityLivingBase) {
+			return AllyDesignationSystem.isAllied(this, (EntityLivingBase)entityIn);
+		}
+		return super.canBeRidden(entityIn);
 	}
 
 	@Override

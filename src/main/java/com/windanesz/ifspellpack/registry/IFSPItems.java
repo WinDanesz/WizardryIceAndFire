@@ -25,6 +25,10 @@ public final class IFSPItems {
 	public static final Item CHARM_DREAD_HEART = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, IafItemRegistry.dread_shard, 100, 50);
 	public static final Item CHARM_DREAD_HEART_INACTIVE = new ItemChargeableArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, (ItemChargedArtefact)CHARM_DREAD_HEART);
 	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
+	public static final Item CHARM_ENCHANTED_MANUSCRIPT = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.CHARM, 10000, IafItemRegistry.hydra_heart, 100, 0);
+	public static final Item CHARM_ENCHANTED_MANUSCRIPT_INACTIVE = new ItemChargeableArtefact(EnumRarity.RARE, ItemArtefact.Type.CHARM, (ItemChargedArtefact)CHARM_ENCHANTED_MANUSCRIPT);
+	public static final Item CHARM_REGENERATING_HEAD = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 3, IafItemRegistry.hydra_heart, 2, 1);
+	public static final Item CHARM_REGENERATING_HEAD_INACTIVE = new ItemChargeableArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, (ItemChargedArtefact)CHARM_REGENERATING_HEAD);
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item HEAD_COCKATRICE_COMB = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 1000, IafItemRegistry.cockatrice_eye, 1000, 1);
 	public static final Item HEAD_COCKATRICE_COMB_INACTIVE = new ItemChargeableArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, (ItemChargedArtefact)HEAD_COCKATRICE_COMB);
@@ -38,9 +42,13 @@ public final class IFSPItems {
 	public static void register(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
 		ItemRegistry.registerItemArtefact(registry, "charm_dovahkriid", IFSpellPack.MODID, CHARM_DOVAHKRIID);
-		ItemRegistry.registerItemArtefact(registry, "charm_dread_heart", IFSpellPack.MODID, CHARM_DREAD_HEART);
+		ItemRegistry.registerItemArtefact(registry, "charm_dread_heart", IFSpellPack.MODID, CHARM_DREAD_HEART, false);
 		ItemRegistry.registerItemArtefact(registry, "charm_dread_heart_inactive", IFSpellPack.MODID, CHARM_DREAD_HEART_INACTIVE);
 		ItemRegistry.registerItemArtefact(registry, "charm_dwarven_gearbox", IFSpellPack.MODID, CHARM_DWARVEN_GEARBOX);
+		ItemRegistry.registerItemArtefact(registry, "charm_enchanted_manuscript", IFSpellPack.MODID, CHARM_ENCHANTED_MANUSCRIPT, false);
+		ItemRegistry.registerItemArtefact(registry, "charm_enchanted_manuscript_inactive", IFSpellPack.MODID, CHARM_ENCHANTED_MANUSCRIPT_INACTIVE);
+		ItemRegistry.registerItemArtefact(registry, "charm_regenerating_head", IFSpellPack.MODID, CHARM_REGENERATING_HEAD, false);
+		ItemRegistry.registerItemArtefact(registry, "charm_regenerating_head_inactive", IFSpellPack.MODID, CHARM_REGENERATING_HEAD_INACTIVE);
 		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);
 		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb", IFSpellPack.MODID, HEAD_COCKATRICE_COMB, false);
 		ItemRegistry.registerItemArtefact(registry, "head_cockatrice_comb_inactive", IFSpellPack.MODID, HEAD_COCKATRICE_COMB_INACTIVE);
@@ -48,9 +56,4 @@ public final class IFSPItems {
 		ItemRegistry.registerItemArtefact(registry, "head_dread_crown_inactive", IFSpellPack.MODID, HEAD_DREAD_CROWN_INACTIVE);
 	}
 
-	@Nonnull
-	@SuppressWarnings("ConstantConditions")
-	private static <T> T placeholder() {
-		return null;
-	}
 }
