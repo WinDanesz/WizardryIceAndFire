@@ -19,6 +19,6 @@
   "base_properties": {
     "damage": 4,
     "range": 10,
-    "angle": 20
+    "angle": 30
   }
 }

@@ -12,6 +12,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -39,7 +40,6 @@ public abstract class SpellCone extends Spell {
 	}
 	@Override
 	public boolean cast(World world, EntityPlayer caster, EnumHand hand, int ticksInUse, SpellModifiers modifiers){
-
 		Vec3d look = caster.getLookVec();
 		Vec3d origin = new Vec3d(caster.posX, caster.posY + caster.getEyeHeight() - Y_OFFSET, caster.posZ);
 		if(!this.isContinuous && world.isRemote && !Wizardry.proxy.isFirstPerson(caster)){
@@ -81,10 +81,10 @@ public abstract class SpellCone extends Spell {
 	public boolean shootCone(World world, Vec3d origin, Vec3d direction, @Nullable EntityLivingBase caster, int ticksInUse, SpellModifiers modifiers) {
 		boolean flag = this.alwaysFire();
 		float angle = this.getProperty(ANGLE).floatValue() * modifiers.get(WizardryItems.blast_upgrade);
-		List<EntityLivingBase> entities = this.getTargets(world, origin, modifiers);
-		for (EntityLivingBase entity : entities) {
-			if (canSee(world, origin, direction, entity.getPositionVector(), angle)) {
-				if (applyEffects(world, origin, caster, entity, ticksInUse, modifiers)) {
+		List<EntityLivingBase> targets = this.getTargets(world, origin, modifiers);
+		for (EntityLivingBase target : targets) {
+			if (withinCone(origin, direction, target.getPositionVector(), angle) && crossesAABB(world, origin, target.getEntityBoundingBox())) {
+				if (applyEffects(world, origin, caster, target, ticksInUse, modifiers)) {
 					flag = true;
 				}
 			}
@@ -97,21 +97,37 @@ public abstract class SpellCone extends Spell {
 		return EntityUtils.getEntitiesWithinRadius(range, origin.x, origin.y, origin.z, world, EntityLivingBase.class);
 	}
 
+	//if the spell should always fire or only if there are affected targets
 	public boolean alwaysFire() {
 		return true;
 	}
 
-	//degree is in degrees
-	public static boolean canSee(World world, Vec3d origin, Vec3d direction, Vec3d target, double degree) {
-		if (world.rayTraceBlocks(origin, target, false, true, false) != null) {
-			return false;
-		}
+	//angle is in degrees
+	public static boolean withinCone(Vec3d origin, Vec3d direction, Vec3d hit, double angle) {
 		direction = direction.normalize();
-		Vec3d difference = target.subtract(origin).normalize();
+		Vec3d difference = hit.subtract(origin).normalize();
 		double dotProduct = direction.dotProduct(difference);
-		double maxAngleRad = Math.toRadians(degree);
-		double minDot = Math.cos(maxAngleRad); // the smaller the angle, the closer dot is to 1
+		double maxAngleRad = Math.toRadians(angle);
+		double minDot = Math.cos(maxAngleRad);
 		return dotProduct >= minDot;
+	}
+
+	//checks if an entity's AABB is visible to the caster. This is the way mojang handles similar processes for explosions, despite it being very intensive.
+	public static boolean crossesAABB(World world, Vec3d origin, AxisAlignedBB aabb) {
+		double[] xArray = new double[]{aabb.minX, (aabb.minX + aabb.maxX) / 2, aabb.minX};
+		double[] yArray = new double[]{aabb.minY, (aabb.minY + aabb.maxY) / 2, aabb.minY};
+		double[] zArray = new double[]{aabb.minZ, (aabb.minZ + aabb.maxZ) / 2, aabb.minZ};
+		for (double x : xArray) {
+			for (double y : yArray) {
+				for (double z : zArray) {
+					Vec3d corner = new Vec3d(x, y, z);
+					if (world.rayTraceBlocks(origin, corner, false, true, false) == null) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }
