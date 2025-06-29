@@ -8,6 +8,7 @@
     "MixinEntityDreadLich",
     "MixinEntityDreadMob",
     "MixinEntityDreadScuttler",
+    "MixinEntityLivingBase",
     "MixinEntityStymphalianFeather",
     "MixinEntityTroll",
     "MixinItemArrow",

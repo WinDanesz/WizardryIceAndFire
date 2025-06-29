@@ -44,6 +44,9 @@ item.ifspellpack:head_dread_crown_inactive.desc=Charge this with dread shards to
 
 # Potion
 
+potion.ifspellpack:dragonhide=Dragonhide
+potion.ifspellpack:dragonrend=Dragonrend
+potion.ifspellpack:tide_guardian=Tide Guardian
 potion.ifspellpack:troll_skin=Troll Skin
 
 # Spell
@@ -54,6 +57,8 @@ spell.ifspellpack:dragon_roar=Dragon Roar
 spell.ifspellpack:dragon_roar.desc=Roar like a dragon, weakening enemies and strengthening allies.
 spell.ifspellpack:dragonbane=Dragonbane
 spell.ifspellpack:dragonbane.desc=Imbue your arrows to fly faster and deal more damage to dragons.
+spell.ifspellpack:dragonhide=Dragonhide
+spell.ifspellpack:dragonhide.desc=Thicken your skin to that of a dragon, increasing your minimum armor value.
 spell.ifspellpack:dragonrend=Dragonrend
 spell.ifspellpack:dragonrend.desc=Temporarily cripple a dragon, forcing it to the ground.
 spell.ifspellpack:dread_lich_skull=Dread Lich Skull
