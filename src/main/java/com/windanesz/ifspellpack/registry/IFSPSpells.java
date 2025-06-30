@@ -36,6 +36,8 @@ public final class IFSPSpells {
 	public static final Spell SUMMON_DREAD_HORSE = new SummonDreadHorse();
 	public static final Spell SILVER_WIND = new SilverWind();
 	public static final Spell DRAGONHIDE = new Dragonhide();
+	public static final Spell DRAGON_FIRE_BREATH = new DragonFireBreath();
+	public static final Spell DRAGON_ICE_BREATH = new DragonIceBreath();
 
 	private IFSPSpells() {
 	} // no instances
@@ -71,5 +73,7 @@ public final class IFSPSpells {
 		registry.register(SUMMON_DREAD_HORSE);
 		registry.register(SILVER_WIND);
 		registry.register(DRAGONHIDE);
+		registry.register(DRAGON_FIRE_BREATH);
+		registry.register(DRAGON_ICE_BREATH);
 	}
 }

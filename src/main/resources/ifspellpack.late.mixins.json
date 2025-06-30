@@ -8,12 +8,9 @@
     "MixinEntityDreadLich",
     "MixinEntityDreadMob",
     "MixinEntityDreadScuttler",
-    "MixinEntityLivingBase",
     "MixinEntityStymphalianFeather",
     "MixinEntityTroll",
-    "MixinItemArrow",
     "MixinServerEvents",
-    "MixinTileEntityArcaneWorkbench",
     "MixinTrollAIFleeSun"
   ]
 }

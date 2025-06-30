@@ -1,5 +1,6 @@
 package com.windanesz.ifspellpack;
 
+import com.google.common.collect.Lists;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import zone.rong.mixinbooter.IEarlyMixinLoader;
@@ -39,6 +40,11 @@ public class MixinLoader implements IFMLLoadingPlugin, IEarlyMixinLoader {
 
 	@Override
 	public List<String> getMixinConfigs() {
-		return null;
+		return Lists.newArrayList("ifspellpack.early.mixins.json");
+	}
+
+	@Override
+	public boolean shouldMixinConfigQueue(String mixinConfig) {
+		return true;
 	}
 }

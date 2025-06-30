@@ -1,4 +1,6 @@
 {
+  "spell.dragon_fire_breath":        {"category": "spells", "sounds": ["iceandfire:firedragon_breath"]},
+  "spell.dragon_ice_breath":         {"category": "spells", "sounds": ["iceandfire:icedragon_breath"]},
   "spell.dragon_roar":               {"category": "spells", "sounds": ["iceandfire:firedragon_adult_roar_0", "iceandfire:firedragon_adult_roar_1", "iceandfire:icedragon_adult_roar_0", "iceandfire:icedragon_adult_roar_1",
     "iceandfire:lightningdragon_adult_roar_0", "iceandfire:lightningdragon_adult_roar_1", "iceandfire:lightningdragon_adult_roar_2"]},
   "spell.dragonbane":       	     {"category": "spells", "sounds": ["ebwizardry:buff"]},

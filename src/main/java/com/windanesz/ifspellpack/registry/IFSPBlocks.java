@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.block.BlockIceSpikeIFSP;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,11 +18,7 @@ public class IFSPBlocks {
 	private IFSPBlocks() {
 	} // no instances
 
-	@Nonnull
-	@SuppressWarnings("ConstantConditions")
-	private static <T> T placeholder() {
-		return null;
-	}
+	public static final Block ICE_SPIKES = new BlockIceSpikeIFSP();
 
 	public static void registerBlock(IForgeRegistry<Block> registry, String name, Block block) {
 		block.setRegistryName(IFSpellPack.MODID, name);
@@ -32,6 +29,7 @@ public class IFSPBlocks {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Block> event) {
 		IForgeRegistry<Block> registry = event.getRegistry();
+		registerBlock(registry, "ice_spikes", ICE_SPIKES);
 
 	}
 }

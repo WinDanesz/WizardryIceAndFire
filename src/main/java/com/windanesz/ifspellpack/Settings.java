@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = IFSpellPack.MODID, name = "IFSpellPack") // No fancy configs here so we can use the annotation, hurrah!
 public class Settings {
 
+	public boolean dragonBreathSpellsPowerForge = generalSettings.dragonBreathSpellsPowerForge;
 	public float dragonrendBonusDamage = generalSettings.dragonrendBonusDamage;
 	public float iafPotencyModifier = generalSettings.iafPotencyModifier;
 
@@ -37,6 +38,11 @@ public class Settings {
 	}
 
 	public static class GeneralSettings {
+
+		@Config.Name("Dragon Breath Spells Power Forge")
+		@Config.Comment("Do dragon breath spells power their respective forges")
+		//@Config.RequiresMcRestart do I need this?
+		public boolean dragonBreathSpellsPowerForge = true;
 
 		@Config.Name("Dragonrend Damage Increase")
 		@Config.Comment("Bonus damage applied to dragons with the dragonrend effect with the horn of dovakriid")

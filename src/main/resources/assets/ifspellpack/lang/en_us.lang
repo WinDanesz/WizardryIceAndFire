@@ -1,3 +1,7 @@
+# Block
+
+block.ifspellpack:ice_spikes.name=Ice Spikes
+
 # Enchantment
 
 enchantment.ifspellpack:dragonbane=Dragonbane
@@ -53,6 +57,10 @@ potion.ifspellpack:troll_skin=Troll Skin
 
 spell.ifspellpack:cockatrices_stare=Cockatrice's Stare
 spell.ifspellpack:cockatrices_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
+spell.ifspellpack:dragon_fire_breath=Dragon Fire Breath
+spell.ifspellpack:dragon_fire_breath.desc=Channel the burning breath of a fire dragon.
+spell.ifspellpack:dragon_ice_breath=Dragon Ice Breath
+spell.ifspellpack:dragon_ice_breath.desc=Channel the chilling breath of an ice dragon.
 spell.ifspellpack:dragon_roar=Dragon Roar
 spell.ifspellpack:dragon_roar.desc=Roar like a dragon, weakening enemies and strengthening allies.
 spell.ifspellpack:dragonbane=Dragonbane

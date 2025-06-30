@@ -10,7 +10,7 @@ public class LateMixinLoader implements ILateMixinLoader {
 
 	@Override
 	public List<String> getMixinConfigs() {
-		return Lists.newArrayList("ifspellpack.mixins.json");
+		return Lists.newArrayList("ifspellpack.late.mixins.json");
 	}
 
 	@Override
