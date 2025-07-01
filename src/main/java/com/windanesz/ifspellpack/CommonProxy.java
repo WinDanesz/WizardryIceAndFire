@@ -7,6 +7,9 @@ import java.util.List;
 
 public class CommonProxy {
 
+	public void initialiseLayers() {
+	}
+
 	/**
 	 * Called from init() in the main mod class to initialise the particle factories.
 	 */

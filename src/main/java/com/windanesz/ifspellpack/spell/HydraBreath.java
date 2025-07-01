@@ -15,12 +15,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
-public class HydrasBreath extends Spell {
+public class HydraBreath extends Spell {
 
 	public static final String ACCELERATION = "acceleration";
 
-	public HydrasBreath() {
-		super(IFSpellPack.MODID, "hydras_breath", SpellActions.POINT, true);
+	public HydraBreath() {
+		super(IFSpellPack.MODID, "hydra_breath", SpellActions.POINT, true);
 		this.addProperties(ACCELERATION, EFFECT_DURATION);
 	}
 

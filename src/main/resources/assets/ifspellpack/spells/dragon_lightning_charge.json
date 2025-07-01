@@ -7,17 +7,20 @@
     "dispensers": true,
     "commands": true,
     "treasure": true,
-	"trades": true,
+    "trades": true,
     "looting": true
   },
   "tier": "advanced",
-  "element": "earth",
-  "type": "utility",
+  "element": "lightning",
+  "type": "attack",
   "cost": 30,
-  "chargeup": 0,
-  "cooldown": 10,
+  "chargeup": 10,
+  "cooldown": 40,
   "base_properties": {
-    "range": 6,
-    "block_lifetime": 900
+    "direct_damage": 10,
+    "splash_damage": 4,
+    "effect_radius": 2,
+    "acceleration": 0.1,
+    "knockback_strength": 0.3
   }
 }

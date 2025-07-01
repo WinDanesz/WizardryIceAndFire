@@ -8,6 +8,8 @@ enchantment.ifspellpack:dragonbane=Dragonbane
 
 # Entity
 
+        # Living
+
 entity.ifspellpack:dread_beast_minion.name=Dread Beast
 entity.ifspellpack:dread_ghoul_minion.name=Dread Ghoul
 entity.ifspellpack:dread_horse_minion.name=Dread Horse
@@ -17,10 +19,18 @@ entity.ifspellpack:dread_thrall_minion.name=Dread Thrall
 entity.ifspellpack:hydra_breath.name=Hydra Breath
 entity.ifspellpack:troll_minion.name=Troll
 
+        # Projectile
+
+entity.ifspellpack:dragon_fire_charge.name=Dragon Fire Charge
+entity.ifspellpack:dragon_ice_charge.name=Dragon Ice Charge
+entity.ifspellpack:dragon_lightning_charge.name=Dragon Lightning Charge
+
 # Item
 
 item.ifspellpack:charm_dovahkriid.name=Horn of Dovahkriid
 item.ifspellpack:charm_dovahkriid.desc=Dragonrend weakens dragons, making them take more damage.
+item.ifspellpack:charm_dragon_transform_block.name=Tectauryx
+item.ifspellpack:charm_dragon_transform_block.desc=Draconic spells transform terrain.
 item.ifspellpack:charm_dread_heart.name=Heart of the Dread
 item.ifspellpack:charm_dread_heart.desc=Your dread summons have extended lifetimes.
 item.ifspellpack:charm_dread_heart_inactive.name=Heart of the Dread
@@ -59,8 +69,16 @@ spell.ifspellpack:cockatrices_stare=Cockatrice's Stare
 spell.ifspellpack:cockatrices_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
 spell.ifspellpack:dragon_fire_breath=Dragon Fire Breath
 spell.ifspellpack:dragon_fire_breath.desc=Channel the burning breath of a fire dragon.
+spell.ifspellpack:dragon_fire_charge=Dragon Fire Charge
+spell.ifspellpack:dragon_fire_charge.desc=Launch a fire dragon charge that explodes on impact, igniting targets.
 spell.ifspellpack:dragon_ice_breath=Dragon Ice Breath
 spell.ifspellpack:dragon_ice_breath.desc=Channel the chilling breath of an ice dragon.
+spell.ifspellpack:dragon_ice_charge=Dragon Ice Charge
+spell.ifspellpack:dragon_ice_charge.desc=Launch an ice dragon charge that explodes on impact, freezing targets.
+spell.ifspellpack:dragon_lightning_breath=Dragon Lightning Breath
+spell.ifspellpack:dragon_lightning_breath.desc=Channel the shocking breath of an ice dragon.
+spell.ifspellpack:dragon_lightning_charge=Dragon Lightning Charge
+spell.ifspellpack:dragon_lightning_charge.desc=Launch a lightning dragon charge that explodes on impact, knocking back targets.
 spell.ifspellpack:dragon_roar=Dragon Roar
 spell.ifspellpack:dragon_roar.desc=Roar like a dragon, weakening enemies and strengthening allies.
 spell.ifspellpack:dragonbane=Dragonbane
@@ -71,10 +89,10 @@ spell.ifspellpack:dragonrend=Dragonrend
 spell.ifspellpack:dragonrend.desc=Temporarily cripple a dragon, forcing it to the ground.
 spell.ifspellpack:dread_lich_skull=Dread Lich Skull
 spell.ifspellpack:dread_lich_skull.desc=Fire a dread lich skull projectile that seeks enemies.
-spell.ifspellpack:hydras_heartbeat=Hydra's Heartbeat
-spell.ifspellpack:hydras_heartbeat.desc=You will feel as though you have regrown a head!
-spell.ifspellpack:hydras_breath=Hydra's Breath
-spell.ifspellpack:hydras_breath.desc=Spew venom, damage and poisoning targets hit.
+spell.ifspellpack:hydra_pulse=Hydra Pulse
+spell.ifspellpack:hydra_pulse.desc=You will feel as though you have regrown a head!
+spell.ifspellpack:hydra_breath=Hydra Breath
+spell.ifspellpack:hydra_breath.desc=Spew venom, damage and poisoning targets hit.
 spell.ifspellpack:no_escape=No Escape
 spell.ifspellpack:no_escape.desc=No one escapes!
 spell.ifspellpack:shackles=Shackles

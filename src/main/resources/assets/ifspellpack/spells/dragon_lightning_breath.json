@@ -11,7 +11,7 @@
     "looting": true
   },
   "tier": "advanced",
-  "element": "ice",
+  "element": "lightning",
   "type": "attack",
   "cost": 10,
   "chargeup": 10,
@@ -21,6 +21,6 @@
     "damage": 4,
     "ticks_until_target": 40,
     "effect_radius": 3.5,
-    "effect_duration": 50
+    "knockback_strength": 0.3
   }
 }

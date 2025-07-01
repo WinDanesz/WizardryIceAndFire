@@ -30,7 +30,6 @@ import java.util.UUID;
 public class DreadLichSkull extends Spell {
 
 	public static final String VELOCITY = "velocity";
-	public static final String DAMAGE_SCALE = "damage_scale";
 	public static final String POTENCY_KEY = "ifspellpack:potency";
 	public static final IStoredVariable<List<UUID>> DREAD_MINION_ARMY_UUIDS = new IStoredVariable.StoredVariable<List<UUID>, NBTTagList>("ifspellpack:dreadMinionArmy",
 			s -> NBTExtras.listToNBT(s, NBTUtil::createUUIDTag), t -> new ArrayList<>(NBTExtras.NBTToList(t, NBTUtil::getUUIDFromTag)), Persistence.ALWAYS).setSynced();
@@ -38,7 +37,7 @@ public class DreadLichSkull extends Spell {
 
 	public DreadLichSkull() {
 		super(IFSpellPack.MODID, "dread_lich_skull", SpellActions.POINT, false);
-		this.addProperties(DAMAGE, VELOCITY, DAMAGE_SCALE);
+		this.addProperties(DAMAGE, VELOCITY);
 		WizardData.registerStoredVariables(DREAD_MINION_ARMY_UUIDS);
 	}
 
@@ -55,7 +54,7 @@ public class DreadLichSkull extends Spell {
 	@Override
 	public boolean cast(World world, EntityPlayer caster, EnumHand hand, int ticksInUse, SpellModifiers modifiers){
 		if(!world.isRemote){
-			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY) * this.getProperty(DAMAGE_SCALE).floatValue();
+			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
 			float velocity = this.getProperty(VELOCITY).floatValue() * modifiers.get(WizardryItems.range_upgrade);
 			EntityDreadLichSkull skull = new EntityDreadLichSkull(world, caster, damage);
 			skull.shoot(caster, caster.rotationPitch, caster.rotationYaw, 0, velocity, 1f);
@@ -70,7 +69,7 @@ public class DreadLichSkull extends Spell {
 	public boolean cast(World world, EntityLiving caster, EnumHand hand, int ticksInUse, EntityLivingBase target, SpellModifiers modifiers){
 		if(target != null){
 			if(!world.isRemote){
-				float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY) * this.getProperty(DAMAGE_SCALE).floatValue();
+				float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
 				float velocity = this.getProperty(VELOCITY).floatValue() * modifiers.get(WizardryItems.range_upgrade);
 				EntityDreadLichSkull skull = new EntityDreadLichSkull(world, caster, damage);
 				double d0 = target.posX - caster.posX;
@@ -89,7 +88,7 @@ public class DreadLichSkull extends Spell {
 	@Override
 	public boolean cast(World world, double x, double y, double z, EnumFacing direction, int ticksInUse, int duration, SpellModifiers modifiers){
 		if(!world.isRemote){
-			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY) * this.getProperty(DAMAGE_SCALE).floatValue();
+			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
 			float velocity = this.getProperty(VELOCITY).floatValue() * modifiers.get(WizardryItems.range_upgrade);
 			EntityDreadLichSkull skull = new EntityDreadLichSkull(world, x, y, z);
 			skull.setDamage(damage);

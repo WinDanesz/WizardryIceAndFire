@@ -4,6 +4,9 @@ import com.github.alexthe666.iceandfire.entity.EntityDreadHorse;
 import com.github.alexthe666.iceandfire.entity.EntityDreadScuttler;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.entity.living.*;
+import com.windanesz.ifspellpack.entity.projectile.EntityDragonFireChargeIFSP;
+import com.windanesz.ifspellpack.entity.projectile.EntityDragonIceChargeIFSP;
+import com.windanesz.ifspellpack.entity.projectile.EntityDragonLightningChargeIFSP;
 import com.windanesz.ifspellpack.entity.projectile.EntityHydraBreathIFSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
@@ -39,6 +42,9 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityTrollMinion.class, "troll_minion", TrackingType.LIVING).build());
 
 		//projectile
+		registry.register(createEntry(EntityDragonFireChargeIFSP.class, "dragon_fire_charge", TrackingType.PROJECTILE).build());
+		registry.register(createEntry(EntityDragonIceChargeIFSP.class, "dragon_ice_charge", TrackingType.PROJECTILE).build());
+		registry.register(createEntry(EntityDragonLightningChargeIFSP.class, "dragon_lightning_charge", TrackingType.PROJECTILE).build());
 		registry.register(createEntry(EntityHydraBreathIFSP.class, "hydra_breath", TrackingType.PROJECTILE).build());
 	}
 

@@ -8,12 +8,14 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class HydrasHeartbeat extends SpellBuff {
+public class HydraPulse extends SpellBuff {
 
 	public static final Potion POTION = MobEffects.REGENERATION;
+	public static final String EFFECT_SCALE = "effect_scale";
 
-	public HydrasHeartbeat() {
-		super(IFSpellPack.MODID, "hydras_heartbeat", 0.43137254f, 0.43137254f, 0f, ()-> POTION);
+	public HydraPulse() {
+		super(IFSpellPack.MODID, "hydra_pulse", 0.43137254f, 0.43137254f, 0f, ()-> POTION);
+		this.addProperties(EFFECT_SCALE);
 	}
 
 	@Override
@@ -32,6 +34,11 @@ public class HydrasHeartbeat extends SpellBuff {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	protected int getBonusAmplifier(float potencyModifier) {
+		return (int)(super.getBonusAmplifier(potencyModifier) * this.getProperty(EFFECT_SCALE).floatValue());
 	}
 }
 

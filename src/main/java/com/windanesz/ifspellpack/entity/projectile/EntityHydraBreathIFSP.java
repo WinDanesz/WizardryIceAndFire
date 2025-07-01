@@ -38,7 +38,7 @@ public class EntityHydraBreathIFSP extends EntityHydraBreath {
 			if (EntityUtils.isLiving(result.entityHit)) {
 				EntityLivingBase entityLivingBase = (EntityLivingBase) result.entityHit;
 				if (!(entityLivingBase == this.shootingEntity)) {
-					int duration = (int)(IFSPSpells.HYDRAS_BREATH.getProperty(Spell.EFFECT_DURATION).floatValue() * this.durationMultiplier);
+					int duration = (int)(IFSPSpells.HYDRA_BREATH.getProperty(Spell.EFFECT_DURATION).floatValue() * this.durationMultiplier);
 					int amplifier = SpellBuff.getStandardBonusAmplifier(damageMultiplier);
 					entityLivingBase.attackEntityFrom(DamageSource.causeMobDamage(this.shootingEntity), this.damageMultiplier);
 					entityLivingBase.addPotionEffect(new PotionEffect(MobEffects.POISON, duration, amplifier));

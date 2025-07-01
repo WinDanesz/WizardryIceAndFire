@@ -59,6 +59,7 @@ public class IFSpellPack {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
+		proxy.initialiseLayers();
 	}
 
 	@EventHandler

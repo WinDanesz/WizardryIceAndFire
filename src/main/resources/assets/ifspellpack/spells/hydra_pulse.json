@@ -18,6 +18,7 @@
   "cooldown": 200,
   "base_properties": {
     "regeneration_duration": 900,
-    "regeneration_strength": 0
+    "regeneration_strength": 0,
+    "effect_scale": 1
   }
 }

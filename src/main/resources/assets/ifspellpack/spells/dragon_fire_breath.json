@@ -18,9 +18,9 @@
   "cooldown": 50,
   "base_properties": {
     "range": 20,
-    "damage_scale": 1,
+    "damage": 4,
     "ticks_until_target": 40,
-    "effect_radius": 2.5,
-    "effect_duration": 100
+    "effect_radius": 3.5,
+    "effect_duration": 5
   }
 }

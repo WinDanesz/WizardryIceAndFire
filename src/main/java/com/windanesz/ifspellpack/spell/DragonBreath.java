@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.entity.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.IafDragonDestructionManager;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.registry.IFSPItems;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.item.SpellActions;
 import electroblob.wizardry.registry.WizardryItems;
@@ -28,12 +29,11 @@ import java.util.List;
 
 public abstract class DragonBreath extends SpellRay {
 
-	public static final String DAMAGE_SCALE = "damage_scale";
 	public static final String TICKS_UNTIL_TARGET = "ticks_until_target";
 
 	public DragonBreath(String name) {
 		super(IFSpellPack.MODID, name, SpellActions.POINT, true);
-		this.addProperties(DAMAGE_SCALE, TICKS_UNTIL_TARGET, EFFECT_RADIUS, EFFECT_DURATION);
+		this.addProperties(DAMAGE, TICKS_UNTIL_TARGET, EFFECT_RADIUS);
 	}
 
 	@Override
@@ -62,6 +62,7 @@ public abstract class DragonBreath extends SpellRay {
 		}
 	}
 
+	//consider changing to blocks increased per tick
 	@Override
 	protected double getRange(World world, Vec3d origin, Vec3d direction, @Nullable EntityLivingBase caster, int ticksInUse, SpellModifiers modifiers) {
 		int ticksUntilTarget = this.getProperty(TICKS_UNTIL_TARGET).intValue();
@@ -78,7 +79,7 @@ public abstract class DragonBreath extends SpellRay {
 	}
 
 	public static boolean canReplaceBlock(@Nullable EntityLivingBase caster) {
-		return caster instanceof EntityPlayer && ItemArtefact.isArtefactActive((EntityPlayer)caster, WizardryItems.amulet_anchoring);
+		return caster instanceof EntityPlayer && ItemArtefact.isArtefactActive((EntityPlayer)caster, IFSPItems.CHARM_DRAGON_TRANSFORM_BLOCK);
 	}
 
 	public static boolean canPowerForge(@Nullable EntityLivingBase caster) {

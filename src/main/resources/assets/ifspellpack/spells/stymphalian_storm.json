@@ -17,7 +17,7 @@
   "chargeup": 10,
   "cooldown": 15,
   "base_properties": {
-    "damage_scale": 1,
+    "damage": 1,
     "blast_radius": 8,
     "velocity": 1.5
   }

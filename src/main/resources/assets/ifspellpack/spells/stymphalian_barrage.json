@@ -17,8 +17,8 @@
   "chargeup": 10,
   "cooldown": 15,
   "base_properties": {
-    "damage_scale": 1,
-    "velocity": 1.6,
-    "aim_assist": 0
+    "damage": 1,
+    "range": 64,
+    "velocity": 1.6
   }
 }

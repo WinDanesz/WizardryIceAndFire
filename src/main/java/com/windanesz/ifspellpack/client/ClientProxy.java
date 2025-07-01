@@ -4,8 +4,15 @@ import com.github.alexthe666.iceandfire.client.render.entity.*;
 import com.github.alexthe666.iceandfire.entity.EntityDreadBeast;
 import com.github.alexthe666.iceandfire.entity.EntityDreadHorse;
 import com.windanesz.ifspellpack.CommonProxy;
+import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhide;
+import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhideNext;
 import com.windanesz.ifspellpack.entity.living.*;
+import com.windanesz.ifspellpack.entity.projectile.EntityDragonFireChargeIFSP;
+import com.windanesz.ifspellpack.entity.projectile.EntityDragonIceChargeIFSP;
+import com.windanesz.ifspellpack.entity.projectile.EntityDragonLightningChargeIFSP;
 import com.windanesz.ifspellpack.entity.projectile.EntityHydraBreathIFSP;
+import electroblob.wizardry.client.renderer.entity.layers.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -14,12 +21,20 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
+
+	@Override
+	public void initialiseLayers(){
+		LayerTiledOverlay.initialiseLayers(LayerDragonhide::new);
+		LayerTiledOverlay.initialiseLayers(LayerDragonhideNext::new);
+	}
 
 	/**
 	 * Called from preInit() in the main mod class to initialise the renderers.
 	 */
+	@Override
 	public void registerRenderers() {
 
 		//living
@@ -32,6 +47,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrollMinion.class, RenderTroll::new);
 
 		//projectile
+		RenderingRegistry.registerEntityRenderingHandler(EntityDragonFireChargeIFSP.class, manager -> new RenderDragonFireCharge(manager, true));
+		RenderingRegistry.registerEntityRenderingHandler(EntityDragonIceChargeIFSP.class, manager -> new RenderDragonFireCharge(manager, false));
+		RenderingRegistry.registerEntityRenderingHandler(EntityDragonLightningChargeIFSP.class, RenderDragonLightningCharge::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHydraBreathIFSP.class, RenderNothing::new);
 	}
 

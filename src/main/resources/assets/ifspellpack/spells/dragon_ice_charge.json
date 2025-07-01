@@ -13,14 +13,14 @@
   "tier": "advanced",
   "element": "ice",
   "type": "attack",
-  "cost": 10,
+  "cost": 30,
   "chargeup": 10,
-  "cooldown": 50,
+  "cooldown": 40,
   "base_properties": {
-    "range": 20,
-    "damage": 4,
-    "ticks_until_target": 40,
-    "effect_radius": 3.5,
-    "effect_duration": 50
+    "direct_damage": 10,
+    "splash_damage": 4,
+    "effect_radius": 2,
+    "effect_duration": 400,
+    "acceleration": 0.1
   }
 }

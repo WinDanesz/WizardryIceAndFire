@@ -17,7 +17,6 @@ import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.entity.living.ISummonedCreature;
 import electroblob.wizardry.event.SpellCastEvent;
 import electroblob.wizardry.item.ItemArtefact;
-import electroblob.wizardry.registry.WizardryEnchantments;
 import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.ImbueWeapon;
 import electroblob.wizardry.spell.Spell;
@@ -96,7 +95,7 @@ public class IFSPServerEvents {
 				if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_REGENERATING_HEAD)) {
 					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6))) {
 						event.setCanceled(true);
-						IFSPSpells.HYDRAS_HEARTBEAT.cast(player.world, player, EnumHand.MAIN_HAND, 0, new SpellModifiers());
+						IFSPSpells.HYDRA_PULSE.cast(player.world, player, EnumHand.MAIN_HAND, 0, new SpellModifiers());
 					}
 				}
 			}

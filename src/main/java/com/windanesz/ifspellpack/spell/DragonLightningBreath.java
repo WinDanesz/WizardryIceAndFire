@@ -1,25 +1,17 @@
 package com.windanesz.ifspellpack.spell;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.block.IDragonProof;
-import com.github.alexthe666.iceandfire.entity.DragonUtils;
+import com.github.alexthe666.iceandfire.entity.FrozenEntityProperties;
 import com.github.alexthe666.iceandfire.entity.IafDragonDestructionManager;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
 import com.github.alexthe666.iceandfire.util.IsImmune;
-import com.windanesz.ifspellpack.IFSpellPack;
-import electroblob.wizardry.item.ItemArtefact;
-import electroblob.wizardry.item.SpellActions;
 import electroblob.wizardry.registry.WizardryItems;
-import electroblob.wizardry.spell.SpellRay;
 import electroblob.wizardry.util.BlockUtils;
 import electroblob.wizardry.util.EntityUtils;
 import electroblob.wizardry.util.SpellModifiers;
+import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -27,43 +19,36 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class DragonFireBreath extends DragonBreath {
+public class DragonLightningBreath extends DragonBreath {
 
-	public DragonFireBreath() {
-		super("dragon_fire_breath");
-		this.addProperties(EFFECT_DURATION);
+	public static final String KNOCKBACK_STRENGTH = "knockback_strength";
+
+	public DragonLightningBreath() {
+		super("dragon_lightning_breath");
+		this.addProperties(KNOCKBACK_STRENGTH);
 	}
 
+	@Override
 	public void onTargetHit(World world, Vec3d hit, Vec3d origin, @Nullable EntityLivingBase caster, int ticksInUse, SpellModifiers modifiers) {
 		double radius = this.getProperty(EFFECT_RADIUS).doubleValue() * modifiers.get(WizardryItems.blast_upgrade);
 		if (ticksInUse % 10 == 0) {
 			float damage = this.getProperty(DAMAGE).floatValue() * modifiers.get(SpellModifiers.POTENCY);
-			float durationScale = this.getProperty(EFFECT_DURATION).floatValue() * modifiers.get(WizardryItems.duration_upgrade);
 			List<EntityLivingBase> targets = EntityUtils.getLivingWithinRadius(radius, hit.x, hit.y, hit.z, world);
-			targets.removeIf(e -> e == caster || (caster != null && !caster.canEntityBeSeen(e)) || IsImmune.toDragonFire(e));
+			targets.removeIf(e -> e == caster || (caster != null && !caster.canEntityBeSeen(e)) || IsImmune.toDragonLightning(e));
 			for (EntityLivingBase target : targets) {
-				target.setFire((int)durationScale);
-				target.attackEntityFrom(IceAndFire.dragonFire, damage);
+				target.attackEntityFrom(IceAndFire.dragonLightning, damage);
+				target.knockBack(target, this.getProperty(KNOCKBACK_STRENGTH).floatValue() * modifiers.get(SpellModifiers.POTENCY), origin.x - target.posX, origin.z - target.posZ);
 			}
 		}
 		List<BlockPos> posList = BlockUtils.getBlockSphere(new BlockPos(hit.x, hit.y, hit.z), radius / 2);
 		for (BlockPos pos : posList) {
-			IBlockState transformState = IafDragonDestructionManager.transformBlockFire(world.getBlockState(pos));
+			IBlockState transformState = IafDragonDestructionManager.transformBlockLightning(world.getBlockState(pos));
 			if (DragonBreath.canReplaceBlock(caster) && canDestroyBlock(caster, world, pos) && world.rand.nextBoolean()) {
 				world.setBlockState(pos, transformState);
-			}
-			if (DragonBreath.canPlaceBlock(caster, world, pos) && world.rand.nextBoolean() && transformState.isFullBlock() && world.isAirBlock(pos.up())) {
-				world.setBlockState(pos.up(), Blocks.FIRE.getDefaultState());
 			}
 			if (DragonBreath.canPowerForge(caster) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileEntityDragonforgeInput) {
 				((TileEntityDragonforgeInput)world.getTileEntity(pos)).onHitWithFlame();
 			}
 		}
 	}
-
-	@Override
-	protected void spawnParticle(World world, double x, double y, double z, double vx, double vy, double vz) {
-		IceAndFire.PROXY.spawnParticle("dragonfire", x, y, z, vx, vy, vz, 1);
-	}
-
 }
