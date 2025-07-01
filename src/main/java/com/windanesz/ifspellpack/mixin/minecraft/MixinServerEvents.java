@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.mixin;
+package com.windanesz.ifspellpack.mixin.minecraft;
 
 import com.github.alexthe666.iceandfire.entity.ChainEntityProperties;
 import com.github.alexthe666.iceandfire.event.ServerEvents;

@@ -1,11 +1,10 @@
 {
-  "package": "com.windanesz.ifspellpack.mixin",
+  "package": "com.windanesz.ifspellpack.mixin.ebwizardry",
   "refmap": "ifspellpack.refmap.json",
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MixinEntityLivingBase",
-    "MixinItemArrow",
     "MixinTileEntityArcaneWorkbench"
-  ]
+  ],
+  "client": []
 }

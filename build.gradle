@@ -68,7 +68,8 @@ minecraft {
     def argsz = ["-Dmixin.debug.export=true",
                 '-Dmixin.hotSwap=true',
                 '-Dmixin.checks.interfaces=true',
-                '--username', 'WinDanesz', '--user', 'WinDanesz', '--uuid', '7faee354-8c60-4f5c-9862-fc0ce5f7f575']
+                '--username', 'WinDanesz', '--user', 'WinDanesz', '--uuid', '7faee354-8c60-4f5c-9862-fc0ce5f7f575',
+                 '-Dfml.coreMods.load=' + coremod_plugin_class_name]
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -170,16 +171,18 @@ mixin {
 jar {
     manifest {
         attributes([
-                "Maven-Artifact": "${project.maven_group}:${project.archivesBaseName}:${project.version}",
-                "Specification-Title": archivesBaseName,
-                "Specification-Vendor": "WinDanesz",
-                "Specification-Version": "1", // We are version 1 of ourselves
-                "Implementation-Title": project.name,
-                "Implementation-Version": "${version}",
-                "Implementation-Vendor" :"WinDanesz",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "Built-On-Java": "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
-                "Built-On": "${project.mc_version}-${project.forge_version}"
+                "Maven-Artifact"             : "${project.maven_group}:${project.archivesBaseName}:${project.version}",
+                "Specification-Title"        : archivesBaseName,
+                "Specification-Vendor"       : "WinDanesz",
+                "Specification-Version"      : "1", // We are version 1 of ourselves
+                "Implementation-Title"       : project.name,
+                "Implementation-Version"     : "${version}",
+                "Implementation-Vendor"      : "WinDanesz",
+                "Implementation-Timestamp"   : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "FMLCorePlugin"              : "com.windanesz.ifspellpack.LateMixinLoader",
+                "FMLCorePluginContainsFMLMod": true,
+                "Built-On-Java"              : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
+                "Built-On"                   : "${project.mc_version}-${project.forge_version}"
         ])
     }
 }

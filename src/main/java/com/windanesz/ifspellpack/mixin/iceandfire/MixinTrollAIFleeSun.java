@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.mixin;
+package com.windanesz.ifspellpack.mixin.iceandfire;
 
 import com.github.alexthe666.iceandfire.entity.EntityTroll;
 import com.github.alexthe666.iceandfire.entity.ai.TrollAIFleeSun;
@@ -15,7 +15,7 @@ public class MixinTrollAIFleeSun {
 
 	@Shadow @Final private EntityTroll troll;
 
-	@Inject(method = "Lcom/github/alexthe666/iceandfire/entity/ai/TrollAIFleeSun;shouldExecute()Z", at= @At("HEAD"), cancellable = true)
+	@Inject(method = "shouldExecute()Z", at= @At("HEAD"), cancellable = true)
 	private void injectShouldExecute(CallbackInfoReturnable<Boolean> info) {
 		if (((AccessorEntityTroll)this.troll).ifspellpack$isSunlightImmune()) {
 			info.setReturnValue(false);

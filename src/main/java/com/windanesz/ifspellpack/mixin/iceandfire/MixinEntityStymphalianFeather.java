@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.mixin;
+package com.windanesz.ifspellpack.mixin.iceandfire;
 
 import com.github.alexthe666.iceandfire.entity.EntityStymphalianFeather;
 import com.windanesz.ifspellpack.accessor.AccessorEntityStymphalianFeather;
@@ -24,7 +24,7 @@ public abstract class MixinEntityStymphalianFeather implements AccessorEntitySty
 		this.ifspellpack$droppable = b;
 	}
 
-	@Inject(method = "Lcom/github/alexthe666/iceandfire/entity/EntityStymphalianFeather;setDead()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/EntityArrow;setDead()V", shift = At.Shift.AFTER), cancellable = true)
+	@Inject(method = "setDead()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/EntityArrow;setDead()V", shift = At.Shift.AFTER), cancellable = true)
 	private void injectSetDead(CallbackInfo info) {
 		if (!ifspellpack$droppable) {
 			info.cancel();
