@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.mixin;
+package com.windanesz.ifspellpack.mixin.ebwizardry;
 
 import com.windanesz.ifspellpack.item.ItemChargeableArtefact;
 import com.windanesz.ifspellpack.item.ItemChargedArtefact;

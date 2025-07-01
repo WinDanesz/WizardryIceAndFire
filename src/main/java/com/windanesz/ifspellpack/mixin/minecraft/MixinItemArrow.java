@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.mixin;
+package com.windanesz.ifspellpack.mixin.minecraft;
 
 import com.windanesz.ifspellpack.enchantment.EnchantmentDragonbane;
 import com.windanesz.ifspellpack.registry.IFSPEnchantments;

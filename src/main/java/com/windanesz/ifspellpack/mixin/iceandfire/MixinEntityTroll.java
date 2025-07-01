@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.mixin;
+package com.windanesz.ifspellpack.mixin.iceandfire;
 
 import com.github.alexthe666.iceandfire.entity.EntityTroll;
 import com.windanesz.ifspellpack.accessor.AccessorEntityTroll;
