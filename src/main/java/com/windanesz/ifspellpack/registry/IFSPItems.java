@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber
 public final class IFSPItems {
 
+	public static final Item AMULET_DAMNED = new ItemArtefactIFSP(EnumRarity.EPIC, ItemArtefact.Type.AMULET);
 	public static final Item CHARM_DOVAHKRIID = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DRAGON_TRANSFORM_BLOCK= new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DREAD_HEART = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, IafItemRegistry.dread_shard, 100, 50);
@@ -42,6 +43,7 @@ public final class IFSPItems {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
+		ItemRegistry.registerItemArtefact(registry, "amulet_damned", IFSpellPack.MODID, AMULET_DAMNED);
 		ItemRegistry.registerItemArtefact(registry, "charm_dovahkriid", IFSpellPack.MODID, CHARM_DOVAHKRIID);
 		ItemRegistry.registerItemArtefact(registry, "charm_dragon_transform_block", IFSpellPack.MODID, CHARM_DRAGON_TRANSFORM_BLOCK);
 		ItemRegistry.registerItemArtefact(registry, "charm_dread_heart", IFSpellPack.MODID, CHARM_DREAD_HEART, false);

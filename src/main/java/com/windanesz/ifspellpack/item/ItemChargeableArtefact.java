@@ -31,14 +31,15 @@ public class ItemChargeableArtefact extends ItemArtefactIFSP implements IWorkben
 		if (crystals.getStack().getItem() == chargedArtefact.getChargeItem()) {
 			int chargePerItem = chargedArtefact.getChargePerItem();
 			int chargeCount = crystals.getStack().getCount() * chargePerItem;
-			int threshold = chargedArtefact.getMaxDamage(centre.getStack());
 			centre.putStack(new ItemStack(chargedArtefact));
-			if (chargeCount <= threshold) {
-				centre.getStack().setItemDamage(chargedArtefact.getMaxDamage(centre.getStack()) - chargeCount);
+			centre.getStack().setItemDamage(chargedArtefact.getMaxDamage());
+			int chargeMissing = chargedArtefact.getDamage(centre.getStack());
+			if (chargeCount <= chargeMissing) {
+				centre.getStack().setItemDamage(chargeMissing - chargeCount);
 				crystals.decrStackSize(crystals.getStack().getCount());
 			} else {
 				centre.getStack().setItemDamage(0);
-				crystals.decrStackSize((int)Math.ceil(((double)threshold) / chargePerItem));
+				crystals.decrStackSize((int)Math.ceil(((double)chargeMissing) / chargePerItem));
 			}
 			return true;
 		}

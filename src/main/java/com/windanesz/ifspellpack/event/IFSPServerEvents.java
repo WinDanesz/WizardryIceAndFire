@@ -27,6 +27,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.AbstractHorse;
@@ -61,7 +62,7 @@ public class IFSPServerEvents {
 		Entity entity = event.getEntity();
 		if (entity instanceof EntityArrow) {
 			EntityArrow arrow = (EntityArrow)entity;
-			if (arrow.shootingEntity instanceof EntityLivingBase) {
+/*			if (arrow.shootingEntity instanceof EntityLivingBase) {
 				EntityLivingBase archer = (EntityLivingBase)arrow.shootingEntity;
 				ItemStack bow = archer.getHeldItemMainhand();
 				if(!ImbueWeapon.isBow(bow)){
@@ -76,14 +77,14 @@ public class IFSPServerEvents {
 					arrow.motionY *= velocityMultiplier;
 					arrow.motionZ *= velocityMultiplier;
 				}
-			}
-/*			int level = arrow.getEntityData().getInteger(EnchantmentDragonbane.DRAGONBANE_KEY);
+			}*/
+			int level = arrow.getEntityData().getInteger(EnchantmentDragonbane.DRAGONBANE_KEY);
 			if (level > 0) {
 				float velocityMultiplier = 1f + level * EnchantmentDragonbane.DRAGONBANE_VELOCITY_INCREASE;
 				arrow.motionX *= velocityMultiplier;
 				arrow.motionY *= velocityMultiplier;
 				arrow.motionZ *= velocityMultiplier;
-			}*/
+			}
 		}
 	}
 
@@ -109,7 +110,7 @@ public class IFSPServerEvents {
 			EntityDreadLichSkull skull = (EntityDreadLichSkull)event.getSource().getImmediateSource();
 			EntityPlayer player = (EntityPlayer)event.getSource().getTrueSource();
 			float potency = skull.getEntityData().getFloat(DreadLichSkull.POTENCY_KEY);
-			if (ItemArtefact.isArtefactActive(player, WizardryItems.amulet_anchoring)) {
+			if (ItemArtefact.isArtefactActive(player, IFSPItems.AMULET_DAMNED)) {
 				WizardData data = WizardData.get(player);
 				List<UUID> dreadMinionList = data.getVariable(DreadLichSkull.DREAD_MINION_ARMY_UUIDS);
 				if (dreadMinionList == null) {
@@ -177,7 +178,7 @@ public class IFSPServerEvents {
 			event.setAmount((float)(amount * Math.pow(1 - IFSPSpells.TROLL_SKIN.getProperty(TrollSkin.DAMAGE_REDUCTION).doubleValue(), entity.getActivePotionEffect(IFSPPotions.TROLL_SKIN).getAmplifier() + 1)));
 		}
 		//Dragonrend potion
-		if (entity.isPotionActive(IFSPPotions.DRAGONREND) && entity instanceof EntityDragonBase) {
+		if (entity.isPotionActive(IFSPPotions.DRAGONREND) && (entity instanceof EntityDragonBase || entity instanceof EntityDragon)) {
 			PotionEffect potionEffect = entity.getActivePotionEffect(IFSPPotions.DRAGONREND);
 			int amplifier = potionEffect.getAmplifier();
 			if (amplifier > 0) {
@@ -188,7 +189,7 @@ public class IFSPServerEvents {
 		if (source.getImmediateSource() != null) {
 			int level = source.getImmediateSource().getEntityData().getInteger(EnchantmentDragonbane.DRAGONBANE_KEY);
 			if (level > 0) {
-				if (entity instanceof EntityDragonBase) {
+				if (entity instanceof EntityDragonBase || entity instanceof EntityDragon) {
 					damage *= (1 + level * EnchantmentDragonbane.DRAGONBANE_DAMAGE_INCREASE);
 				}
 			}

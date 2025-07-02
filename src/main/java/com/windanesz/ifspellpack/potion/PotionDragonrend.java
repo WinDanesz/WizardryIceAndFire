@@ -4,6 +4,8 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.windanesz.ifspellpack.IFSpellPack;
 import electroblob.wizardry.potion.PotionMagicEffect;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.boss.dragon.phase.PhaseList;
 import net.minecraft.util.ResourceLocation;
 
 public class PotionDragonrend extends PotionMagicEffect {
@@ -21,6 +23,9 @@ public class PotionDragonrend extends PotionMagicEffect {
 			dragon.down(true);
 			dragon.setFlying(false);
 			dragon.setHovering(false);
+		} else if (entityLivingBase instanceof EntityDragon) {
+			EntityDragon dragon = (EntityDragon)entityLivingBase;
+			dragon.getPhaseManager().setPhase(PhaseList.LANDING);
 		}
 	}
 

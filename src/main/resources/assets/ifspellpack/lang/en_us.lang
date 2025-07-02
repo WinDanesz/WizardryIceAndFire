@@ -27,6 +27,8 @@ entity.ifspellpack:dragon_lightning_charge.name=Dragon Lightning Charge
 
 # Item
 
+item.ifspellpack:amulet_damned.name=Amulet of the Damned
+item.ifspellpack:amulet_damned.desc=Killing certain creatures with dread lich skull will summon a respective permanent dread mob. Can have up to 4 by default, scaling with potency.
 item.ifspellpack:charm_dovahkriid.name=Horn of Dovahkriid
 item.ifspellpack:charm_dovahkriid.desc=Dragonrend weakens dragons, making them take more damage.
 item.ifspellpack:charm_dragon_transform_block.name=Tectauryx

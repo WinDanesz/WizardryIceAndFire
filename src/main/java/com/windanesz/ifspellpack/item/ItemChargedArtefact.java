@@ -12,11 +12,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchItem {
 
 	private final Item chargeItem;
 	private final int chargePerItem;
 	private final int chargePerUse;
+	public static final Set<Item> VALID_ITEMS = new HashSet<>();
 
 	public ItemChargedArtefact(EnumRarity rarity, Type type, int maxCharges, Item chargeItem, int chargePerItem, int chargePerUse) {
 		super(rarity, type);
@@ -24,6 +28,7 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 		this.chargeItem = chargeItem;
 		this.chargePerItem = chargePerItem;
 		this.chargePerUse = chargePerUse;
+		VALID_ITEMS.add(chargeItem);
 	}
 
 	public Item getChargeItem() {
@@ -38,6 +43,7 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 		return this.chargePerUse;
 	}
 
+	//Consumes charge with default item charge value
 	public static boolean consumeCharge(ItemStack itemStack) {
 		if (itemStack.getItem() instanceof ItemChargedArtefact) {
 			ItemChargedArtefact itemChargedArtefact = (ItemChargedArtefact)itemStack.getItem();
@@ -49,6 +55,7 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 		return false;
 	}
 
+	//Consumes charge with modifiable charge value
 	public static boolean consumeCharge(ItemStack itemStack, int charge) {
 		if (itemStack.getItem() instanceof ItemChargedArtefact) {
 			ItemChargedArtefact itemChargedArtefact = (ItemChargedArtefact)itemStack.getItem();
@@ -70,13 +77,16 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 		if (crystals.getStack().getItem() == this.getChargeItem()) {
 			int chargePerItem = this.getChargePerItem();
 			int chargeCount = crystals.getStack().getCount() * chargePerItem;
-			int threshold = this.getMaxDamage(centre.getStack());
-			if (chargeCount <= threshold) {
-				centre.getStack().setItemDamage(this.getMaxDamage(centre.getStack()) - chargeCount);
+			int chargeMissing = this.getDamage(centre.getStack());
+			if (chargeMissing == 0) {
+				return false;
+			}
+			if (chargeCount <= chargeMissing) {
+				centre.getStack().setItemDamage(chargeMissing - chargeCount);
 				crystals.decrStackSize(crystals.getStack().getCount());
 			} else {
 				centre.getStack().setItemDamage(0);
-				crystals.decrStackSize((int)Math.ceil(((double)threshold) / chargePerItem));
+				crystals.decrStackSize((int)Math.ceil(((double)chargeMissing) / chargePerItem));
 			}
 			return true;
 		}

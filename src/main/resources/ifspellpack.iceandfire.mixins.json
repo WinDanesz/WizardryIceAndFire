@@ -10,6 +10,8 @@
     "MixinEntityDreadScuttler",
     "MixinEntityStymphalianFeather",
     "MixinEntityTroll",
+    "MixinServerEvents",
     "MixinTrollAIFleeSun"
+
   ]
 }

@@ -13,6 +13,7 @@ import electroblob.wizardry.spell.SpellRay;
 import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
@@ -32,13 +33,13 @@ public class Dragonrend extends SpellRay {
 
 	@Override
 	protected boolean onEntityHit(World world, Entity target, Vec3d hit, @Nullable EntityLivingBase caster, Vec3d origin, int ticksInUse, SpellModifiers modifiers) {
-		if (target instanceof EntityDragonBase) {
+		if (target instanceof EntityDragonBase || target instanceof EntityDragon) {
 			int duration = (int)(this.getProperty(EFFECT_DURATION).floatValue() * modifiers.get(WizardryItems.duration_upgrade));
 			int amplifier = 0;
 			if (caster instanceof EntityPlayer && ItemArtefact.isArtefactActive((EntityPlayer)caster, IFSPItems.CHARM_DOVAHKRIID)) {
 				amplifier = SpellBuff.getStandardBonusAmplifier(modifiers.get(SpellModifiers.POTENCY));
 			}
-			((EntityDragonBase)target).addPotionEffect(new PotionEffect(IFSPPotions.DRAGONREND, duration, amplifier));
+			((EntityLivingBase)target).addPotionEffect(new PotionEffect(IFSPPotions.DRAGONREND, duration, amplifier));
 		}
 		return true;
 	}
