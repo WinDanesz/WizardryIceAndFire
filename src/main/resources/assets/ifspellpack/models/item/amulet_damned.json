@@ -2,5 +2,8 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "ifspellpack:items/amulet_damned"
-  }
+  },
+  "overrides": [
+    {"predicate": {"charged": 1.0}, "model": "ifspellpack:item/amulet_damned_inactive"}
+  ]
 }

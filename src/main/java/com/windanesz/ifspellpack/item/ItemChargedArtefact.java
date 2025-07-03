@@ -4,14 +4,21 @@ import baubles.api.BaubleType;
 import electroblob.wizardry.event.ArtefactCheckEvent;
 import electroblob.wizardry.item.IWorkbenchItem;
 import electroblob.wizardry.item.ItemArtefact;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +36,16 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 		this.chargePerItem = chargePerItem;
 		this.chargePerUse = chargePerUse;
 		VALID_ITEMS.add(chargeItem);
+		this.addReadinessPropertyOverride();
+	}
+
+	public void addReadinessPropertyOverride() {
+		this.addPropertyOverride(new ResourceLocation("charged"), new IItemPropertyGetter() {
+			@SideOnly(Side.CLIENT)
+			public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+				return isCharged(stack) ? 0f : 1f;
+			}
+		});
 	}
 
 	public Item getChargeItem() {
@@ -65,6 +82,10 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 			}
 		}
 		return false;
+	}
+
+	public boolean isCharged(ItemStack stack) {
+		return stack.getItemDamage() < stack.getMaxDamage();
 	}
 
 	@Override

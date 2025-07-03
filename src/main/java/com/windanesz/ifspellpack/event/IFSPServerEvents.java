@@ -111,55 +111,53 @@ public class IFSPServerEvents {
 			EntityPlayer player = (EntityPlayer)event.getSource().getTrueSource();
 			float potency = skull.getEntityData().getFloat(DreadLichSkull.POTENCY_KEY);
 			if (ItemArtefact.isArtefactActive(player, IFSPItems.AMULET_DAMNED)) {
-				WizardData data = WizardData.get(player);
-				List<UUID> dreadMinionList = data.getVariable(DreadLichSkull.DREAD_MINION_ARMY_UUIDS);
-				if (dreadMinionList == null) {
-					dreadMinionList = new ArrayList<>();
-					data.setVariable(DreadLichSkull.DREAD_MINION_ARMY_UUIDS, dreadMinionList);
-				}
-				dreadMinionList.removeIf(uuid -> EntityUtils.getEntityByUUID(player.world, uuid) == null);
-				if (dreadMinionList.size() < DreadLichSkull.DREAD_MINION_ARMY_BASE_SIZE * potency) {
-					//refactored from EntityDreadMob.necromancyEntity(EntityLivingBase entity)
-					Entity summonedEntity = null;
-					if (entity.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD) {
-						summonedEntity = new EntityDreadScuttlerMinion(entity.world);
-						float readInScale = (entity.width / 1.5F);
-						((EntityDreadScuttler) summonedEntity).onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), null);
-						((EntityDreadScuttler) summonedEntity).setScale(readInScale);
+				if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(0))) {
+					WizardData data = WizardData.get(player);
+					List<UUID> dreadMinionList = data.getVariable(DreadLichSkull.DREAD_MINION_ARMY_UUIDS);
+					if (dreadMinionList == null) {
+						dreadMinionList = new ArrayList<>();
+						data.setVariable(DreadLichSkull.DREAD_MINION_ARMY_UUIDS, dreadMinionList);
 					}
-					else if (entity instanceof EntityZombie || entity instanceof IHumanoid) {
-						summonedEntity = new EntityDreadGhoulMinion(entity.world);
-						float readInScale = (entity.width / 0.6F);
-						((EntityDreadGhoul) summonedEntity).onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), null);
-						((EntityDreadGhoul) summonedEntity).setScale(readInScale);
-					}
-					else if (entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD || entity instanceof AbstractSkeleton || entity instanceof EntityPlayer) {
-						summonedEntity = new EntityDreadThrallMinion(entity.world);
-						EntityDreadThrall thrall = (EntityDreadThrall) summonedEntity;
-						thrall.onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), null);
-						thrall.setCustomArmorHead(false);
-						thrall.setCustomArmorChest(false);
-						thrall.setCustomArmorLegs(false);
-						thrall.setCustomArmorFeet(false);
-						for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
-							thrall.setItemStackToSlot(slot, entity.getItemStackFromSlot(slot));
+					dreadMinionList.removeIf(uuid -> EntityUtils.getEntityByUUID(player.world, uuid) == null);
+					if (dreadMinionList.size() < DreadLichSkull.DREAD_MINION_ARMY_BASE_SIZE * potency) {
+						//refactored from EntityDreadMob.necromancyEntity(EntityLivingBase entity)
+						Entity summonedEntity = null;
+						if (entity.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD) {
+							summonedEntity = new EntityDreadScuttlerMinion(entity.world);
+							float readInScale = (entity.width / 1.5F);
+							((EntityDreadScuttler) summonedEntity).onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), null);
+							((EntityDreadScuttler) summonedEntity).setScale(readInScale);
+						} else if (entity instanceof EntityZombie || entity instanceof IHumanoid) {
+							summonedEntity = new EntityDreadGhoulMinion(entity.world);
+							float readInScale = (entity.width / 0.6F);
+							((EntityDreadGhoul) summonedEntity).onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), null);
+							((EntityDreadGhoul) summonedEntity).setScale(readInScale);
+						} else if (entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD || entity instanceof AbstractSkeleton || entity instanceof EntityPlayer) {
+							summonedEntity = new EntityDreadThrallMinion(entity.world);
+							EntityDreadThrall thrall = (EntityDreadThrall) summonedEntity;
+							thrall.onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), null);
+							thrall.setCustomArmorHead(false);
+							thrall.setCustomArmorChest(false);
+							thrall.setCustomArmorLegs(false);
+							thrall.setCustomArmorFeet(false);
+							for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
+								thrall.setItemStackToSlot(slot, entity.getItemStackFromSlot(slot));
+							}
+						} else if (entity instanceof AbstractHorse) {
+							summonedEntity = new EntityDreadHorseMinion(entity.world);
+						} else if (entity instanceof EntityAnimal) {
+							summonedEntity = new EntityDreadBeastMinion(entity.world);
+							float readInScale = (entity.width / 1.2F);
+							((EntityDreadBeast) summonedEntity).onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), null);
+							((EntityDreadBeast) summonedEntity).setScale(readInScale);
 						}
-					}
-					else if (entity instanceof AbstractHorse) {
-						summonedEntity = new EntityDreadHorseMinion(entity.world);
-					}
-					else if (entity instanceof EntityAnimal) {
-						summonedEntity = new EntityDreadBeastMinion(entity.world);
-						float readInScale = (entity.width / 1.2F);
-						((EntityDreadBeast) summonedEntity).onInitialSpawn(entity.world.getDifficultyForLocation(new BlockPos(entity)), null);
-						((EntityDreadBeast) summonedEntity).setScale(readInScale);
-					}
-					if (summonedEntity != null) {
-						((ISummonedCreature)summonedEntity).setCaster(player);
-						dreadMinionList.add(summonedEntity.getUniqueID());
-						summonedEntity.copyLocationAndAnglesFrom(entity);
-						if (!player.world.isRemote) {
-							player.world.spawnEntity(summonedEntity);
+						if (summonedEntity != null) {
+							((ISummonedCreature) summonedEntity).setCaster(player);
+							dreadMinionList.add(summonedEntity.getUniqueID());
+							summonedEntity.copyLocationAndAnglesFrom(entity);
+							if (!player.world.isRemote) {
+								player.world.spawnEntity(summonedEntity);
+							}
 						}
 					}
 				}

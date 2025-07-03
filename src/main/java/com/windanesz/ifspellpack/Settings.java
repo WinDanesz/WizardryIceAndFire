@@ -41,17 +41,14 @@ public class Settings {
 
 		@Config.Name("Dragon Breath Spells Power Forge")
 		@Config.Comment("Do dragon breath spells power their respective forges")
-		//@Config.RequiresMcRestart do I need this?
 		public boolean dragonBreathSpellsPowerForge = true;
 
 		@Config.Name("Dragonrend Damage Increase")
 		@Config.Comment("Bonus damage applied to dragons with the dragonrend effect with the horn of dovakriid")
-		//@Config.RequiresMcRestart do I need this?
 		public float dragonrendBonusDamage = 0.15f;
 
 		@Config.Name("IAF Potency Modifier")
 		@Config.Comment("Multiplies the global potency for all IFSpellpack spells")
-		//@Config.RequiresMcRestart do I need this?
 		public float iafPotencyModifier = 1f;
 
 	}
@@ -60,7 +57,6 @@ public class Settings {
 
 		@Config.Name("Heart of Dread Duration Increase")
 		@Config.Comment("Duration increase of the heart of dread charm")
-		//@Config.RequiresMcRestart do I need this?
 		public float heartOfDreadDurationMultiplier = 2f;
 
 	}

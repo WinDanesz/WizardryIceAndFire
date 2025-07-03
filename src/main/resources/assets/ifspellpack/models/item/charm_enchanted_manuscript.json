@@ -2,5 +2,8 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "ifspellpack:items/charm_enchanted_manuscript"
-  }
+  },
+  "overrides": [
+    {"predicate": {"charged": 1.0}, "model": "ifspellpack:item/charm_enchanted_manuscript_inactive"}
+  ]
 }

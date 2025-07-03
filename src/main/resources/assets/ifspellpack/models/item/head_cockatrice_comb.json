@@ -2,5 +2,8 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "ifspellpack:items/head_cockatrice_comb"
-  }
+  },
+  "overrides": [
+    {"predicate": {"charged": 1.0}, "model": "ifspellpack:item/head_cockatrice_comb_inactive"}
+  ]
 }

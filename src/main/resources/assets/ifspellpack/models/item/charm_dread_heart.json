@@ -2,5 +2,8 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "ifspellpack:items/charm_dread_heart"
-  }
+  },
+  "overrides": [
+    {"predicate": {"charged": 1.0}, "model": "ifspellpack:item/charm_dread_heart_inactive"}
+  ]
 }

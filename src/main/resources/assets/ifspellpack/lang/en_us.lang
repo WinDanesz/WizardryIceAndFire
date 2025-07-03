@@ -28,35 +28,25 @@ entity.ifspellpack:dragon_lightning_charge.name=Dragon Lightning Charge
 # Item
 
 item.ifspellpack:amulet_damned.name=Amulet of the Damned
-item.ifspellpack:amulet_damned.desc=Killing certain creatures with dread lich skull will summon a respective permanent dread mob. Can have up to 4 by default, scaling with potency.
+item.ifspellpack:amulet_damned.desc=Killing certain creatures with dread lich skull will summon a respective permanent dread mob. Can have up to 4 by default, scaling with potency. Charge this with dread shards to activate it.
 item.ifspellpack:charm_dovahkriid.name=Horn of Dovahkriid
 item.ifspellpack:charm_dovahkriid.desc=Dragonrend weakens dragons, making them take more damage.
 item.ifspellpack:charm_dragon_transform_block.name=Tectauryx
 item.ifspellpack:charm_dragon_transform_block.desc=Draconic spells transform terrain.
 item.ifspellpack:charm_dread_heart.name=Heart of the Dread
-item.ifspellpack:charm_dread_heart.desc=Your dread summons have extended lifetimes.
-item.ifspellpack:charm_dread_heart_inactive.name=Heart of the Dread
-item.ifspellpack:charm_dread_heart_inactive.desc=Charge this with dread shards to activate it.
+item.ifspellpack:charm_dread_heart.desc=Your dread summons have extended lifetimes. Charge this with dread shards to activate it.
 item.ifspellpack:charm_dwarven_gearbox.name=Dwarven Gearbox
 item.ifspellpack:charm_dwarven_gearbox.desc=Hold chain spells to pull chained targets toward you.
 item.ifspellpack:charm_enchanted_manuscript.name=Enchanted Manuscript
-item.ifspellpack:charm_enchanted_manuscript.desc=Your spells are 30%% more potent.
-item.ifspellpack:charm_enchanted_manuscript_inactive.name=Enchanted Manuscript
-item.ifspellpack:charm_enchanted_manuscript_inactive.desc=Charge this with manuscripts to activate it.
+item.ifspellpack:charm_enchanted_manuscript.desc=Your spells are 30%% more potent. Charge this with manuscripts to activate it.
 item.ifspellpack:charm_regenerating_head.name=Regenerating Head
-item.ifspellpack:charm_regenerating_head.desc=Prevents death and provides regeneration, increasing the lower the player's health.
-item.ifspellpack:charm_regenerating_head_inactive.name=Regenerating Head
-item.ifspellpack:charm_regenerating_head_inactive.desc=Charge this with hydra hearts to activate it.
+item.ifspellpack:charm_regenerating_head.desc=Prevents death and provides regeneration, increasing the lower the player's health. Charge this with hydra hearts to activate it.
 item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
 item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to daylight.
 item.ifspellpack:head_cockatrice_comb.name=Cockatrice Comb
-item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice's stare when making eye contact with enemies.
-item.ifspellpack:head_cockatrice_comb_inactive.name=Cockatrice Comb
-item.ifspellpack:head_cockatrice_comb_inactive.desc=Charge this with cockatrice eyes to activate it.
+item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice's stare when making eye contact with enemies. Charge this with cockatrice eyes to activate it.
 item.ifspellpack:head_dread_crown.name=Dread Crown
-item.ifspellpack:head_dread_crown.desc=Your dread thralls summon with armor.
-item.ifspellpack:head_dread_crown_inactive.name=Dread Crown
-item.ifspellpack:head_dread_crown_inactive.desc=Charge this with dread shards to activate it.
+item.ifspellpack:head_dread_crown.desc=Your dread thralls summon with armor. Charge this with dread shards to activate it.
 
 # Potion
 
