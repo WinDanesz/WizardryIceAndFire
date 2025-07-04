@@ -10,6 +10,7 @@ public class Dragonhide extends SpellBuff {
 
 	public Dragonhide() {
 		super(IFSpellPack.MODID, "dragonhide", 1f, 0.627f, 0.314f, () -> IFSPPotions.DRAGONHIDE);
+		this.addProperties(EFFECT_SCALE);
 	}
 
 	@Override
