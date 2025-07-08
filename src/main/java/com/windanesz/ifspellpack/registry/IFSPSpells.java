@@ -9,8 +9,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import javax.annotation.Nonnull;
-
 @ObjectHolder(IFSpellPack.MODID)
 @EventBusSubscriber
 public final class IFSPSpells {
@@ -20,7 +18,7 @@ public final class IFSPSpells {
 	public static final Spell TIDE_GUARDIAN = new TideGuardian();
 	public static final Spell STYMPHALIAN_STORM = new StymphalianStorm();
 	public static final Spell STYMPHALIAN_BARRAGE = new StymphalianBarrage();
-	public static final Spell COCKATRICES_STARE = new CockatricesStare();
+	public static final Spell COCKATRICES_STARE = new CockatriceStare();
 	public static final Spell HYDRA_BREATH = new HydraBreath();
 	public static final Spell TROLL_SKIN = new TrollSkin();
 	public static final Spell SHACKLES = new Shackles();
@@ -41,6 +39,9 @@ public final class IFSPSpells {
 	public static final Spell DRAGON_FIRE_CHARGE = new DragonFireCharge();
 	public static final Spell DRAGON_ICE_CHARGE = new DragonIceCharge();
 	public static final Spell DRAGON_LIGHTNING_CHARGE = new DragonLightningCharge();
+	public static final Spell GORGON_GAZE = new GorgonGaze();
+	public static final Spell EXPLODE_STATUE = new ExplodeStatue();
+	public static final Spell CONSUME_STATUE = new ConsumeStatue();
 
 	private IFSPSpells() {
 	} // no instances
@@ -75,5 +76,8 @@ public final class IFSPSpells {
 		registry.register(DRAGON_FIRE_CHARGE);
 		registry.register(DRAGON_ICE_CHARGE);
 		registry.register(DRAGON_LIGHTNING_CHARGE);
+		registry.register(GORGON_GAZE);
+		registry.register(EXPLODE_STATUE);
+		registry.register(CONSUME_STATUE);
 	}
 }

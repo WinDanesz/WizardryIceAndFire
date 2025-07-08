@@ -39,14 +39,18 @@ item.ifspellpack:charm_dwarven_gearbox.name=Dwarven Gearbox
 item.ifspellpack:charm_dwarven_gearbox.desc=Hold chain spells to pull chained targets toward you.
 item.ifspellpack:charm_enchanted_manuscript.name=Enchanted Manuscript
 item.ifspellpack:charm_enchanted_manuscript.desc=Your spells are 30%% more potent. Charge this with manuscripts to activate it.
+item.ifspellpack:charm_fracture_catalyst.name=Fracture Catalyst
+item.ifspellpack:charm_fracture_catalyst.desc=Statue explosions cause nearby statues to explode.
 item.ifspellpack:charm_regenerating_head.name=Regenerating Head
 item.ifspellpack:charm_regenerating_head.desc=Prevents death and provides regeneration, increasing the lower the player's health. Charge this with hydra hearts to activate it.
 item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
 item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to daylight.
 item.ifspellpack:head_cockatrice_comb.name=Cockatrice Comb
-item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice's stare when making eye contact with enemies. Charge this with cockatrice eyes to activate it.
+item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice stare when making eye contact with your enemies. Charge this with cockatrice eyes to activate it.
 item.ifspellpack:head_dread_crown.name=Dread Crown
 item.ifspellpack:head_dread_crown.desc=Your dread thralls summon with armor. Charge this with dread shards to activate it.
+item.ifspellpack:head_gorgon_mask.name=Gorgon Mask
+item.ifspellpack:head_gorgon_mask.desc=Increases the damage of Gorgon Gaze. Charge this with gorgon heads to activate it.
 
 # Potion
 
@@ -57,8 +61,10 @@ potion.ifspellpack:troll_skin=Troll Skin
 
 # Spell
 
-spell.ifspellpack:cockatrices_stare=Cockatrice's Stare
-spell.ifspellpack:cockatrices_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
+spell.ifspellpack:cockatrice_stare=Cockatrice Stare
+spell.ifspellpack:cockatrice_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
+spell.ifspellpack:consume_statue=Consume Statue
+spell.ifspellpack:consume_statue.desc=Suck the remaining life force out of a stone statue, healing yourself.
 spell.ifspellpack:dragon_fire_breath=Dragon Fire Breath
 spell.ifspellpack:dragon_fire_breath.desc=Channel the burning breath of a fire dragon.
 spell.ifspellpack:dragon_fire_charge=Dragon Fire Charge
@@ -81,6 +87,10 @@ spell.ifspellpack:dragonrend=Dragonrend
 spell.ifspellpack:dragonrend.desc=Temporarily cripple a dragon, forcing it to the ground.
 spell.ifspellpack:dread_lich_skull=Dread Lich Skull
 spell.ifspellpack:dread_lich_skull.desc=Fire a dread lich skull projectile that seeks enemies.
+spell.ifspellpack:explode_statue=Explode Statue
+spell.ifspellpack:explode_statue.desc=Explode a stone statue, dealing damage and knockback around it to enemies.
+spell.ifspellpack:gorgon_gaze=Gorgon Gaze
+spell.ifspellpack:gorgon_gaze.desc=Deal damage to enemies making eye contact with you, turning targets you kill into stone.
 spell.ifspellpack:hydra_pulse=Hydra Pulse
 spell.ifspellpack:hydra_pulse.desc=You will feel as though you have regrown a head!
 spell.ifspellpack:hydra_breath=Hydra Breath

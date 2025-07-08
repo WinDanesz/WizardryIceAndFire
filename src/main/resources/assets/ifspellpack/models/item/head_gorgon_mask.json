@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ifspellpack:items/head_gorgon_mask"
+  },
+  "overrides": [
+    {"predicate": {"charged": 1.0}, "model": "ifspellpack:item/head_gorgon_mask_inactive"}
+  ]
+}

@@ -10,14 +10,15 @@
     "trades": true,
     "looting": true
   },
-  "tier": "advanced",
-  "element": "necromancy",
-  "type": "attack",
-  "cost": 15,
-  "chargeup": 10,
-  "cooldown": 15,
+  "tier": "apprentice",
+  "element": "healing",
+  "type": "buff",
+  "cost": 5,
+  "chargeup": 5,
+  "cooldown": 10,
   "base_properties": {
-    "damage_scale": 1,
-    "view_radius": 0.6
+    "range": 5,
+    "health": 2,
+    "tick_rate": 3
   }
 }

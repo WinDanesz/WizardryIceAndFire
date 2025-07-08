@@ -18,7 +18,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
@@ -28,14 +27,14 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CockatricesStare extends Spell {
+public class CockatriceStare extends Spell {
 
 	public static final String DAMAGE_SCALE = "damage_scale";
 	public static final String VIEW_RADIUS = "view_radius";
 
-	public CockatricesStare() {
-		super(IFSpellPack.MODID, "cockatrices_stare", SpellActions.IMBUE, true);
-		this.addProperties(DAMAGE_SCALE, VIEW_RADIUS);
+	public CockatriceStare() {
+		super(IFSpellPack.MODID, "cockatrice_stare", SpellActions.POINT, true);
+		this.addProperties(DAMAGE_SCALE, RANGE, VIEW_RADIUS);
 	}
 
 	@Override
@@ -43,12 +42,11 @@ public class CockatricesStare extends Spell {
 		if (!EntityGorgon.isBlindfolded(caster)) {
 			int baseDamage = SpellBuff.getStandardBonusAmplifier(modifiers.get(SpellModifiers.POTENCY));
 			float damageScale = this.getProperty(DAMAGE_SCALE).floatValue();
-			double range = (double) IceAndFire.CONFIG.cockatriceChickenSearchLength * modifiers.get(WizardryItems.range_upgrade);
+			double range = this.getProperty(RANGE).doubleValue() * modifiers.get(WizardryItems.range_upgrade);
 			float view_radius = this.getProperty(VIEW_RADIUS).floatValue();
 			boolean artefactActive = ItemArtefact.isArtefactActive(caster, IFSPItems.HEAD_COCKATRICE_COMB);
 			List<EntityLivingBase> targets = EntityUtils.getLivingWithinRadius(range, caster.posX, caster.posY, caster.posZ, world);
 			List<EntityPlayer> allies = new ArrayList<>();
-			//placeholder artefact
 			if (artefactActive) {
 				for (EntityLivingBase entityLivingBase : targets) {
 					if (entityLivingBase instanceof EntityPlayer && AllyDesignationSystem.isPlayerAlly(caster, (EntityPlayer)entityLivingBase)) {
@@ -87,7 +85,7 @@ public class CockatricesStare extends Spell {
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	@Override
@@ -95,7 +93,7 @@ public class CockatricesStare extends Spell {
 		if (!EntityGorgon.isBlindfolded(caster)) {
 			int baseDamage = SpellBuff.getStandardBonusAmplifier(modifiers.get(SpellModifiers.POTENCY));
 			float damageScale = this.getProperty(DAMAGE_SCALE).floatValue();
-			double range = (double) IceAndFire.CONFIG.cockatriceChickenSearchLength * modifiers.get(WizardryItems.range_upgrade);
+			double range = this.getProperty(RANGE).doubleValue() * modifiers.get(WizardryItems.range_upgrade);
 			float view_radius = this.getProperty(VIEW_RADIUS).floatValue();
 			List<EntityLivingBase> targets = EntityUtils.getLivingWithinRadius(range, caster.posX, caster.posY, caster.posZ, world);
 			targets.removeIf(e -> e == caster || !EntityGorgon.isEntityLookingAt(caster, e, view_radius) || !EntityGorgon.isEntityLookingAt(e, caster, view_radius) || !EntityUtils.isLiving(e) || EntityGorgon.isBlindfolded(e) || !AllyDesignationSystem.isValidTarget(caster, e));
@@ -125,7 +123,7 @@ public class CockatricesStare extends Spell {
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public float getAttackAnimationScale(int ticksInUse) {

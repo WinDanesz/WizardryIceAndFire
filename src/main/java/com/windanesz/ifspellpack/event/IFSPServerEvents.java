@@ -10,6 +10,7 @@ import com.windanesz.ifspellpack.potion.PotionDragonrend;
 import com.windanesz.ifspellpack.registry.*;
 import com.windanesz.ifspellpack.school.School;
 import com.windanesz.ifspellpack.spell.DreadLichSkull;
+import com.windanesz.ifspellpack.spell.GorgonGaze;
 import com.windanesz.ifspellpack.spell.TrollSkin;
 import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.entity.living.ISummonedCreature;
@@ -23,6 +24,7 @@ import electroblob.wizardry.util.SpellModifiers;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.boss.EntityDragon;
@@ -60,7 +62,7 @@ public class IFSPServerEvents {
 		Entity entity = event.getEntity();
 		if (entity instanceof EntityArrow) {
 			EntityArrow arrow = (EntityArrow)entity;
-/*			if (arrow.shootingEntity instanceof EntityLivingBase) {
+			if (arrow.shootingEntity instanceof EntityLivingBase) {
 				EntityLivingBase archer = (EntityLivingBase)arrow.shootingEntity;
 				ItemStack bow = archer.getHeldItemMainhand();
 				if(!ImbueWeapon.isBow(bow)){
@@ -75,21 +77,22 @@ public class IFSPServerEvents {
 					arrow.motionY *= velocityMultiplier;
 					arrow.motionZ *= velocityMultiplier;
 				}
-			}*/
-			int level = arrow.getEntityData().getInteger(EnchantmentDragonbane.DRAGONBANE_KEY);
+			}
+/*			int level = arrow.getEntityData().getInteger(EnchantmentDragonbane.DRAGONBANE_KEY);
 			if (level > 0) {
 				float velocityMultiplier = 1f + level * EnchantmentDragonbane.DRAGONBANE_VELOCITY_INCREASE;
 				arrow.motionX *= velocityMultiplier;
 				arrow.motionY *= velocityMultiplier;
 				arrow.motionZ *= velocityMultiplier;
-			}
+			}*/
 		}
 	}
 
 	@SubscribeEvent
 	public static void onLivingDamageEvent(LivingDamageEvent event) {
-		if (event.getEntityLiving() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer)event.getEntityLiving();
+		EntityLivingBase entityLivingBase = event.getEntityLiving();
+		if (entityLivingBase instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)entityLivingBase;
 			if (event.getAmount() >= player.getHealth()) {
 				if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_REGENERATING_HEAD)) {
 					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6))) {
@@ -97,6 +100,11 @@ public class IFSPServerEvents {
 						IFSPSpells.HYDRA_PULSE.cast(player.world, player, EnumHand.MAIN_HAND, 0, new SpellModifiers());
 					}
 				}
+			}
+		} else {
+			if (entityLivingBase.getEntityData().hasKey(GorgonGaze.CHECK_GAZE_DEATH_KEY) && event.getAmount() >= entityLivingBase.getHealth()) {
+				event.setCanceled(true);
+				entityLivingBase.getEntityData().setBoolean(GorgonGaze.CHECK_GAZE_DEATH_KEY, true);
 			}
 		}
 	}

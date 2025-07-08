@@ -58,6 +58,16 @@ public class School extends IForgeRegistryEntry.Impl<School> {
 		return registry.getValuesCollection().stream().filter(filter).collect(Collectors.toList());
 	}
 
+	public static List<School> getSchoolsForSpell(Spell spell) {
+		List<School> schools = new ArrayList<>();
+		for (School school : schoolSpells.keySet()) {
+			if (containsSpell(school, spell)) {
+				schools.add(school);
+			}
+		}
+		return schools;
+	}
+
 	public static void init() {
 		// Collecting to a set should give us one of each mod ID
 		Set<String> modIDs = School.getAllSchools().stream().map(s -> s.getRegistryName().getNamespace()).collect(Collectors.toSet());
