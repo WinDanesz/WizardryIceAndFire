@@ -21,13 +21,11 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.function.Function;
 
-public class SummonDreadHorse extends SpellMinion<EntityDreadHorseMinion> {
+public class SummonDreadHorse extends SpellMinionIFSP<EntityDreadHorseMinion> {
 
-	public static final String STAT_SCALE = "stat_scale";
 
 	public SummonDreadHorse() {
-		super(IFSpellPack.MODID, "summon_dread_horse", EntityDreadHorseMinion::new);
-		this.addProperties(STAT_SCALE);
+		super("summon_dread_horse", EntityDreadHorseMinion::new);
 	}
 
 	@Override
@@ -40,14 +38,12 @@ public class SummonDreadHorse extends SpellMinion<EntityDreadHorseMinion> {
 				}
 			}
 		}
-		float statScale = this.getProperty(STAT_SCALE).floatValue();
-		modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * statScale, false);
 		//Speed and Jump modifiers copied from SummonSpiritHorse
 		minion.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).applyModifier(new AttributeModifier(POTENCY_ATTRIBUTE_MODIFIER, modifiers.get(SpellModifiers.POTENCY) - 1, EntityUtils.Operations.MULTIPLY_CUMULATIVE));
 		minion.getEntityAttribute(EntitySpiritHorse.JUMP_STRENGTH).applyModifier(new AttributeModifier(POTENCY_ATTRIBUTE_MODIFIER, modifiers.amplified(SpellModifiers.POTENCY, 0.25f) - 1, EntityUtils.Operations.MULTIPLY_CUMULATIVE));
-		//needed for the spawn animation
 		minion.setHorseTamed(true);
 		minion.setHorseSaddled(true);
-		minion.onInitialSpawn(minion.world.getDifficultyForLocation(new BlockPos(minion)), null);
+		//needed for the spawn animation
+		super.addMinionExtras(minion, pos, caster, modifiers, alreadySpawned);
 	}
 }

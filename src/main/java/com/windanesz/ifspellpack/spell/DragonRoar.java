@@ -1,5 +1,6 @@
 package com.windanesz.ifspellpack.spell;
 
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.windanesz.ifspellpack.IFSpellPack;
 import electroblob.wizardry.item.SpellActions;
 import electroblob.wizardry.registry.WizardryItems;
@@ -10,6 +11,7 @@ import electroblob.wizardry.util.EntityUtils;
 import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -36,9 +38,9 @@ public class DragonRoar extends SpellAreaEffect {
 		int amplifier = (int)(SpellBuff.getStandardBonusAmplifier(modifiers.get(SpellModifiers.POTENCY)) * statScale);
 		List<EntityLivingBase> targets = EntityUtils.getLivingWithinRadius(radius, origin.x, origin.y, origin.z, world);
 		for (EntityLivingBase target : targets) {
-			if (AllyDesignationSystem.isValidTarget(caster, target)) {
+			if (AllyDesignationSystem.isValidTarget(caster, target) && target.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() != IafItemRegistry.earplugs) {
 				target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, duration, amplifier));
-			} else if (AllyDesignationSystem.isAllied(caster, target)) {
+			} else if (AllyDesignationSystem.isAllied(caster, target) || target == caster) {
 				target.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, duration, amplifier));
 			}
 		}

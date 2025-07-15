@@ -42,17 +42,19 @@ public class DragonIceBreath extends DragonBreath {
 				target.attackEntityFrom(IceAndFire.dragonIce, damage);
 			}
 		}
-		List<BlockPos> posList = BlockUtils.getBlockSphere(new BlockPos(hit.x, hit.y, hit.z), radius / 2);
-		for (BlockPos pos : posList) {
-			IBlockState transformState = IafDragonDestructionManager.transformBlockIce(world.getBlockState(pos));
-			if (DragonBreath.canReplaceBlock(caster) && canDestroyBlock(caster, world, pos) && world.rand.nextBoolean()) {
-				world.setBlockState(pos, transformState);
-			}
-			if (DragonBreath.canPlaceBlock(caster, world, pos) && world.rand.nextInt(9) == 0) {
-				generateSpikes(world, pos, transformState);
-			}
-			if (DragonBreath.canPowerForge(caster) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileEntityDragonforgeInput) {
-				((TileEntityDragonforgeInput)world.getTileEntity(pos)).onHitWithFlame();
+		if (!world.isRemote) {
+			List<BlockPos> posList = BlockUtils.getBlockSphere(new BlockPos(hit.x, hit.y, hit.z), radius / 2);
+			for (BlockPos pos : posList) {
+				IBlockState transformState = IafDragonDestructionManager.transformBlockIce(world.getBlockState(pos));
+				if (DragonBreath.canReplaceBlock(caster) && canDestroyBlock(caster, world, pos) && world.rand.nextBoolean()) {
+					world.setBlockState(pos, transformState);
+				}
+				if (DragonBreath.canPlaceBlock(caster, world, pos) && world.rand.nextInt(9) == 0) {
+					generateSpikes(world, pos, transformState);
+				}
+				if (DragonBreath.canPowerForge(caster) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileEntityDragonforgeInput) {
+					((TileEntityDragonforgeInput) world.getTileEntity(pos)).onHitWithFlame();
+				}
 			}
 		}
 	}

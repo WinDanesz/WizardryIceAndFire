@@ -2,7 +2,10 @@ package com.windanesz.ifspellpack.spell;
 
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.entity.projectile.EntityHydraBreathIFSP;
+import com.windanesz.ifspellpack.registry.IFSPItems;
+import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.item.SpellActions;
+import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.entity.EntityLiving;
@@ -18,10 +21,11 @@ import net.minecraft.world.World;
 public class HydraBreath extends Spell {
 
 	public static final String ACCELERATION = "acceleration";
+	public static final String ARTEFACT_ANGLE = "artefact_angle";
 
 	public HydraBreath() {
 		super(IFSpellPack.MODID, "hydra_breath", SpellActions.POINT, true);
-		this.addProperties(ACCELERATION, EFFECT_DURATION);
+		this.addProperties(DAMAGE, ACCELERATION, EFFECT_DURATION, ARTEFACT_ANGLE);
 	}
 
 	@Override
@@ -39,17 +43,38 @@ public class HydraBreath extends Spell {
 		if (ticksInUse <= 60) {
 			if (ticksInUse % 7 == 0) {
 				Vec3d look = caster.getLookVec();
-				double acceleration = this.getProperty(ACCELERATION).doubleValue();
-				EntityHydraBreathIFSP hydraBreath = new EntityHydraBreathIFSP(world, caster.posX + look.x, caster.posY + look.y + caster.getEyeHeight() + 0.2f, caster.posZ + look.z, acceleration, acceleration, acceleration);
-				hydraBreath.shootingEntity = caster;
-				hydraBreath.accelerationX = look.x * acceleration;
-				hydraBreath.accelerationY = look.y * acceleration;
-				hydraBreath.accelerationZ = look.z * acceleration;
-				hydraBreath.damageMultiplier = modifiers.get(SpellModifiers.POTENCY);
-				hydraBreath.durationMultiplier = this.getProperty(EFFECT_DURATION).floatValue();
-				this.playSound(world, caster, ticksInUse, - 1, modifiers);
-				if (!world.isRemote) {
-					world.spawnEntity(hydraBreath);
+				double acceleration = this.getProperty(ACCELERATION).doubleValue() * modifiers.get(WizardryItems.range_upgrade);
+				float damage = this.getProperty(DAMAGE).floatValue();
+				if (ItemArtefact.isArtefactActive(caster, IFSPItems.HEAD_TRIADIC_SERPENT_CROWN)) {
+					float angle = this.getProperty(ARTEFACT_ANGLE).floatValue();
+					for (float f : new float[]{(float)Math.toRadians(-angle), 0, (float)Math.toRadians(angle)}) {
+						Vec3d angledLook = look.rotateYaw(f);
+						EntityHydraBreathIFSP hydraBreath = new EntityHydraBreathIFSP(world, caster.posX + angledLook.x, caster.posY + angledLook.y + caster.getEyeHeight() + 0.2f, caster.posZ + angledLook.z, acceleration, acceleration, acceleration);
+						hydraBreath.damage = damage;
+						hydraBreath.shootingEntity = caster;
+						hydraBreath.accelerationX = angledLook.x * acceleration;
+						hydraBreath.accelerationY = angledLook.y * acceleration;
+						hydraBreath.accelerationZ = angledLook.z * acceleration;
+						hydraBreath.damageMultiplier = modifiers.get(SpellModifiers.POTENCY);
+						hydraBreath.durationMultiplier = modifiers.get(WizardryItems.duration_upgrade);
+						this.playSound(world, caster, ticksInUse, -1, modifiers);
+						if (!world.isRemote) {
+							world.spawnEntity(hydraBreath);
+						}
+					}
+				} else {
+					EntityHydraBreathIFSP hydraBreath = new EntityHydraBreathIFSP(world, caster.posX + look.x, caster.posY + look.y + caster.getEyeHeight() + 0.2f, caster.posZ + look.z, acceleration, acceleration, acceleration);
+					hydraBreath.damage = damage;
+					hydraBreath.shootingEntity = caster;
+					hydraBreath.accelerationX = look.x * acceleration;
+					hydraBreath.accelerationY = look.y * acceleration;
+					hydraBreath.accelerationZ = look.z * acceleration;
+					hydraBreath.damageMultiplier = modifiers.get(SpellModifiers.POTENCY);
+					hydraBreath.durationMultiplier = modifiers.get(WizardryItems.duration_upgrade);
+					this.playSound(world, caster, ticksInUse, -1, modifiers);
+					if (!world.isRemote) {
+						world.spawnEntity(hydraBreath);
+					}
 				}
 			}
 			return true;
@@ -62,14 +87,14 @@ public class HydraBreath extends Spell {
 		if (ticksInUse <= 60) {
 			if (ticksInUse % 7 == 0) {
 				Vec3d look = caster.getLookVec();
-				double acceleration = this.getProperty(ACCELERATION).doubleValue();
+				double acceleration = this.getProperty(ACCELERATION).doubleValue() * modifiers.get(WizardryItems.range_upgrade);
 				EntityHydraBreathIFSP hydraBreath = new EntityHydraBreathIFSP(world, caster.posX + look.x, caster.posY + look.y + caster.getEyeHeight() + 0.2f, caster.posZ + look.z, acceleration, acceleration, acceleration);
 				hydraBreath.shootingEntity = caster;
 				hydraBreath.accelerationX = look.x * acceleration;
 				hydraBreath.accelerationY = look.y * acceleration;
 				hydraBreath.accelerationZ = look.z * acceleration;
 				hydraBreath.damageMultiplier = modifiers.get(SpellModifiers.POTENCY);
-				hydraBreath.durationMultiplier = this.getProperty(EFFECT_DURATION).floatValue();
+				hydraBreath.durationMultiplier = modifiers.get(WizardryItems.duration_upgrade);
 				this.playSound(world, caster, ticksInUse, - 1, modifiers);
 				if (!world.isRemote) {
 					world.spawnEntity(hydraBreath);
@@ -85,13 +110,13 @@ public class HydraBreath extends Spell {
 		if (ticksInUse <= 60) {
 			if (ticksInUse % 7 == 0) {
 				Vec3i look = direction.getDirectionVec();
-				double acceleration = this.getProperty(ACCELERATION).doubleValue();
+				double acceleration = this.getProperty(ACCELERATION).doubleValue() * modifiers.get(WizardryItems.range_upgrade);
 				EntityHydraBreathIFSP hydraBreath = new EntityHydraBreathIFSP(world, x, y + 0.375f, z, acceleration, acceleration, acceleration);
 				hydraBreath.accelerationX = look.getX() * acceleration;
 				hydraBreath.accelerationY = look.getY() * acceleration;
 				hydraBreath.accelerationZ = look.getZ() * acceleration;
 				hydraBreath.damageMultiplier = modifiers.get(SpellModifiers.POTENCY);
-				hydraBreath.durationMultiplier = this.getProperty(EFFECT_DURATION).floatValue();
+				hydraBreath.durationMultiplier = modifiers.get(WizardryItems.duration_upgrade);
 				this.playSound(world, x, y, z, ticksInUse, - 1, modifiers);
 				if (!world.isRemote) {
 					world.spawnEntity(hydraBreath);

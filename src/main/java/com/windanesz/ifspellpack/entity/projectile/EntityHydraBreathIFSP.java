@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 
 public class EntityHydraBreathIFSP extends EntityHydraBreath {
 
+	public float damage = 1f;
 	public float damageMultiplier = 1.0f;
 	public float durationMultiplier = 1.0f;
 
@@ -40,7 +41,7 @@ public class EntityHydraBreathIFSP extends EntityHydraBreath {
 				if (!(entityLivingBase == this.shootingEntity)) {
 					int duration = (int)(IFSPSpells.HYDRA_BREATH.getProperty(Spell.EFFECT_DURATION).floatValue() * this.durationMultiplier);
 					int amplifier = SpellBuff.getStandardBonusAmplifier(damageMultiplier);
-					entityLivingBase.attackEntityFrom(DamageSource.causeMobDamage(this.shootingEntity), this.damageMultiplier);
+					entityLivingBase.attackEntityFrom(DamageSource.causeMobDamage(this.shootingEntity), this.damage * this.damageMultiplier);
 					entityLivingBase.addPotionEffect(new PotionEffect(MobEffects.POISON, duration, amplifier));
 					this.setDead();
 				}

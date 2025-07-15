@@ -1,10 +1,7 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
-import com.windanesz.ifspellpack.potion.PotionDragonhide;
-import com.windanesz.ifspellpack.potion.PotionDragonrend;
-import com.windanesz.ifspellpack.potion.PotionTideGuardian;
-import com.windanesz.ifspellpack.potion.PotionTrollSkin;
+import com.windanesz.ifspellpack.potion.*;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,6 +17,8 @@ public class IFSPPotions {
 
 	public static final Potion DRAGONHIDE = new PotionDragonhide();
 	public static final Potion DRAGONREND = new PotionDragonrend();
+	public static final Potion MYRMEX_BLESSING = new PotionMyrmexBlessing();
+	public static final Potion SENTINEL_SHELL = new PotionSentinelShell();
 	public static final Potion TIDE_GUARDIAN = new PotionTideGuardian();
 	public static final Potion TROLL_SKIN = new PotionTrollSkin();
 
@@ -44,6 +43,8 @@ public class IFSPPotions {
 		IForgeRegistry<Potion> registry = event.getRegistry();
 		registerPotion(registry, "dragonhide", DRAGONHIDE);
 		registerPotion(registry, "dragonrend", DRAGONREND);
+		registerPotion(registry, "myrmex_blessing", MYRMEX_BLESSING);
+		registerPotion(registry, "sentinel_shell", SENTINEL_SHELL);
 		registerPotion(registry, "tide_guardian", TIDE_GUARDIAN);
 		registerPotion(registry, "troll_skin", TROLL_SKIN);
 	}

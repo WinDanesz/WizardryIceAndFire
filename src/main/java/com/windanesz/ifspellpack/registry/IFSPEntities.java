@@ -4,10 +4,7 @@ import com.github.alexthe666.iceandfire.entity.EntityDreadHorse;
 import com.github.alexthe666.iceandfire.entity.EntityDreadScuttler;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.entity.living.*;
-import com.windanesz.ifspellpack.entity.projectile.EntityDragonFireChargeIFSP;
-import com.windanesz.ifspellpack.entity.projectile.EntityDragonIceChargeIFSP;
-import com.windanesz.ifspellpack.entity.projectile.EntityDragonLightningChargeIFSP;
-import com.windanesz.ifspellpack.entity.projectile.EntityHydraBreathIFSP;
+import com.windanesz.ifspellpack.entity.projectile.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -39,6 +36,11 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityDreadKnightMinion.class, "dread_knight_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadScuttlerMinion.class, "dread_scuttler_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadThrallMinion.class, "dread_thrall_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityMyrmexSentinelMinion.class, "myrmex_sentinel_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityMyrmexSoldierMinion.class, "myrmex_soldier_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityMyrmexSwarmerMinion.class, "myrmex_swarmer_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityMyrmexWorkerMinion.class, "myrmex_worker_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityPixieMinion.class, "pixie_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityTrollMinion.class, "troll_minion", TrackingType.LIVING).build());
 
 		//projectile
@@ -46,6 +48,7 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityDragonIceChargeIFSP.class, "dragon_ice_charge", TrackingType.PROJECTILE).build());
 		registry.register(createEntry(EntityDragonLightningChargeIFSP.class, "dragon_lightning_charge", TrackingType.PROJECTILE).build());
 		registry.register(createEntry(EntityHydraBreathIFSP.class, "hydra_breath", TrackingType.PROJECTILE).build());
+		registry.register(createEntry(EntityPixieChargeIFSP.class, "pixie_charge", TrackingType.PROJECTILE).build());
 	}
 
 	/**

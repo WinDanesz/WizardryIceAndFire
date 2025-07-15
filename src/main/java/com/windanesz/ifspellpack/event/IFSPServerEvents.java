@@ -2,31 +2,35 @@ package com.windanesz.ifspellpack.event;
 
 import baubles.api.BaublesApi;
 import com.github.alexthe666.iceandfire.entity.*;
+import com.google.common.collect.Streams;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.enchantment.EnchantmentDragonbane;
+import com.windanesz.ifspellpack.enchantment.EnchantmentSilverLining;
 import com.windanesz.ifspellpack.entity.living.*;
 import com.windanesz.ifspellpack.item.ItemChargedArtefact;
 import com.windanesz.ifspellpack.potion.PotionDragonrend;
+import com.windanesz.ifspellpack.potion.PotionMyrmexBlessing;
 import com.windanesz.ifspellpack.registry.*;
 import com.windanesz.ifspellpack.school.School;
 import com.windanesz.ifspellpack.spell.DreadLichSkull;
 import com.windanesz.ifspellpack.spell.GorgonGaze;
 import com.windanesz.ifspellpack.spell.TrollSkin;
+import electroblob.wizardry.constants.Element;
+import electroblob.wizardry.data.IVariable;
+import electroblob.wizardry.data.Persistence;
 import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.entity.living.ISummonedCreature;
 import electroblob.wizardry.event.SpellCastEvent;
 import electroblob.wizardry.item.ItemArtefact;
-import electroblob.wizardry.registry.WizardryItems;
+import electroblob.wizardry.item.ItemWizardArmour;
 import electroblob.wizardry.spell.ImbueWeapon;
 import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.EntityUtils;
 import electroblob.wizardry.util.SpellModifiers;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
@@ -43,11 +47,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
@@ -57,6 +60,14 @@ import java.util.UUID;
 @Mod.EventBusSubscriber
 public class IFSPServerEvents {
 
+	public static final IVariable<Boolean> ENCHANTED_MANUSCRIPT_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
+	public static final IVariable<Boolean> FIRE_DRAGON_CORE_FIRE_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
+	public static final IVariable<Boolean> FIRE_DRAGON_CORE_DRACONIC_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
+	public static final IVariable<Boolean> ICE_DRAGON_CORE_ICE_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
+	public static final IVariable<Boolean> ICE_DRAGON_CORE_DRACONIC_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
+	public static final IVariable<Boolean> LIGHTNING_DRAGON_CORE_LIGHTNING_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
+	public static final IVariable<Boolean> LIGHTNING_DRAGON_CORE_DRACONIC_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
+
 	@SubscribeEvent
 	public static void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
 		Entity entity = event.getEntity();
@@ -65,17 +76,18 @@ public class IFSPServerEvents {
 			if (arrow.shootingEntity instanceof EntityLivingBase) {
 				EntityLivingBase archer = (EntityLivingBase)arrow.shootingEntity;
 				ItemStack bow = archer.getHeldItemMainhand();
-				if(!ImbueWeapon.isBow(bow)){
+				if(!ImbueWeapon.isBow(bow)) {
 					bow = archer.getHeldItemOffhand();
-					if(!ImbueWeapon.isBow(bow)) return;
 				}
-				int level = EnchantmentHelper.getEnchantmentLevel(IFSPEnchantments.DRAGONBANE, bow);
-				if (level > 0) {
-					arrow.getEntityData().setInteger(EnchantmentDragonbane.DRAGONBANE_KEY, level);
-					float velocityMultiplier = 1f + level * EnchantmentDragonbane.DRAGONBANE_VELOCITY_INCREASE;
-					arrow.motionX *= velocityMultiplier;
-					arrow.motionY *= velocityMultiplier;
-					arrow.motionZ *= velocityMultiplier;
+				if (ImbueWeapon.isBow(bow)) {
+					int level = EnchantmentHelper.getEnchantmentLevel(IFSPEnchantments.DRAGONBANE, bow);
+					if (level > 0) {
+						arrow.getEntityData().setInteger(EnchantmentDragonbane.DRAGONBANE_KEY, level);
+						float velocityMultiplier = 1f + level * EnchantmentDragonbane.DRAGONBANE_VELOCITY_INCREASE;
+						arrow.motionX *= velocityMultiplier;
+						arrow.motionY *= velocityMultiplier;
+						arrow.motionZ *= velocityMultiplier;
+					}
 				}
 			}
 /*			int level = arrow.getEntityData().getInteger(EnchantmentDragonbane.DRAGONBANE_KEY);
@@ -88,6 +100,7 @@ public class IFSPServerEvents {
 		}
 	}
 
+	//after living hurt
 	@SubscribeEvent
 	public static void onLivingDamageEvent(LivingDamageEvent event) {
 		EntityLivingBase entityLivingBase = event.getEntityLiving();
@@ -108,6 +121,7 @@ public class IFSPServerEvents {
 			}
 		}
 	}
+
 
 	@SubscribeEvent
 	public static void onLivingDeathEvent(LivingDeathEvent event) {
@@ -176,10 +190,50 @@ public class IFSPServerEvents {
 		EntityLivingBase entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 		float damage = event.getAmount();
-		float amount = event.getAmount();
+		//For attacks against the player
+		if (entity instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)entity;
+			for (ItemArtefact artefact : ItemArtefact.getActiveArtefacts(player)) {
+				//Lightward Amulet Damage Reduction
+				if (artefact == IFSPItems.AMULET_LIGHTWARD && source.getTrueSource() instanceof IDreadMob) {
+					damage *= 0.9f;
+				}
+				//Dragon Slayer Amulet Damage Reduction
+				if (artefact == IFSPItems.AMULET_DRAGON_SLAYER && source.getTrueSource() instanceof EntityDragon || source.getTrueSource() instanceof EntityDragonBase) {
+					damage *= 0.9f;
+				}
+			}
+		}
+		//For attacks from the player
+		if (source.getTrueSource() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)source.getTrueSource();
+			for (ItemArtefact artefact : ItemArtefact.getActiveArtefacts(player)) {
+				//Lightward Amulet Damage Increase
+				if (artefact == IFSPItems.AMULET_LIGHTWARD && entity instanceof IDreadMob) {
+					damage *= 1.1f;
+				}
+				//Dragon Slayer Amulet Damage Increase
+				if (artefact == IFSPItems.AMULET_DRAGON_SLAYER && entity instanceof EntityDragon || entity instanceof EntityDragonBase) {
+					damage *= 1.1f;
+				}
+			}
+		}
+		//For attacks from EntityLivingBase
+		if (source.getTrueSource() instanceof EntityLivingBase) {
+			EntityLivingBase attacker = (EntityLivingBase)source.getTrueSource();
+			ItemStack sword = attacker.getHeldItemMainhand();
+			if (ImbueWeapon.isSword(sword)) {
+				int level = EnchantmentHelper.getEnchantmentLevel(IFSPEnchantments.SILVER_LINING, sword);
+				if (level > 0) {
+					if (entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
+						damage *= 1 + (level * EnchantmentSilverLining.DAMAGE_INCREASE);
+					}
+				}
+			}
+		}
 		//Troll Skin potion
-		if (entity.isPotionActive(IFSPPotions.TROLL_SKIN) && source.getDamageType().contains("arrow")) {
-			event.setAmount((float)(amount * Math.pow(1 - IFSPSpells.TROLL_SKIN.getProperty(TrollSkin.DAMAGE_REDUCTION).doubleValue(), entity.getActivePotionEffect(IFSPPotions.TROLL_SKIN).getAmplifier() + 1)));
+		if (entity.isPotionActive(IFSPPotions.TROLL_SKIN) && source.isProjectile()) {
+			damage = (float)(damage * Math.pow(1 - IFSPSpells.TROLL_SKIN.getProperty(TrollSkin.DAMAGE_REDUCTION).doubleValue(), entity.getActivePotionEffect(IFSPPotions.TROLL_SKIN).getAmplifier() + 1));
 		}
 		//Dragonrend potion
 		if (entity.isPotionActive(IFSPPotions.DRAGONREND) && (entity instanceof EntityDragonBase || entity instanceof EntityDragon)) {
@@ -198,7 +252,55 @@ public class IFSPServerEvents {
 				}
 			}
 		}
+
 		event.setAmount(damage);
+	}
+
+
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public static void onLivingHurtEventEarly(LivingHurtEvent event) {
+		EntityLivingBase target = event.getEntityLiving();
+		DamageSource source = event.getSource();
+		//Myrmex Blessing
+		if (source.getTrueSource() instanceof EntityLiving && EntityUtils.isMeleeDamage(source)) {
+			EntityLiving attacker = (EntityLiving)source.getTrueSource();
+			PotionEffect effect = attacker.getActivePotionEffect(IFSPPotions.MYRMEX_BLESSING);
+			if (effect != null) {
+				float bonusDamage = (effect.getAmplifier() + 1) * PotionMyrmexBlessing.DAMAGE_INCREASE;
+				event.setAmount(event.getAmount() + bonusDamage);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onLivingSetAttackTargetEvent(LivingSetAttackTargetEvent event) {
+		EntityLivingBase attacker = event.getEntityLiving();
+		EntityLivingBase target = event.getTarget();
+		if (target != null) {
+			//Sentinel Shell
+			if (target.isPotionActive(IFSPPotions.SENTINEL_SHELL)) {
+				if (attacker instanceof EntityLiving) {
+					int equipmentCount = target.getActivePotionEffect(IFSPPotions.SENTINEL_SHELL).getAmplifier();
+					for (EntityEquipmentSlot entityequipmentslot : EntityEquipmentSlot.values()) {
+						if (target.getItemStackFromSlot(entityequipmentslot) != ItemStack.EMPTY) {
+							equipmentCount++;
+						}
+					}
+					if (equipmentCount > 0) {
+						float equipmentPercentage = (float) equipmentCount / EntityEquipmentSlot.values().length;
+						IAttributeInstance attribute = attacker.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE);
+						double followRange = attribute == null ? 16 : attribute.getAttributeValue();
+						if (event.getTarget().isSneaking()) followRange *= 0.5;
+						followRange *= equipmentPercentage;
+						if (target.getDistance(attacker) > followRange) {
+							((EntityLiving) attacker).setAttackTarget(null);
+						}
+					} else {
+						((EntityLiving) attacker).setAttackTarget(null);
+					}
+				}
+			}
+		}
 	}
 
 	@SubscribeEvent
@@ -209,10 +311,7 @@ public class IFSPServerEvents {
 		//Breaking stone summoned creatures
 		if (properties != null && properties.isStone && entity instanceof ISummonedCreature) {
 			entity.playSound(SoundEvents.BLOCK_STONE_BREAK, 1, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 0.5F);
-			//Cant do all 3 because it causes a crash. Possibly because the world refers to the entity being removed?
-			//entity.setDead();
-			world.removeEntity(entity);
-			//world.removeEntityDangerously(entity);
+			entity.setDead();
 		}
 	}
 
@@ -226,9 +325,156 @@ public class IFSPServerEvents {
 		}
 		if (event.getCaster() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)event.getCaster();
-			if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_ENCHANTED_MANUSCRIPT)) {
-				if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6), spell.getCost())) {
-					modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.3f, false);
+			WizardData data = WizardData.get(player);
+			if (data != null) {
+				int distributedCost = ItemChargedArtefact.getDistributedCost(spell.getCost(), 0);
+				//Enchanted manuscript
+				if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_ENCHANTED_MANUSCRIPT)) {
+					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6), distributedCost)) {
+						modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+						data.setVariable(ENCHANTED_MANUSCRIPT_ACTIVE, true);
+					}
+				}
+				//Fire Dragon Core
+				if (ItemArtefact.isArtefactActive(player, IFSPItems.BODY_FIRE_DRAGON_CORE)) {
+					boolean fire = spell.getElement() == Element.FIRE;
+					boolean draconic = School.containsSpell(IFSPSchools.DRACONIC, spell);
+					if (fire || draconic) {
+						if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5), distributedCost)) {
+							if (fire) {
+								modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+								data.setVariable(FIRE_DRAGON_CORE_FIRE_ACTIVE, true);
+							}
+							if (draconic) {
+								modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+								data.setVariable(FIRE_DRAGON_CORE_DRACONIC_ACTIVE, true);
+							}
+						}
+					}
+				}
+				//Ice Dragon Core
+				if (ItemArtefact.isArtefactActive(player, IFSPItems.BODY_ICE_DRAGON_CORE)) {
+					boolean ice = spell.getElement() == Element.ICE;
+					boolean draconic = School.containsSpell(IFSPSchools.DRACONIC, spell);
+					if (ice || draconic) {
+						if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5), distributedCost)) {
+							if (ice) {
+								modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+								data.setVariable(ICE_DRAGON_CORE_ICE_ACTIVE, true);
+							}
+							if (draconic) {
+								modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+								data.setVariable(ICE_DRAGON_CORE_DRACONIC_ACTIVE, true);
+							}
+						}
+					}
+				}
+				//Lightning Dragon Core
+				if (ItemArtefact.isArtefactActive(player, IFSPItems.BODY_LIGHTNING_DRAGON_CORE)) {
+					boolean lightning = spell.getElement() == Element.LIGHTNING;
+					boolean draconic = School.containsSpell(IFSPSchools.DRACONIC, spell);
+					if (lightning || draconic) {
+						if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5), distributedCost)) {
+							if (lightning) {
+								modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+								data.setVariable(LIGHTNING_DRAGON_CORE_LIGHTNING_ACTIVE, true);
+							}
+							if (draconic) {
+								modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+								data.setVariable(LIGHTNING_DRAGON_CORE_DRACONIC_ACTIVE, true);
+							}
+						}
+					}
+				}
+			}
+		}
+		System.out.println(modifiers.get(SpellModifiers.POTENCY));
+	}
+
+	@SubscribeEvent
+	public static void onSpellCastEventTick(SpellCastEvent.Tick event) {
+		Spell spell = event.getSpell();
+		SpellModifiers modifiers = event.getModifiers();
+		if (event.getCaster() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)event.getCaster();
+			WizardData data = WizardData.get(player);
+			if (data != null) {
+				int distributedCost = ItemChargedArtefact.getDistributedCost(spell.getCost(), event.getCount());
+				//Enchanted manuscript
+				if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_ENCHANTED_MANUSCRIPT)) {
+					Boolean active = data.getVariable(ENCHANTED_MANUSCRIPT_ACTIVE);
+					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6), distributedCost)) {
+						if (active != null && !active) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+							data.setVariable(ENCHANTED_MANUSCRIPT_ACTIVE, true);
+						}
+					} else {
+						if (active != null && active) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) / 1.2f, false);
+							data.setVariable(ENCHANTED_MANUSCRIPT_ACTIVE, false);
+						}
+					}
+				}
+				//Fire Dragon Core
+				if (ItemArtefact.isArtefactActive(player, IFSPItems.BODY_FIRE_DRAGON_CORE)) {
+					Boolean fire = data.getVariable(FIRE_DRAGON_CORE_FIRE_ACTIVE);
+					Boolean draconic = data.getVariable(FIRE_DRAGON_CORE_DRACONIC_ACTIVE);
+					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5), distributedCost)) {
+						if (fire != null && !fire) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+						}
+						if (draconic != null && !draconic) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+						}
+					} else {
+						if (fire != null && fire) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) / 1.2f, false);
+						}
+						if (draconic != null && draconic) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) / 1.2f, false);
+						}
+					}
+				}
+				//Ice Dragon Core
+				if (ItemArtefact.isArtefactActive(player, IFSPItems.BODY_ICE_DRAGON_CORE)) {
+					Boolean ice = data.getVariable(ICE_DRAGON_CORE_ICE_ACTIVE);
+					Boolean draconic = data.getVariable(ICE_DRAGON_CORE_DRACONIC_ACTIVE);
+					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5), distributedCost)) {
+						if (ice != null && !ice) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+						}
+						if (draconic != null && !draconic) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+						}
+					} else {
+						if (ice != null && ice) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) / 1.2f, false);
+						}
+						if (draconic != null && draconic) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) / 1.2f, false);
+						}
+					}
+				}
+				//Lightning Dragon Core
+				if (ItemArtefact.isArtefactActive(player, IFSPItems.BODY_LIGHTNING_DRAGON_CORE)) {
+					Boolean lightning = data.getVariable(LIGHTNING_DRAGON_CORE_LIGHTNING_ACTIVE);
+					Boolean draconic = data.getVariable(LIGHTNING_DRAGON_CORE_DRACONIC_ACTIVE);
+					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5), distributedCost)) {
+						if (lightning != null && !lightning) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+						}
+						if (draconic != null && !draconic) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * 1.2f, false);
+						}
+					} else {
+						if (lightning != null && lightning) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) / 1.2f, false);
+						}
+						if (draconic != null && draconic) {
+							modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) / 1.2f, false);
+						}
+
+					}
 				}
 			}
 		}

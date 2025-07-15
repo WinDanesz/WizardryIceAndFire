@@ -123,7 +123,7 @@ public abstract class SpellCone extends Spell {
 		return dotProduct >= minDot;
 	}
 
-	//checks if an entity's AABB is visible to the caster. This is the way mojang handles similar processes for explosions, despite it being very intensive.
+	//checks if an entity's AABB is visible to the caster. This is the way mojang handles similar processes for explosions, despite it not being perfect.
 	public static boolean crossesAABB(World world, Vec3d origin, AxisAlignedBB aabb) {
 		double[] xArray = new double[]{aabb.minX, (aabb.minX + aabb.maxX) / 2, aabb.minX};
 		double[] yArray = new double[]{aabb.minY, (aabb.minY + aabb.maxY) / 2, aabb.minY};

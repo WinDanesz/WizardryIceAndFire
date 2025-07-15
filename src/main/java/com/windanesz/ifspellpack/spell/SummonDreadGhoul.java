@@ -14,13 +14,11 @@ import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
 
-public class SummonDreadGhoul extends SpellMinion<EntityDreadGhoulMinion> {
+public class SummonDreadGhoul extends SpellMinionIFSP<EntityDreadGhoulMinion> {
 
-	public static final String STAT_SCALE = "stat_scale";
 
 	public SummonDreadGhoul() {
-		super(IFSpellPack.MODID, "summon_dread_ghoul", EntityDreadGhoulMinion::new);
-		this.addProperties(STAT_SCALE);
+		super("summon_dread_ghoul", EntityDreadGhoulMinion::new);
 	}
 
 	@Override
@@ -33,9 +31,7 @@ public class SummonDreadGhoul extends SpellMinion<EntityDreadGhoulMinion> {
 				}
 			}
 		}
-		float statScale = this.getProperty(STAT_SCALE).floatValue();
-		modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * statScale, false);
 		//needed for the spawn animation
-		minion.onInitialSpawn(minion.world.getDifficultyForLocation(new BlockPos(minion)), null);
+		super.addMinionExtras(minion, pos, caster, modifiers, alreadySpawned);
 	}
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ifspellpack:items/body_reinforced_chitinous_plating"
+  }
+}

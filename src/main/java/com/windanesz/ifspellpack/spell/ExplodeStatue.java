@@ -48,6 +48,7 @@ public class ExplodeStatue extends SpellRay {
 	protected boolean onEntityHit(World world, Entity target, Vec3d hit, @Nullable EntityLivingBase caster, Vec3d origin, int ticksInUse, SpellModifiers modifiers) {
 		if (isEntityStatue(target) && target instanceof EntityLiving) {
 			explodeStatue(world, caster, (EntityLiving)target, this.getProperty(BLAST_RADIUS).doubleValue(), this.getProperty(DAMAGE_SCALE).floatValue(), modifiers);
+			return true;
 		}
 		return false;
 	}

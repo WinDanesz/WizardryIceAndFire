@@ -42,6 +42,15 @@ public final class IFSPSpells {
 	public static final Spell GORGON_GAZE = new GorgonGaze();
 	public static final Spell EXPLODE_STATUE = new ExplodeStatue();
 	public static final Spell CONSUME_STATUE = new ConsumeStatue();
+	public static final Spell SUMMON_PIXIE_CLUSTER = new SummonPixieCluster();
+	public static final Spell PIXIE_CHARGE = new PixieCharge();
+	public static final Spell SILVER_LINING = new SilverLining();
+	public static final Spell SUMMON_MYRMEX_SOLDIER = new SummonMyrmexSoldier();
+	public static final Spell SUMMON_MYRMEX_WORKER = new SummonMyrmexWorker();
+	public static final Spell SUMMON_MYRMEX_SENTINEL = new SummonMyrmexSentinel();
+	public static final Spell SUMMON_MYRMEX_SWARM = new SummonMyrmexSwarm();
+	public static final Spell MYRMEX_BLESSING = new MyrmexBlessing();
+	public static final Spell SENTINEL_SHELL = new SentinelShell();
 
 	private IFSPSpells() {
 	} // no instances
@@ -79,5 +88,14 @@ public final class IFSPSpells {
 		registry.register(GORGON_GAZE);
 		registry.register(EXPLODE_STATUE);
 		registry.register(CONSUME_STATUE);
+		registry.register(SUMMON_PIXIE_CLUSTER);
+		registry.register(PIXIE_CHARGE);
+		registry.register(SILVER_LINING);
+		registry.register(SUMMON_MYRMEX_SOLDIER);
+		registry.register(SUMMON_MYRMEX_WORKER);
+		registry.register(SUMMON_MYRMEX_SENTINEL);
+		registry.register(SUMMON_MYRMEX_SWARM);
+		registry.register(MYRMEX_BLESSING);
+		registry.register(SENTINEL_SHELL);
 	}
 }

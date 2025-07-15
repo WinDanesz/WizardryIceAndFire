@@ -1,6 +1,8 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.enchantment.EnchantmentDragonbane;
+import com.windanesz.ifspellpack.enchantment.EnchantmentSilverLining;
 import electroblob.wizardry.enchantment.EnchantmentTimed;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraftforge.event.RegistryEvent;
@@ -16,11 +18,13 @@ public final class IFSPEnchantments {
 	private IFSPEnchantments() {
 	}
 
-	public static final Enchantment DRAGONBANE = new EnchantmentTimed().setRegistryName(IFSpellPack.MODID, "dragonbane");
+	public static final Enchantment DRAGONBANE = new EnchantmentDragonbane();
+	public static final Enchantment SILVER_LINING = new EnchantmentSilverLining();
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Enchantment> event) {
 		IForgeRegistry<Enchantment> registry = event.getRegistry();
 		registry.register(DRAGONBANE);
+		registry.register(SILVER_LINING);
 	}
 }

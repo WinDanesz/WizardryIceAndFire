@@ -40,14 +40,16 @@ public class DragonLightningBreath extends DragonBreath {
 				target.knockBack(target, this.getProperty(KNOCKBACK_STRENGTH).floatValue() * modifiers.get(SpellModifiers.POTENCY), origin.x - target.posX, origin.z - target.posZ);
 			}
 		}
-		List<BlockPos> posList = BlockUtils.getBlockSphere(new BlockPos(hit.x, hit.y, hit.z), radius / 2);
-		for (BlockPos pos : posList) {
-			IBlockState transformState = IafDragonDestructionManager.transformBlockLightning(world.getBlockState(pos));
-			if (DragonBreath.canReplaceBlock(caster) && canDestroyBlock(caster, world, pos) && world.rand.nextBoolean()) {
-				world.setBlockState(pos, transformState);
-			}
-			if (DragonBreath.canPowerForge(caster) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileEntityDragonforgeInput) {
-				((TileEntityDragonforgeInput)world.getTileEntity(pos)).onHitWithFlame();
+		if (!world.isRemote) {
+			List<BlockPos> posList = BlockUtils.getBlockSphere(new BlockPos(hit.x, hit.y, hit.z), radius / 2);
+			for (BlockPos pos : posList) {
+				IBlockState transformState = IafDragonDestructionManager.transformBlockLightning(world.getBlockState(pos));
+				if (DragonBreath.canReplaceBlock(caster) && canDestroyBlock(caster, world, pos) && world.rand.nextBoolean()) {
+					world.setBlockState(pos, transformState);
+				}
+				if (DragonBreath.canPowerForge(caster) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileEntityDragonforgeInput) {
+					((TileEntityDragonforgeInput) world.getTileEntity(pos)).onHitWithFlame();
+				}
 			}
 		}
 	}

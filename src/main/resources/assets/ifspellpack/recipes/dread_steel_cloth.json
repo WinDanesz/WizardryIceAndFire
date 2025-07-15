@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " a ",
+    "aba",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "ifspellpack:dread_steel_nugget"
+    },
+    "b": {
+      "item": "ebwizardry:magic_silk"
+    }
+  },
+  "result": {
+    "item": "ifspellpack:dread_steel_cloth"
+  }
+}

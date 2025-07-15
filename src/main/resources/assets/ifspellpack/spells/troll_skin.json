@@ -18,7 +18,7 @@
   "cooldown": 200,
   "base_properties": {
     "effect_scale": 1,
-    "damage_reduction": 0.7,
+    "damage_reduction": 0.5,
     "troll_skin_duration": 600,
     "troll_skin_strength": 0
   }

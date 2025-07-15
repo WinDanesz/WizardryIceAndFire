@@ -1,6 +1,8 @@
 package com.windanesz.ifspellpack.registry;
 
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.windanesz.ifspellpack.IFSpellPack;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,19 +19,9 @@ public class IFSPRecipes {
 	public static void register(RegistryEvent.Register<IRecipe> event) {
 		IForgeRegistryModifiable<IRecipe> registry = (IForgeRegistryModifiable<IRecipe>) event.getRegistry();
 
-//		if (PointerIntegration.getInstance().isEnabled() && Settings.generalSettings.remove_pointer_item) {
-//			if (registry.getValue(new ResourceLocation("pointer:pointer")) != null) {
-//				registry.remove(new ResourceLocation("pointer:pointer"));
-//			}
-//		}
-//
-//		if (PointerIntegration.getInstance().isEnabled() && Settings.generalSettings.remove_portalgun_recipes) {
-//			if (registry.getValue(new ResourceLocation("portalgun:portalgun")) != null) {
-//				registry.remove(new ResourceLocation("portalgun:portalgun"));
-//			}
-//			if (registry.getValue(new ResourceLocation("portalgun:miniature_black_hole")) != null) {
-//				registry.remove(new ResourceLocation("portalgun:miniature_black_hole"));
-//			}
-//		}
+		//Smelting
+		GameRegistry.addSmelting(IafItemRegistry.dread_sword, new ItemStack(IFSPItems.DREAD_STEEL_NUGGET, 4), 1f);
+		GameRegistry.addSmelting(IafItemRegistry.dread_knight_sword, new ItemStack(IFSPItems.DREAD_STEEL_NUGGET, 8), 1f);
 	}
+
 }

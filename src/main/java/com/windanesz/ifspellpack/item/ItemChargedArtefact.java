@@ -1,9 +1,6 @@
 package com.windanesz.ifspellpack.item;
 
-import baubles.api.BaubleType;
-import electroblob.wizardry.event.ArtefactCheckEvent;
 import electroblob.wizardry.item.IWorkbenchItem;
-import electroblob.wizardry.item.ItemArtefact;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
@@ -13,29 +10,28 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchItem {
 
-	private final Item chargeItem;
+	private final List<Item> chargeItems;
 	private final int chargePerItem;
 	private final int chargePerUse;
 	public static final Set<Item> VALID_ITEMS = new HashSet<>();
 
-	public ItemChargedArtefact(EnumRarity rarity, Type type, int maxCharges, Item chargeItem, int chargePerItem, int chargePerUse) {
+	public ItemChargedArtefact(EnumRarity rarity, Type type, int maxCharges, List<Item> chargeItems, int chargePerItem, int chargePerUse) {
 		super(rarity, type);
 		this.setMaxDamage(maxCharges);
-		this.chargeItem = chargeItem;
+		this.chargeItems = chargeItems;
 		this.chargePerItem = chargePerItem;
 		this.chargePerUse = chargePerUse;
-		VALID_ITEMS.add(chargeItem);
+		VALID_ITEMS.addAll(chargeItems);
 		this.addReadinessPropertyOverride();
 	}
 
@@ -48,8 +44,8 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 		});
 	}
 
-	public Item getChargeItem() {
-		return this.chargeItem;
+	public List<Item> getChargeItems() {
+		return this.chargeItems;
 	}
 
 	public int getChargePerItem() {
@@ -64,7 +60,8 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 	public static boolean consumeCharge(ItemStack itemStack) {
 		if (itemStack.getItem() instanceof ItemChargedArtefact) {
 			ItemChargedArtefact itemChargedArtefact = (ItemChargedArtefact)itemStack.getItem();
-			if (itemChargedArtefact.getMaxDamage(itemStack) - itemChargedArtefact.getDamage(itemStack) >= itemChargedArtefact.chargePerUse) {
+			int remainingCharge = itemChargedArtefact.getMaxDamage(itemStack) - itemChargedArtefact.getDamage(itemStack);
+			if (remainingCharge >= itemChargedArtefact.chargePerUse && remainingCharge > 0) {
 				itemChargedArtefact.setDamage(itemStack, itemChargedArtefact.getDamage(itemStack) + itemChargedArtefact.chargePerUse);
 				return true;
 			}
@@ -76,12 +73,26 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 	public static boolean consumeCharge(ItemStack itemStack, int charge) {
 		if (itemStack.getItem() instanceof ItemChargedArtefact) {
 			ItemChargedArtefact itemChargedArtefact = (ItemChargedArtefact)itemStack.getItem();
-			if (itemChargedArtefact.getMaxDamage(itemStack) - itemChargedArtefact.getDamage(itemStack) >= charge) {
+			int remainingCharge = itemChargedArtefact.getMaxDamage(itemStack) - itemChargedArtefact.getDamage(itemStack);
+			if (remainingCharge >= charge && remainingCharge > 0) {
 				itemChargedArtefact.setDamage(itemStack, itemChargedArtefact.getDamage(itemStack) + charge);
 				return true;
 			}
 		}
 		return false;
+	}
+
+	//Taken from ItemWand.getDistributedCost
+	public static int getDistributedCost(int cost, int castingTick){
+		int partialCost;
+		if(castingTick % 20 == 0){
+			partialCost = cost / 2 + cost % 2;
+		}else if(castingTick % 10 == 0){
+			partialCost = cost / 2;
+		}else{
+			partialCost = 0;
+		}
+		return partialCost;
 	}
 
 	public boolean isCharged(ItemStack stack) {
@@ -95,7 +106,7 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 
 	@Override
 	public boolean onApplyButtonPressed(EntityPlayer player, Slot centre, Slot crystals, Slot upgrade, Slot[] spellBooks) {
-		if (crystals.getStack().getItem() == this.getChargeItem()) {
+		if (this.getChargeItems().contains(crystals.getStack().getItem())) {
 			int chargePerItem = this.getChargePerItem();
 			int chargeCount = crystals.getStack().getCount() * chargePerItem;
 			int chargeMissing = this.getDamage(centre.getStack());

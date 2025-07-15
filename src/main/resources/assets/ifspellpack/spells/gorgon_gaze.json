@@ -13,9 +13,9 @@
   "tier": "master",
   "element": "sorcery",
   "type": "attack",
-  "cost": 15,
-  "chargeup": 10,
-  "cooldown": 15,
+  "cost": 100,
+  "chargeup": 30,
+  "cooldown": 200,
   "base_properties": {
     "damage": 10,
     "range": 16,

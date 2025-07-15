@@ -14,13 +14,10 @@ import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
 
-public class SummonDreadKnight extends SpellMinion<EntityDreadKnightMinion> {
-
-	public static final String STAT_SCALE = "stat_scale";
+public class SummonDreadKnight extends SpellMinionIFSP<EntityDreadKnightMinion> {
 
 	public SummonDreadKnight() {
-		super(IFSpellPack.MODID, "summon_dread_knight", EntityDreadKnightMinion::new);
-		this.addProperties(STAT_SCALE);
+		super("summon_dread_knight", EntityDreadKnightMinion::new);
 	}
 
 	@Override
@@ -33,9 +30,7 @@ public class SummonDreadKnight extends SpellMinion<EntityDreadKnightMinion> {
 				}
 			}
 		}
-		float statScale = this.getProperty(STAT_SCALE).floatValue();
-		modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * statScale, false);
 		//needed for the spawn animation
-		minion.onInitialSpawn(minion.world.getDifficultyForLocation(new BlockPos(minion)), null);
+		super.addMinionExtras(minion, pos, caster, modifiers, alreadySpawned);
 	}
 }

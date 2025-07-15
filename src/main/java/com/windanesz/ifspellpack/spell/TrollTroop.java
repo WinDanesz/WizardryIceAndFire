@@ -31,14 +31,12 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrollTroop extends SpellMinion<EntityTrollMinion> {
+public class TrollTroop extends SpellMinionIFSP<EntityTrollMinion> {
 
     private int trollVariant;
-    public static final String STAT_SCALE = "stat_scale";
 
     public TrollTroop() {
-        super(IFSpellPack.MODID, "troll_troop", EntityTrollMinion::new);
-        this.addProperties(STAT_SCALE);
+        super("troll_troop", EntityTrollMinion::new);
     }
 
     @Override
@@ -68,8 +66,6 @@ public class TrollTroop extends SpellMinion<EntityTrollMinion> {
             ((AccessorEntityTroll)minion).ifspellpack$setSunlightImmune(true);
             //minion.setSunlightImmune(true);
         }
-        float statScale = this.getProperty(STAT_SCALE).floatValue();
-        modifiers.set(SpellModifiers.POTENCY, modifiers.get(SpellModifiers.POTENCY) * statScale, false);
     }
 
     @Override

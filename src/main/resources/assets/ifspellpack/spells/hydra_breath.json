@@ -17,7 +17,9 @@
   "chargeup": 10,
   "cooldown": 15,
   "base_properties": {
+    "damage": 1,
     "acceleration": 0.1,
-    "effect_duration": 60
+    "effect_duration": 60,
+    "artefact_angle": 20
   }
 }
