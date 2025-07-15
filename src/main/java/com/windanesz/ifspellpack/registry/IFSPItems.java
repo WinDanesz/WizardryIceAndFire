@@ -44,7 +44,7 @@ public final class IFSPItems {
 	public static final Item HEAD_DREAD_CROWN = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 10000, Arrays.asList(new Item[] {IafItemRegistry.dread_shard}), 100, 25);
 	public static final Item HEAD_GORGON_MASK = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.HEAD, 1, Arrays.asList(new Item[] {IafItemRegistry.gorgon_head}), 1, 1);
 	public static final Item HEAD_TRIADIC_SERPENT_CROWN = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.HEAD);
-	public static final Item RING_STINGER = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.RING, 10000, Arrays.asList(new Item[] {IafItemRegistry.myrmex_stinger}), 2000, 0);
+	public static final Item RING_STINGER = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.RING, 10000, Arrays.asList(new Item[] {IafItemRegistry.myrmex_stinger}), 2000, 10);
 
 	//Magic Gear
 

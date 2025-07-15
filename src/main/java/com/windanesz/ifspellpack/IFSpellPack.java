@@ -5,6 +5,7 @@ import com.windanesz.ifspellpack.network.IFSPPacketHandler;
 import com.windanesz.ifspellpack.registry.IFSPLoot;
 import com.windanesz.ifspellpack.registry.IFSPSchools;
 import com.windanesz.ifspellpack.registry.IFSPSpells;
+import com.windanesz.ifspellpack.registry.IFSPVillagerProfessions;
 import com.windanesz.ifspellpack.school.School;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -64,6 +65,7 @@ public class IFSpellPack {
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.initialiseLayers();
 		School.init();
+		IFSPVillagerProfessions.init();
 	}
 
 	@EventHandler

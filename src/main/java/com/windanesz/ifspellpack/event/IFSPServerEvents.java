@@ -1,5 +1,6 @@
 package com.windanesz.ifspellpack.event;
 
+import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.google.common.collect.Streams;
@@ -38,6 +39,7 @@ import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -67,6 +69,21 @@ public class IFSPServerEvents {
 	public static final IVariable<Boolean> ICE_DRAGON_CORE_DRACONIC_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
 	public static final IVariable<Boolean> LIGHTNING_DRAGON_CORE_LIGHTNING_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
 	public static final IVariable<Boolean> LIGHTNING_DRAGON_CORE_DRACONIC_ACTIVE = new IVariable.Variable<>(Persistence.NEVER);
+
+	@SubscribeEvent
+	public static void onAttackEntityEvent(AttackEntityEvent event) {
+		EntityPlayer player = event.getEntityPlayer();
+		if (event.getTarget() instanceof EntityLivingBase) {
+			EntityLivingBase target = (EntityLivingBase)event.getTarget();
+			if (ItemArtefact.isArtefactActive(player, IFSPItems.RING_STINGER)) {
+				for (int i : BaubleType.RING.getValidSlots()) {
+					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(i))) {
+						target.addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 1));
+					}
+				}
+			}
+		}
+	}
 
 	@SubscribeEvent
 	public static void onEntityJoinWorldEvent(EntityJoinWorldEvent event) {
