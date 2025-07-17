@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.windanesz.ifspellpack.IFSpellPack;
 import electroblob.wizardry.Wizardry;
+import electroblob.wizardry.registry.Spells;
 import electroblob.wizardry.spell.Spell;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
@@ -20,10 +21,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -56,6 +54,32 @@ public class School extends IForgeRegistryEntry.Impl<School> {
 
 	public static List<School> getSchools(Predicate<School> filter) {
 		return registry.getValuesCollection().stream().filter(filter).collect(Collectors.toList());
+	}
+
+	public static School get(String name) {
+		ResourceLocation key = new ResourceLocation(name);
+		if(key.getNamespace().equals("minecraft")) key = new ResourceLocation(IFSpellPack.MODID, name);
+		return registry.getValue(key);
+	}
+
+	public static Collection<ResourceLocation> getSchoolNames() {
+		return new HashSet<>(registry.getKeys());
+	}
+
+	public static Set<String> getSpellNames(School school) {
+		Set<String> spellNames = new HashSet<>();
+		for (Spell spell : getSpells(school)) {
+			spellNames.add(spell.getRegistryName().toString());
+		}
+		return spellNames;
+	}
+
+	public static Set<String> getSchoolNames(Spell spell) {
+		Set<String> schoolNames = new HashSet<>();
+		for (School school : getSchoolsForSpell(spell)) {
+			schoolNames.add(spell.getRegistryName().toString());
+		}
+		return schoolNames;
 	}
 
 	public static List<School> getSchoolsForSpell(Spell spell) {

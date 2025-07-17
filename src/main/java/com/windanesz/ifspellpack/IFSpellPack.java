@@ -1,10 +1,9 @@
 package com.windanesz.ifspellpack;
 
-import com.windanesz.ifspellpack.client.SBGuiHandler;
+import com.windanesz.ifspellpack.client.IFSPGuiHandler;
+import com.windanesz.ifspellpack.command.CommandSchoolInfo;
 import com.windanesz.ifspellpack.network.IFSPPacketHandler;
 import com.windanesz.ifspellpack.registry.IFSPLoot;
-import com.windanesz.ifspellpack.registry.IFSPSchools;
-import com.windanesz.ifspellpack.registry.IFSPSpells;
 import com.windanesz.ifspellpack.registry.IFSPVillagerProfessions;
 import com.windanesz.ifspellpack.school.School;
 import net.minecraftforge.common.MinecraftForge;
@@ -58,7 +57,7 @@ public class IFSpellPack {
 		proxy.registerParticles();
 		proxy.init();
 		IFSPPacketHandler.initPackets();
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, new SBGuiHandler());
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new IFSPGuiHandler());
 	}
 
 	@EventHandler
@@ -70,5 +69,6 @@ public class IFSpellPack {
 
 	@EventHandler
 	public void serverStartup(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandSchoolInfo());
 	}
 }

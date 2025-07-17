@@ -50,7 +50,7 @@ public class EntityDragonLightningChargeIFSP extends EntityDragonLightningCharge
 			entities.removeIf(e -> e == shooter || !(e.canEntityBeSeen(this)) || IsImmune.toDragonLightning(e));
 			for (EntityLivingBase entity : entities) {
 				entity.attackEntityFrom(IceAndFire.dragonLightning, damage);
-				entity.knockBack(entity, IFSPSpells.DRAGON_LIGHTNING_CHARGE.getProperty(DragonLightningCharge.KNOCKBACK_STRENGTH).floatValue() * damageMultiplier, hit.x - entity.posX, hit.z - entity.posZ);
+				//entity.knockBack(entity, IFSPSpells.DRAGON_LIGHTNING_CHARGE.getProperty(DragonLightningCharge.KNOCKBACK_STRENGTH).floatValue() * damageMultiplier, hit.x - entity.posX, hit.z - entity.posZ);
 			}
 			BlockPos center = new BlockPos(hit.x, hit.y, hit.z);
 			List<BlockPos> blocksPos = BlockUtils.getBlockSphere(center, radius);

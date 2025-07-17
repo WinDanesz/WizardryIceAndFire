@@ -32,11 +32,11 @@ public class IFSPSchools {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<School> event) {
 		IForgeRegistry<School> registry = event.getRegistry();
+		registry.register(BEAST);
 		registry.register(DRACONIC);
 		registry.register(DREAD);
 		registry.register(FAE);
 		registry.register(SLAYER);
-		System.out.println("successfully registered schools");
 	}
 
 }

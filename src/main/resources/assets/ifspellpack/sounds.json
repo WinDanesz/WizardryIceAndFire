@@ -16,6 +16,8 @@
   "spell.hydra_pulse":               {"category": "spells", "sounds": ["iceandfire:hydra_regen_head"]},
   "spell.no_escape":                 {"category": "spells", "sounds": ["item/armor/equip_chain1", "item/armor/equip_chain2", "item/armor/equip_chain3", "item/armor/equip_chain4", "item/armor/equip_chain5"]},
   "spell.pixie_charge":              {"category": "spells", "sounds": ["iceandfire:pixie_wand_0", "iceandfire:pixie_wand_1", "iceandfire:pixie_wand_2"]},
+  "spell.sea_serpent_bubbles":       {"category": "spells", "sounds": ["iceandfire:sea_serpent_breath"]},
+  "spell.sea_serpent_fury":          {"category": "spells", "sounds": ["iceandfire:sea_serpent_roar"]},
   "spell.shackles":                  {"category": "spells", "sounds": ["item/armor/equip_chain1", "item/armor/equip_chain2", "item/armor/equip_chain3", "item/armor/equip_chain4", "item/armor/equip_chain5"]},
   "spell.silver_lining":             {"category": "spells", "sounds": ["ebwizardry:buff"]},
   "spell.silver_wind":               {"category": "spells", "sounds": ["mob/horse/breathe2"]},

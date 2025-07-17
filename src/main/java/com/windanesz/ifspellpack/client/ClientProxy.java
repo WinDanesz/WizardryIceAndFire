@@ -60,6 +60,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityDragonLightningChargeIFSP.class, RenderDragonLightningCharge::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityHydraBreathIFSP.class, RenderNothing::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixieChargeIFSP.class, RenderNothing::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySeaSerpentBubblesIFSP.class, RenderNothing::new);
 	}
 
 	@Override

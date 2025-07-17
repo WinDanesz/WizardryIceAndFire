@@ -12,6 +12,7 @@ public class Settings {
 	public boolean dragonBreathSpellsPowerForge = generalSettings.dragonBreathSpellsPowerForge;
 	public float dragonrendBonusDamage = generalSettings.dragonrendBonusDamage;
 	public float iafPotencyModifier = generalSettings.iafPotencyModifier;
+	public String schoolinfo = generalSettings.schoolinfo;
 
 	@Config.Name("General Settings")
 	public static GeneralSettings generalSettings = new GeneralSettings();
@@ -50,6 +51,10 @@ public class Settings {
 		@Config.Name("IAF Potency Modifier")
 		@Config.Comment("Multiplies the global potency for all IFSpellpack spells")
 		public float iafPotencyModifier = 1f;
+
+		@Config.Name("School Info Name")
+		@Config.Comment("The command for searching school info")
+		public String schoolinfo = "schoolinfo";
 
 	}
 

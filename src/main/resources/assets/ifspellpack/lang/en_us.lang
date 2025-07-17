@@ -2,6 +2,16 @@
 
 block.ifspellpack:ice_spikes.name=Ice Spikes
 
+# Command
+
+command.ifspellpack:schoolinfo.usage =/%1$s <schools/spells> <spell/school>
+command.ifspellpack:schoolinfo.school_not_found = %1$s school does not exist
+command.ifspellpack:schoolinfo.no_spells = %1$s does not contain any spells
+command.ifspellpack:schoolinfo.list_spells = %1$s has the spells: %2$s
+command.ifspellpack:schoolinfo.spell_not_found = %1$s spell does not exist
+command.ifspellpack:schoolinfo.no_schools = %1$s does not contain any schools
+command.ifspellpack:schoolinfo.list_schools = %1$s has the schools: %2$s
+
 # Enchantment
 
 enchantment.ifspellpack:dragonbane=Dragonbane
@@ -31,6 +41,7 @@ entity.ifspellpack:dragon_ice_charge.name=Dragon Ice Charge
 entity.ifspellpack:dragon_lightning_charge.name=Dragon Lightning Charge
 entity.ifspellpack:hydra_breath.name=Hydra Breath
 entity.ifspellpack:pixie_charge.name=Pixie Charge
+entity.ifspellpack:sea_serpent_bubbles.name=Sea Serpent Bubbles
 
 # Item
 
@@ -78,6 +89,8 @@ item.ifspellpack:head_dread_crown.name=Dread Crown
 item.ifspellpack:head_dread_crown.desc=Your dread thralls summon with armor. Charge this with dread shards to activate it.
 item.ifspellpack:head_gorgon_mask.name=Gorgon Mask
 item.ifspellpack:head_gorgon_mask.desc=Increases the damage of Gorgon Gaze. Charge this with gorgon heads to activate it.
+item.ifspellpack:head_triadic_serpent_crown_mask.name=Triadic Serpent Crown
+item.ifspellpack:head_triadic_serpent_crownk.desc=Hydra breath fires two additional breaths angled from the center breath.
 item.ifspellpack:ring_stinger.name=Stinger Ring
 item.ifspellpack:ring_stinger.desc=Your melee attacks sting targets, inflicting them with a strong poison for a short duration. Charge this with myrmex stingers to activate it.
 
@@ -142,6 +155,10 @@ spell.ifspellpack:no_escape=No Escape
 spell.ifspellpack:no_escape.desc=No one escapes!
 spell.ifspellpack:pixie_charge=Pixie Charge
 spell.ifspellpack:pixie_charge.desc=Fire a pixie charge that is unaffected by gravity and causes targets to levitate and glow.
+spell.ifspellpack:sea_serpent_bubbles=Sea Serpent Bubbles
+spell.ifspellpack:sea_serpent_bubbles.desc=Fire bubbles that damage enemies and track if used on a target.
+spell.ifspellpack:sea_serpent_fury=Sea Serpent Fury
+spell.ifspellpack:sea_serpent_fury.desc=Lash out around you, dealing your attack damage to and knocking back all enemies while underwater.
 spell.ifspellpack:sentinel_shell=Sentinel Shell
 spell.ifspellpack:sentinel_shell.desc=Change your skin to blend in with the environment, reducing visibility.
 spell.ifspellpack:shackles=Shackles

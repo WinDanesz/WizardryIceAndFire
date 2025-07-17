@@ -49,6 +49,7 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityDragonLightningChargeIFSP.class, "dragon_lightning_charge", TrackingType.PROJECTILE).build());
 		registry.register(createEntry(EntityHydraBreathIFSP.class, "hydra_breath", TrackingType.PROJECTILE).build());
 		registry.register(createEntry(EntityPixieChargeIFSP.class, "pixie_charge", TrackingType.PROJECTILE).build());
+		registry.register(createEntry(EntitySeaSerpentBubblesIFSP.class, "sea_serpent_bubbles", TrackingType.PROJECTILE).build());
 	}
 
 	/**

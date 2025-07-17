@@ -51,6 +51,8 @@ public final class IFSPSpells {
 	public static final Spell SUMMON_MYRMEX_SWARM = new SummonMyrmexSwarm();
 	public static final Spell MYRMEX_BLESSING = new MyrmexBlessing();
 	public static final Spell SENTINEL_SHELL = new SentinelShell();
+	public static final Spell SEA_SERPENT_BUBBLES = new SeaSerpentBubbles();
+	public static final Spell SEA_SERPENT_FURY = new SeaSerpentFury();
 
 	private IFSPSpells() {
 	} // no instances
@@ -97,5 +99,7 @@ public final class IFSPSpells {
 		registry.register(SUMMON_MYRMEX_SWARM);
 		registry.register(MYRMEX_BLESSING);
 		registry.register(SENTINEL_SHELL);
+		registry.register(SEA_SERPENT_BUBBLES);
+		registry.register(SEA_SERPENT_FURY);
 	}
 }
