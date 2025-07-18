@@ -28,8 +28,7 @@ import java.util.*;
 
 public class SummonPixieCluster extends Spell {
 
-	public static final IStoredVariable<List<UUID>> PIXIE_MINION_CLUSTER_UUIDS = new IStoredVariable.StoredVariable<List<UUID>, NBTTagList>("ifspellpack:pixieMinionCluster",
-			s -> NBTExtras.listToNBT(s, NBTUtil::createUUIDTag), t -> new ArrayList<>(NBTExtras.NBTToList(t, NBTUtil::getUUIDFromTag)), Persistence.ALWAYS).setSynced();
+	public static final IStoredVariable<List<UUID>> PIXIE_MINION_CLUSTER_UUIDS = new IStoredVariable.StoredVariable<List<UUID>, NBTTagList>("ifspellpack:pixieMinionCluster", s -> NBTExtras.listToNBT(s, NBTUtil::createUUIDTag), t -> new ArrayList<>(NBTExtras.NBTToList(t, NBTUtil::getUUIDFromTag)), Persistence.ALWAYS).setSynced();
 
 	private static final String POTENCY_ATTRIBUTE_MODIFIER = "potency";
 	private static final String STAT_SCALE = "stat_scale";

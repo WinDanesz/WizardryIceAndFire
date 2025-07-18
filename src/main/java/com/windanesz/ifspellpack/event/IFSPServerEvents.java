@@ -405,7 +405,6 @@ public class IFSPServerEvents {
 				}
 			}
 		}
-		System.out.println(modifiers.get(SpellModifiers.POTENCY));
 	}
 
 	@SubscribeEvent

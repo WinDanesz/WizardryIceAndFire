@@ -1,7 +1,6 @@
 package com.windanesz.ifspellpack.network;
 
 import com.windanesz.ifspellpack.IFSpellPack;
-import electroblob.wizardry.packet.PacketControlInput;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -15,11 +14,11 @@ public class IFSPPacketHandler {
 
 	public static void initPackets() {
 		net = NetworkRegistry.INSTANCE.newSimpleChannel(IFSpellPack.MODID.toUpperCase());
-		registerMessage(PacketPixieWingGlider.class, 			PacketPixieWingGlider.Message.class);
+		registerMessage(CPacketLiveWire.class, CPacketLiveWire.Message.class);
+		registerMessage(SPacketPixieWingGlider.class, SPacketPixieWingGlider.Message.class);
 	}
 
-	private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(
-			Class<? extends IMessageHandler<REQ, REPLY>> packet, Class<REQ> message) {
+	private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> packet, Class<REQ> message) {
 		net.registerMessage(packet, message, nextPacketId, Side.CLIENT);
 		net.registerMessage(packet, message, nextPacketId, Side.SERVER);
 		nextPacketId++;

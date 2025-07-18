@@ -40,6 +40,7 @@ public final class IFSPItems {
 	public static final Item CHARM_SOUR_CANDY = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_VOLATILE_RESIN = new ItemCharmVolatileResin();
+	public static final Item CHARM_WILDCALLER_WHISTLE = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
 	public static final Item HEAD_COCKATRICE_COMB = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 1000, Arrays.asList(new Item[] {IafItemRegistry.cockatrice_eye}), 1000, 1);
 	public static final Item HEAD_DREAD_CROWN = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 10000, Arrays.asList(new Item[] {IafItemRegistry.dread_shard}), 100, 25);
 	public static final Item HEAD_GORGON_MASK = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.HEAD, 1, Arrays.asList(new Item[] {IafItemRegistry.gorgon_head}), 1, 1);
@@ -81,6 +82,7 @@ public final class IFSPItems {
 		ItemRegistry.registerItemArtefact(registry, "charm_sour_candy", IFSpellPack.MODID, CHARM_SOUR_CANDY);
 		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);
 		ItemRegistry.registerItem(registry, "charm_volatile_resin", IFSpellPack.MODID, CHARM_VOLATILE_RESIN);
+		ItemRegistry.registerItemArtefact(registry, "charm_wildcaller_whistle", IFSpellPack.MODID, CHARM_WILDCALLER_WHISTLE);
 		ItemRegistry.registerItem(registry, "head_cockatrice_comb", IFSpellPack.MODID, HEAD_COCKATRICE_COMB);
 		ItemRegistry.registerItem(registry, "head_dread_crown", IFSpellPack.MODID, HEAD_DREAD_CROWN);
 		ItemRegistry.registerItem(registry, "head_gorgon_mask", IFSpellPack.MODID, HEAD_GORGON_MASK);
