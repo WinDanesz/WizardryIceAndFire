@@ -1,0 +1,22 @@
+{
+  "enabled": {
+    "book": true,
+    "scroll": true,
+    "wands": true,
+    "npcs": true,
+    "dispensers": true,
+    "commands": true,
+    "treasure": true,
+    "trades": true,
+    "looting": true
+  },
+  "tier": "advanced",
+  "element": "earth",
+  "type": "utility",
+  "cost": 25,
+  "chargeup": 5,
+  "cooldown": 40,
+  "base_properties": {
+    "range": 32
+  }
+} 

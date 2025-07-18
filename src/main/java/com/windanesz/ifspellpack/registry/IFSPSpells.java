@@ -54,6 +54,7 @@ public final class IFSPSpells {
 	public static final Spell SEA_SERPENT_BUBBLES = new SeaSerpentBubbles();
 	public static final Spell SEA_SERPENT_FURY = new SeaSerpentFury();
 	public static final Spell LIVE_WIRE = new LiveWire();
+	public static final Spell CALL_BEAST = new CallBeast();
 
 	private IFSPSpells() {
 	} // no instances
@@ -103,5 +104,6 @@ public final class IFSPSpells {
 		registry.register(SEA_SERPENT_BUBBLES);
 		registry.register(SEA_SERPENT_FURY);
 		registry.register(LIVE_WIRE);
+		registry.register(CALL_BEAST);
 	}
 }
