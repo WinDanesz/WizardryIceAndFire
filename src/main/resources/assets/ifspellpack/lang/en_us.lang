@@ -83,6 +83,8 @@ item.ifspellpack:charm_stonebreaker_sigil.name=Stonebreaker Sigil
 item.ifspellpack:charm_stonebreaker_sigil.desc=Summoned trolls are resistant to daylight.
 item.ifspellpack:charm_volatile_resin.name=Volatile Resin
 item.ifspellpack:charm_volatile_resin.desc=Your myrmex minions release a chemical explosion on death. Desert myrmex burn targets and jungle myrmex wither targets. Charge this with myrmex resin to activate it.
+item.ifspellpack:charm_wildcaller_whistle.name=Wildcaller Whistle
+item.ifspellpack:charm_wildcaller_whistle.desc=Call Beast allows you to pick among one of each type of your last stored beasts.
 item.ifspellpack:head_cockatrice_comb.name=Cockatrice Comb
 item.ifspellpack:head_cockatrice_comb.desc=Your allies empower your cockatrice stare when making eye contact with your enemies. Charge this with cockatrice eyes to activate it.
 item.ifspellpack:head_dread_crown.name=Dread Crown
@@ -115,6 +117,14 @@ potion.ifspellpack:troll_skin=Troll Skin
 
 # Spell
 
+spell.ifspellpack:call_beast=Call Beast
+spell.ifspellpack:call_beast.add=Added %1$s to your stored beasts.
+spell.ifspellpack:call_beast.already_stored=You already have %1$s stored.
+spell.ifspellpack:call_beast.dead=Your stored beast is dead.
+spell.ifspellpack:call_beast.desc=Call one of your owned amphithere, hippogryphs, or hippocampi from anywhere in the world. Select your owned creature to store it.
+spell.ifspellpack:call_beast.no_beasts=You do not have any stored beasts.
+spell.ifspellpack:call_beast.no_space=Not enough space to call your %1$s.
+spell.ifspellpack:call_beast.replace=Replaced your previous beast with %1$s.
 spell.ifspellpack:cockatrice_stare=Cockatrice Stare
 spell.ifspellpack:cockatrice_stare.desc=Wither, slow, and nauseate enemies that make eye contact with you.
 spell.ifspellpack:consume_statue=Consume Statue
