@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class CPacketLiveWire implements IMessageHandler<CPacketLiveWire.Message, IMessage> {
+public class S2CPacketLiveWire implements IMessageHandler<S2CPacketLiveWire.Message, IMessage> {
 
 	@Override
 	public IMessage onMessage(Message message, MessageContext ctx){

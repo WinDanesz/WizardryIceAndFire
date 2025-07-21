@@ -14,8 +14,10 @@ public class IFSPPacketHandler {
 
 	public static void initPackets() {
 		net = NetworkRegistry.INSTANCE.newSimpleChannel(IFSpellPack.MODID.toUpperCase());
-		registerMessage(CPacketLiveWire.class, CPacketLiveWire.Message.class);
-		registerMessage(SPacketPixieWingGlider.class, SPacketPixieWingGlider.Message.class);
+		registerMessage(S2CPacketCallBeast.class, S2CPacketCallBeast.Message.class);
+		registerMessage(S2CPacketLiveWire.class, S2CPacketLiveWire.Message.class);
+		registerMessage(C2SPacketSummonBeast.class, C2SPacketSummonBeast.Message.class);
+		registerMessage(C2SPacketPixieWingGlider.class, C2SPacketPixieWingGlider.Message.class);
 	}
 
 	private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> packet, Class<REQ> message) {

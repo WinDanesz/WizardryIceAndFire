@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class SPacketPixieWingGlider implements IMessageHandler<SPacketPixieWingGlider.Message, IMessage> {
+public class C2SPacketPixieWingGlider implements IMessageHandler<C2SPacketPixieWingGlider.Message, IMessage> {
 
 	@Override
 	public IMessage onMessage(Message message, MessageContext ctx){

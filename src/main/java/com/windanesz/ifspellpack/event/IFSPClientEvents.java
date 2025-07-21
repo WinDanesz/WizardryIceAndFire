@@ -3,7 +3,7 @@ package com.windanesz.ifspellpack.event;
 import baubles.api.BaublesApi;
 import com.windanesz.ifspellpack.item.ItemChargedArtefact;
 import com.windanesz.ifspellpack.network.IFSPPacketHandler;
-import com.windanesz.ifspellpack.network.SPacketPixieWingGlider;
+import com.windanesz.ifspellpack.network.C2SPacketPixieWingGlider;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.registry.Spells;
@@ -25,7 +25,7 @@ public class IFSPClientEvents {
 		//Pixie wing glider
 		if (event.getMovementInput().jump && ItemArtefact.isArtefactActive(player, IFSPItems.BODY_PIXIE_WING_GLIDER)) {
 			if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5))) {
-				IMessage msg = new SPacketPixieWingGlider.Message(true);
+				IMessage msg = new C2SPacketPixieWingGlider.Message(true);
 				IFSPPacketHandler.net.sendToServer(msg);
 				Spells.glide.cast(player.world, player, EnumHand.MAIN_HAND, player.ticksExisted, new SpellModifiers());
 			}

@@ -22,7 +22,7 @@ public class MixinEntity {
 		Entity entity = (Entity)(Object)this;
 		if (entity instanceof EntityTameable) {
 			EntityTameable entityTameable = (EntityTameable)entity;
-			if (CallBeast.isAcceptableBeast(entityTameable) && entityTameable.getOwner() instanceof EntityPlayer) {
+			if (CallBeast.isAcceptableBeast(entityTameable) && entityTameable.getOwner() instanceof EntityPlayer && !entity.isDead) {
 				BeastPosData.get(entity.world).addBeast(entityTameable.getUniqueID(), entityTameable.getPosition());
 			}
 		}
@@ -31,7 +31,12 @@ public class MixinEntity {
 	@Inject(method = "setDead()V", at = @At("HEAD"))
 	private void injectSetDead(CallbackInfo info) {
 		Entity entity = (Entity)(Object)this;
-		BeastPosData.get(entity.world).removeBeast(entity.getUniqueID());
+		if (entity instanceof EntityTameable) {
+			EntityTameable entityTameable = (EntityTameable)entity;
+			if (CallBeast.isAcceptableBeast(entityTameable) && entityTameable.getOwner() instanceof EntityPlayer) {
+				BeastPosData.get(entity.world).removeBeast(entity.getUniqueID());
+			}
+		}
 	}
 
 }

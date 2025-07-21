@@ -1,53 +1,36 @@
-/*
 package com.windanesz.ifspellpack.client.gui;
 
-import electroblob.wizardry.Wizardry;
+import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.network.C2SPacketSummonBeast;
+import com.windanesz.ifspellpack.network.IFSPPacketHandler;
+import com.windanesz.ifspellpack.spell.CallBeast;
 import electroblob.wizardry.client.DrawingUtils;
-import electroblob.wizardry.client.gui.GuiButtonTurnPage;
-import electroblob.wizardry.client.gui.GuiButtonTurnPage.Type;
-import electroblob.wizardry.registry.Spells;
-import electroblob.wizardry.spell.Spell;
+import electroblob.wizardry.client.gui.GuiButtonInvisible;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-
-import java.io.IOException;
 
 public class GuiCallBeast extends GuiScreen  {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(Wizardry.MODID, "textures/gui/container/lectern.png");
-	*/
-/** The distance of the page buttons from the bottom outside corners of the GUI. *//*
+	private static final ResourceLocation TEXTURE = new ResourceLocation(IFSpellPack.MODID, "textures/gui/call_beast.png");
+	protected int xSize = 96;
+	protected int ySize = 32;
+	protected int textureWidth = 128;
+	protected int textureHeight = 64;
+	protected int iconWidth = 32;
+	protected int iconHeight = 32;
+	boolean[] enabledIcons;
+	GuiButton amphithereButton;
+	GuiButton hippogryphButton;
+	GuiButton hippocampusButton;
 
-	private static final int PAGE_BUTTON_INSET_X = 22, PAGE_BUTTON_INSET_Y = 13;
-	*/
-/** The distance between adjacent page turn buttons. *//*
-
-	private static final int PAGE_BUTTON_SPACING = 20;
-	*/
-/** The distance of the sort buttons from the top left corner of the GUI. *//*
-
-	private static final int SORT_BUTTON_INSET_X = 96, SORT_BUTTON_INSET_Y = 20;
-	*/
-/** The distance between adjacent sort buttons. *//*
-
-	private static final int SORT_BUTTON_SPACING = 13;
-	*/
-/** The distance of the spell buttons from the top outside corners of the GUI. *//*
-
-	private static final int SPELL_BUTTON_INSET_X = 23, SPELL_BUTTON_INSET_Y = 44;
-	*/
-/** The distance between adjacent spell buttons (in both x and y). *//*
-
-	private static final int SPELL_BUTTON_SPACING = 38;
-
-	private static final int SPELL_ROWS = 3, SPELL_COLUMNS = 3;
-	public static final int SPELL_BUTTON_COUNT = SPELL_ROWS * SPELL_COLUMNS * 2; // x2 because there are 2 pages
-
-	public GuiCallBeast(){
+	public GuiCallBeast(boolean[] enabledIcons){
 		super();
+		if (enabledIcons.length != 3) {
+			throw new IllegalArgumentException("Enabled Icons must be 3 elements long");
+		}
+		this.enabledIcons = enabledIcons;
 	}
 
 	public ResourceLocation getTexture(){
@@ -59,65 +42,78 @@ public class GuiCallBeast extends GuiScreen  {
 		super.initGui();
 		final int left = this.width / 2 - this.xSize / 2;
 		final int top = this.height / 2 - this.ySize / 2;
-		int buttonID = 0;
-		// Page buttons
-		this.buttonList.add(nextPageButton = new GuiButtonTurnPage(buttonID++, left + xSize - PAGE_BUTTON_INSET_X - GuiButtonTurnPage.WIDTH, top + ySize - PAGE_BUTTON_INSET_Y - GuiButtonTurnPage.HEIGHT, Type.NEXT_PAGE, TEXTURE, textureWidth, textureHeight));
-
-		this.buttonList.add(prevPageButton = new GuiButtonTurnPage(buttonID++, left + PAGE_BUTTON_INSET_X, top + ySize - PAGE_BUTTON_INSET_Y - GuiButtonTurnPage.HEIGHT, Type.PREVIOUS_PAGE, TEXTURE, textureWidth, textureHeight));
-
-		this.buttonList.add(lastPageButton = new GuiButtonTurnPage(buttonID++, left + xSize - PAGE_BUTTON_INSET_X - GuiButtonTurnPage.WIDTH - PAGE_BUTTON_SPACING, top + ySize - PAGE_BUTTON_INSET_Y - GuiButtonTurnPage.HEIGHT, Type.NEXT_SECTION, TEXTURE, textureWidth, textureHeight));
-
-		this.buttonList.add(firstPageButton = new GuiButtonTurnPage(buttonID++, left + PAGE_BUTTON_INSET_X + PAGE_BUTTON_SPACING, top + ySize - PAGE_BUTTON_INSET_Y - GuiButtonTurnPage.HEIGHT, Type.PREVIOUS_SECTION, TEXTURE, textureWidth, textureHeight));
-
-		this.buttonList.add(indexButton = new GuiButtonTurnPage(buttonID++, left + xSize/2 - 23, top + ySize - PAGE_BUTTON_INSET_Y - GuiButtonTurnPage.HEIGHT, Type.CONTENTS, TEXTURE, textureWidth, textureHeight));
-
+		int i = 0;
+		if (this.enabledIcons[i]) {
+			this.buttonList.add(amphithereButton = new GuiOutline(i, left + i * this.iconWidth, top));
+		}
+		i++;
+		if (this.enabledIcons[i]) {
+			this.buttonList.add(hippogryphButton = new GuiOutline(i, left + i * this.iconWidth, top));
+		}
+		i++;
+		if (this.enabledIcons[i]) {
+			this.buttonList.add(hippocampusButton = new GuiOutline(i, left + i * this.iconWidth, top));
+		}
 	}
 
 	@Override
-	public void updateScreen(){
-		super.updateScreen();
+	protected void actionPerformed(GuiButton button)  {
+		int type = -1;
+		if (button == amphithereButton) {
+			type = CallBeast.AMPHITHERE;
+		}
+		if (button == hippogryphButton) {
+			type = CallBeast.HIPPOGRYPH;
+		}
+		if (button == hippocampusButton) {
+			type = CallBeast.HIPPOCAMPUS;
+		}
+		if (type != -1) {
+			System.out.println(type);
+			IFSPPacketHandler.net.sendToServer(new C2SPacketSummonBeast.Message(type));
+		}
+		Minecraft.getMinecraft().displayGuiScreen(null);
 	}
 
 	@Override
-	public void onGuiClosed(){
-		super.onGuiClosed();
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		int left = this.width / 2 - this.xSize / 2;
+		int top = this.height / 2 - this.ySize / 2;
+		mc.renderEngine.bindTexture(getTexture());
+		for (int i = 0; i < this.enabledIcons.length; i++) {
+			int u = i * this.iconWidth;
+			int v = 0;
+			if (!this.enabledIcons[i]) {
+				v += this.iconHeight;
+			}
+			DrawingUtils.drawTexturedRect(left + u, top, u, v, this.iconWidth, this.iconHeight, this.textureWidth, this.textureHeight);
+		}
+		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
-	private void drawIndexPage(int left, int top){
+	@Override
+	public boolean doesGuiPauseGame() {
+		return false;
+	}
 
-		for(int i = 0; i < SPELL_BUTTON_COUNT; i++){
+	private class GuiOutline extends GuiButtonInvisible {
 
-			int index = currentPage * SPELL_BUTTON_COUNT + i;
-			Spell spell = index < matchingSpells.size() ? matchingSpells.get(index) : Spells.none;
-			boolean discovered = Wizardry.proxy.shouldDisplayDiscovered(spell, null);
-
-			Minecraft.getMinecraft().renderEngine.bindTexture(discovered ? spell.getIcon() : Spells.none.getIcon());
-
-			DrawingUtils.drawTexturedRect(left + x + 1, top + y + 1, 0, 0, 32, 32, 32, 32);
+		public GuiOutline(int id, int x, int y){
+			super(id, x, y, GuiCallBeast.this.iconWidth, GuiCallBeast.this.iconHeight);
 		}
 
-		mc.renderEngine.bindTexture(getTexture());
-		DrawingUtils.drawTexturedRect(left, top, 0, 256, xSize, ySize, textureWidth, textureHeight);
+		@Override
+		public void drawButton(Minecraft minecraft, int mouseX, int mouseY, float partialTicks){
+			super.drawButton(minecraft, mouseX, mouseY, partialTicks);
+			if(hovered){
+				if (GuiCallBeast.this.enabledIcons[this.id]) {
+					GuiCallBeast.this.mc.renderEngine.bindTexture(getTexture());
+					DrawingUtils.drawTexturedRect(this.x, this.y, 96, 0, GuiCallBeast.this.iconWidth, GuiCallBeast.this.iconHeight, GuiCallBeast.this.textureWidth, GuiCallBeast.this.textureHeight);
+				}
+			}
+		}
 
-		GlStateManager.color(1, 1, 1, 1);
-		mc.renderEngine.bindTexture(getTexture());
-
-	}
-
-	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-	   super.mouseClicked(mouseX, mouseY, mouseButton);
-	}
-
-	@Override
-	protected void actionPerformed(GuiButton button){
-
-	}
-
-	@Override
-	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		super.keyTyped(typedChar, keyCode);
 	}
 
 }
-*/
+

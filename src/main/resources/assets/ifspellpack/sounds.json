@@ -1,4 +1,5 @@
 {
+  "spell.call_beast":                {"category": "spells", "sounds": ["ifspellpack:whistle1", "ifspellpack:whistle2"]},
   "spell.consume_statue.start":      {"category": "spells", "sounds": ["ebwizardry:small_aura_start"]},
   "spell.consume_statue.loop":       {"category": "spells", "sounds": ["ebwizardry:small_aura_loop"]},
   "spell.consume_statue.end":        {"category": "spells", "sounds": ["ebwizardry:small_aura_end"]},

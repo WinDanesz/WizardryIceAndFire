@@ -3,7 +3,7 @@ package com.windanesz.ifspellpack.spell;
 import com.github.alexthe666.iceandfire.entity.ChainEntityProperties;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.network.IFSPPacketHandler;
-import com.windanesz.ifspellpack.network.CPacketLiveWire;
+import com.windanesz.ifspellpack.network.S2CPacketLiveWire;
 import electroblob.wizardry.item.SpellActions;
 import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.EntityUtils;
@@ -51,7 +51,7 @@ public class LiveWire extends Spell {
 				Vec3d distance = targetVec.subtract(center);
 				for (double d = 0; d < 5; d += world.rand.nextDouble() + 0.5) {
 					Vec3d chainSpark = center.add(distance.scale(d / 5));
-					IFSPPacketHandler.net.sendToAll(new CPacketLiveWire.Message(chainSpark));
+					IFSPPacketHandler.net.sendToAll(new S2CPacketLiveWire.Message(chainSpark));
 				}
 			}
 		}
@@ -77,7 +77,7 @@ public class LiveWire extends Spell {
 				Vec3d distance = targetVec.subtract(center);
 				for (double d = 0; d < 5; d += world.rand.nextDouble() + 0.5) {
 					Vec3d chainSpark = center.add(distance.scale(d / 5));
-					IFSPPacketHandler.net.sendToAll(new CPacketLiveWire.Message(chainSpark));
+					IFSPPacketHandler.net.sendToAll(new S2CPacketLiveWire.Message(chainSpark));
 				}
 			}
 		}
