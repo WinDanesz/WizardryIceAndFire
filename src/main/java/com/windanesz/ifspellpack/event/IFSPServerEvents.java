@@ -3,12 +3,14 @@ package com.windanesz.ifspellpack.event;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import com.github.alexthe666.iceandfire.entity.*;
-import com.google.common.collect.Streams;
+import com.github.alexthe666.iceandfire.event.ServerEvents;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.enchantment.EnchantmentDragonbane;
 import com.windanesz.ifspellpack.enchantment.EnchantmentSilverLining;
 import com.windanesz.ifspellpack.entity.living.*;
 import com.windanesz.ifspellpack.item.ItemChargedArtefact;
+import com.windanesz.ifspellpack.item.ItemCharmLoversHeart;
+import com.windanesz.ifspellpack.potion.PotionAllure;
 import com.windanesz.ifspellpack.potion.PotionDragonrend;
 import com.windanesz.ifspellpack.potion.PotionMyrmexBlessing;
 import com.windanesz.ifspellpack.registry.*;
@@ -23,7 +25,6 @@ import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.entity.living.ISummonedCreature;
 import electroblob.wizardry.event.SpellCastEvent;
 import electroblob.wizardry.item.ItemArtefact;
-import electroblob.wizardry.item.ItemWizardArmour;
 import electroblob.wizardry.spell.ImbueWeapon;
 import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.EntityUtils;
@@ -46,7 +47,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.*;
@@ -107,13 +110,6 @@ public class IFSPServerEvents {
 					}
 				}
 			}
-/*			int level = arrow.getEntityData().getInteger(EnchantmentDragonbane.DRAGONBANE_KEY);
-			if (level > 0) {
-				float velocityMultiplier = 1f + level * EnchantmentDragonbane.DRAGONBANE_VELOCITY_INCREASE;
-				arrow.motionX *= velocityMultiplier;
-				arrow.motionY *= velocityMultiplier;
-				arrow.motionZ *= velocityMultiplier;
-			}*/
 		}
 	}
 
@@ -235,15 +231,24 @@ public class IFSPServerEvents {
 				}
 			}
 		}
+		//For attacks against EntityLivingBase
 		//For attacks from EntityLivingBase
 		if (source.getTrueSource() instanceof EntityLivingBase) {
 			EntityLivingBase attacker = (EntityLivingBase)source.getTrueSource();
-			ItemStack sword = attacker.getHeldItemMainhand();
-			if (ImbueWeapon.isSword(sword)) {
-				int level = EnchantmentHelper.getEnchantmentLevel(IFSPEnchantments.SILVER_LINING, sword);
-				if (level > 0) {
-					if (entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
-						damage *= 1 + (level * EnchantmentSilverLining.DAMAGE_INCREASE);
+			//Allure bonus damage from Lover's Heart
+			PotionEffect potion = attacker.getActivePotionEffect(IFSPPotions.ALLURE);
+			if (potion != null) {
+				damage *= ItemCharmLoversHeart.damageMultiplier(potion.getAmplifier());
+			}
+			if (EntityUtils.isMeleeDamage(source)) {
+				ItemStack sword = attacker.getHeldItemMainhand();
+				if (ImbueWeapon.isSword(sword)) {
+					int level = EnchantmentHelper.getEnchantmentLevel(IFSPEnchantments.SILVER_LINING, sword);
+					if (level > 0) {
+						if (entity instanceof IDreadMob) {
+							damage *= 1 + (level * EnchantmentSilverLining.DAMAGE_INCREASE);
+							entity.setFire(EnchantmentSilverLining.BURN_TIME);
+						}
 					}
 				}
 			}
@@ -269,7 +274,7 @@ public class IFSPServerEvents {
 				}
 			}
 		}
-
+		//set the damage value after all the calculations
 		event.setAmount(damage);
 	}
 
@@ -329,6 +334,54 @@ public class IFSPServerEvents {
 		if (properties != null && properties.isStone && entity instanceof ISummonedCreature) {
 			entity.playSound(SoundEvents.BLOCK_STONE_BREAK, 1, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 0.5F);
 			entity.setDead();
+		}
+		//Allure potion effect
+		if (entity.isPotionActive(IFSPPotions.ALLURE)) {
+			UUID uuid = entity.getEntityData().getUniqueId(PotionAllure.UUID_KEY);
+			if (uuid != null) {
+				Entity allurer = EntityUtils.getEntityByUUID(world, uuid);
+				if (allurer == null) {
+					entity.removePotionEffect(IFSPPotions.ALLURE);
+				} else {
+					if (!(allurer instanceof EntityLivingBase)) {
+						entity.removePotionEffect(IFSPPotions.ALLURE);
+					} else {
+						if (entity.isRiding()) {
+							entity.dismountRidingEntity();
+						}
+						if (entity.collidedHorizontally) {
+							if (entity.onGround) {
+								if (entity instanceof EntityPlayer) {
+									((EntityPlayer) entity).jump();
+								} else if (entity instanceof EntityLiving) {
+									((EntityLiving) entity).getJumpHelper().setJumping();
+								}
+							}
+						}
+						double d0 = allurer.posX - entity.posX;
+						double d1 = allurer.posY - entity.posY;
+						double d2 = allurer.posZ - entity.posZ;
+						entity.motionX += (Math.signum(d0) * 0.5D - entity.motionX) * 0.100000000372529;
+						entity.motionY += (Math.signum(d1) * 0.5D - entity.motionY) * 0.100000000372529;
+						entity.motionZ += (Math.signum(d2) * 0.5D - entity.motionZ) * 0.100000000372529;
+						if (entity.isRiding()) {
+							entity.dismountRidingEntity();
+						}
+						double d3 = MathHelper.sqrt(d0 * d0 + d2 * d2);
+						float f = (float) (MathHelper.atan2(d2, d0) * (180D / Math.PI)) - 90.0F;
+						float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
+						if (!(entity instanceof EntityPlayer)) {
+							entity.rotationPitch = ServerEvents.updateRotation(entity.rotationPitch, f1, 30F);
+							entity.rotationYaw = ServerEvents.updateRotation(entity.rotationYaw, f, 30F);
+						}
+						if (world.rand.nextInt(7) == 0) {
+							for (int i = 0; i < 5; i++) {
+								event.getEntityLiving().world.spawnParticle(EnumParticleTypes.HEART, event.getEntityLiving().posX + ((world.rand.nextDouble() - 0.5D) * 3), event.getEntityLiving().posY + ((world.rand.nextDouble() - 0.5D) * 3), event.getEntityLiving().posZ + ((world.rand.nextDouble() - 0.5D) * 3), 0, 0, 0);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 

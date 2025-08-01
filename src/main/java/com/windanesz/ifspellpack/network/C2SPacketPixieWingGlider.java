@@ -33,23 +33,15 @@ public class C2SPacketPixieWingGlider implements IMessageHandler<C2SPacketPixieW
 
 	public static class Message implements IMessage {
 
-		private boolean active;
-
 		public Message(){
-		}
-
-		public Message(boolean active){
-			this.active = active;
 		}
 
 		@Override
 		public void fromBytes(ByteBuf buf){
-			this.active = buf.readBoolean();
 		}
 
 		@Override
 		public void toBytes(ByteBuf buf){
-			buf.writeBoolean(this.active);
 		}
 	}
 }

@@ -7,7 +7,6 @@
     "MixinEntity",
     "MixinEntityDragon",
     "MixinEntityLivingBase",
-    "MixinEntityPlayer",
-    "MixinItemArrow"
+    "MixinEntityPlayer"
   ]
 }

@@ -9,12 +9,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import javax.annotation.Nonnull;
-
 @GameRegistry.ObjectHolder(IFSpellPack.MODID)
 @Mod.EventBusSubscriber
 public class IFSPPotions {
 
+	public static final Potion ALLURE = new PotionAllure();
 	public static final Potion DRAGONHIDE = new PotionDragonhide();
 	public static final Potion DRAGONREND = new PotionDragonrend();
 	public static final Potion MYRMEX_BLESSING = new PotionMyrmexBlessing();
@@ -23,12 +22,6 @@ public class IFSPPotions {
 	public static final Potion TROLL_SKIN = new PotionTrollSkin();
 
 	private IFSPPotions() {
-	}
-
-	@Nonnull
-	@SuppressWarnings("ConstantConditions")
-	private static <T> T placeholder() {
-		return null;
 	}
 
 	public static void registerPotion(IForgeRegistry<Potion> registry, String name, Potion potion) {
@@ -41,6 +34,7 @@ public class IFSPPotions {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Potion> event) {
 		IForgeRegistry<Potion> registry = event.getRegistry();
+		registerPotion(registry, "allure", ALLURE);
 		registerPotion(registry, "dragonhide", DRAGONHIDE);
 		registerPotion(registry, "dragonrend", DRAGONREND);
 		registerPotion(registry, "myrmex_blessing", MYRMEX_BLESSING);

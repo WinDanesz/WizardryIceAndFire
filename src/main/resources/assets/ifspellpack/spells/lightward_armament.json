@@ -12,14 +12,11 @@
   },
   "tier": "advanced",
   "element": "healing",
-  "type": "buff",
-  "cost": 60,
+  "type": "utility",
+  "cost": 50,
   "chargeup": 10,
-  "cooldown": 150,
+  "cooldown": 50,
   "base_properties": {
-    "effect_radius": 30,
-    "effect_duration": 900,
-    "effect_strength": 0,
-    "stat_scale": 1
+    "item_lifetime": 1800
   }
 }

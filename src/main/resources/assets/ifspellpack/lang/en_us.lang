@@ -19,6 +19,10 @@ enchantment.ifspellpack:silver_lining=Silver Lining
 
 # Entity
 
+        # Construct
+
+entity.ifspellpack:dread_army.name=Dread Army
+
         # Living
 
 entity.ifspellpack:dread_beast_minion.name=Dread Beast
@@ -75,6 +79,8 @@ item.ifspellpack:charm_enchanted_manuscript.name=Enchanted Manuscript
 item.ifspellpack:charm_enchanted_manuscript.desc=Your spells are 20%% more potent. Charge this with manuscripts to activate it.
 item.ifspellpack:charm_fracture_catalyst.name=Fracture Catalyst
 item.ifspellpack:charm_fracture_catalyst.desc=Statue explosions cause nearby statues to explode.
+item.ifspellpack:charm_lover_heart.name=Lover's Heart
+item.ifspellpack:charm_lover_heart.desc=Creatures allured to you deal less damage to you.
 item.ifspellpack:charm_regenerating_head.name=Regenerating Head
 item.ifspellpack:charm_regenerating_head.desc=Prevents death and provides regeneration, increasing the lower the player's health. Charge this with hydra hearts to activate it.
 item.ifspellpack:charm_sour_candy.name=Sour Candy
@@ -108,6 +114,7 @@ itemGroup.ifspellpack=Wizardry Ice And Fire
 
 # Potion
 
+potion.ifspellpack:allure=Allure
 potion.ifspellpack:dragonhide=Dragonhide
 potion.ifspellpack:dragonrend=Dragonrend
 potion.ifspellpack:myrmex_blessing=Myrmex Blessing
@@ -117,6 +124,8 @@ potion.ifspellpack:troll_skin=Troll Skin
 
 # Spell
 
+spell.ifspellpack:allure=Allure
+spell.ifspellpack:allure.desc=Allure a target to you.
 spell.ifspellpack:call_beast=Call Beast
 spell.ifspellpack:call_beast.add=Added %1$s to your stored beasts.
 spell.ifspellpack:call_beast.already_stored=You already have %1$s stored.
@@ -149,6 +158,8 @@ spell.ifspellpack:dragonhide=Dragonhide
 spell.ifspellpack:dragonhide.desc=Thicken your skin to that of a dragon, increasing your minimum armor value.
 spell.ifspellpack:dragonrend=Dragonrend
 spell.ifspellpack:dragonrend.desc=Temporarily cripple a dragon, forcing it to the ground.
+spell.ifspellpack:dread_army=Army of the Dread
+spell.ifspellpack:dread_army.desc=And you thought zombies were scary...
 spell.ifspellpack:dread_lich_skull=Dread Lich Skull
 spell.ifspellpack:dread_lich_skull.desc=Fire a dread lich skull projectile that seeks enemies.
 spell.ifspellpack:explode_statue=Explode Statue
@@ -159,6 +170,8 @@ spell.ifspellpack:hydra_pulse=Hydra Pulse
 spell.ifspellpack:hydra_pulse.desc=You will feel as though you have regrown a head!
 spell.ifspellpack:hydra_breath=Hydra Breath
 spell.ifspellpack:hydra_breath.desc=Spew venomous breath, damage and poisoning targets hit.
+spell.ifspellpack:lightward_armament=Lightward Armament
+spell.ifspellpack:lightward_armament.desc=Conjure a lightward hammer that deals increased damage to dread creatures and ignites them and lightward armor that reduces damage from dread creatures. They last 90 seconds.
 spell.ifspellpack:live_wire=Live Wire
 spell.ifspellpack:live_wire.desc=Deal constant shock damage to all targets chained to you.
 spell.ifspellpack:myrmex_blessing=Myrmex Blessing
@@ -173,6 +186,8 @@ spell.ifspellpack:sea_serpent_fury=Sea Serpent Fury
 spell.ifspellpack:sea_serpent_fury.desc=Lash out around you, dealing your attack damage to and knocking back all enemies while underwater.
 spell.ifspellpack:sentinel_shell=Sentinel Shell
 spell.ifspellpack:sentinel_shell.desc=Change your skin to blend in with the environment, reducing visibility.
+spell.ifspellpack:serpent_slayer=Serpent Slayer
+spell.ifspellpack:serpent_slayer.desc=Launch a trident that deals bonus damage to snake creatures and ignites them.
 spell.ifspellpack:shackles=Shackles
 spell.ifspellpack:shackles.desc=Chain your target to yourself.
 spell.ifspellpack:stymphalian_barrage=Stymphalian Barrage
@@ -180,9 +195,11 @@ spell.ifspellpack:stymphalian_barrage.desc=Fire a series of stymphalian feathers
 spell.ifspellpack:stymphalian_storm=Stymphalian Storm
 spell.ifspellpack:stymphalian_storm.desc=Fire a series of stymphalian feathers radially around you.
 spell.ifspellpack:silver_lining=Silver Lining
-spell.ifspellpack:silver_lining.desc=Imbue your sword to deal 25%% more damage per level to undead creatures.
+spell.ifspellpack:silver_lining.desc=Imbue your sword to deal 25%% more damage per level to dread creatures and ignite them for 5 seconds.
 spell.ifspellpack:silver_wind=Silver Wind
 spell.ifspellpack:silver_wind.desc=Fire a silver-infused gust in a cone, damaging and burning undead.
+spell.ifspellpack:siren_song=Siren Song
+spell.ifspellpack:siren_song.desc=You would have to be tied to a mast to resist this song.
 spell.ifspellpack:summon_dread_ghoul=Summon Dread Ghoul
 spell.ifspellpack:summon_dread_ghoul.desc=Summons a dread ghoul to fight for you. The dread ghoul will disappear after 30 seconds or if it is killed.
 spell.ifspellpack:summon_dread_horse=Summon Dread Horse

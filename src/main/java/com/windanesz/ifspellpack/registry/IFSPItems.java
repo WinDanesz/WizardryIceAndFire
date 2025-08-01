@@ -36,6 +36,7 @@ public final class IFSPItems {
 	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_ENCHANTED_MANUSCRIPT = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.CHARM, 10000, Arrays.asList(new Item[] {IafItemRegistry.manuscript}), 100, 0);
 	public static final Item CHARM_FRACTURE_CATALYST = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
+	public static final Item CHARM_LOVER_HEART = new ItemCharmLoversHeart();
 	public static final Item CHARM_REGENERATING_HEAD = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 3, Arrays.asList(new Item[] {IafItemRegistry.hydra_heart}), 2, 1);
 	public static final Item CHARM_SOUR_CANDY = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
@@ -78,6 +79,7 @@ public final class IFSPItems {
 		ItemRegistry.registerItemArtefact(registry, "charm_dwarven_gearbox", IFSpellPack.MODID, CHARM_DWARVEN_GEARBOX);
 		ItemRegistry.registerItem(registry, "charm_enchanted_manuscript", IFSpellPack.MODID, CHARM_ENCHANTED_MANUSCRIPT);
 		ItemRegistry.registerItemArtefact(registry, "charm_fracture_catalyst", IFSpellPack.MODID, CHARM_FRACTURE_CATALYST);
+		ItemRegistry.registerItemArtefact(registry, "charm_lover_heart", IFSpellPack.MODID, CHARM_LOVER_HEART);
 		ItemRegistry.registerItem(registry, "charm_regenerating_head", IFSpellPack.MODID, CHARM_REGENERATING_HEAD);
 		ItemRegistry.registerItemArtefact(registry, "charm_sour_candy", IFSpellPack.MODID, CHARM_SOUR_CANDY);
 		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);

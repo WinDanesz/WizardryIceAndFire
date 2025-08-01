@@ -1,18 +1,20 @@
 package com.windanesz.ifspellpack.client;
 
-import com.github.alexthe666.iceandfire.client.model.ModelMyrmexRoyal;
-import com.github.alexthe666.iceandfire.client.model.ModelMyrmexSentinel;
-import com.github.alexthe666.iceandfire.client.model.ModelMyrmexSoldier;
-import com.github.alexthe666.iceandfire.client.model.ModelMyrmexWorker;
+import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.model.*;
 import com.github.alexthe666.iceandfire.client.render.entity.*;
 import com.github.alexthe666.iceandfire.entity.EntityDreadBeast;
 import com.github.alexthe666.iceandfire.entity.EntityDreadHorse;
 import com.windanesz.ifspellpack.CommonProxy;
+import com.windanesz.ifspellpack.client.particle.ParticleAllureAppearance;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhide;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhideNext;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerSentinelShell;
+import com.windanesz.ifspellpack.entity.construct.EntityDreadArmy;
 import com.windanesz.ifspellpack.entity.living.*;
 import com.windanesz.ifspellpack.entity.projectile.*;
+import com.windanesz.ifspellpack.registry.IFSPParticles;
+import electroblob.wizardry.client.particle.ParticleWizardry;
 import electroblob.wizardry.client.renderer.entity.layers.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,11 +36,19 @@ public class ClientProxy extends CommonProxy {
 		LayerTiledOverlay.initialiseLayers(LayerSentinelShell::new);
 	}
 
+	@Override
+	public void registerParticles() {
+		ParticleWizardry.registerParticle(IFSPParticles.ALLURE_APPEARANCE, ParticleAllureAppearance::new);
+	}
+
 	/**
 	 * Called from preInit() in the main mod class to initialise the renderers.
 	 */
 	@Override
 	public void registerRenderers() {
+
+		//construct
+		RenderingRegistry.registerEntityRenderingHandler(EntityDreadArmy.class, RenderNothing::new);
 
 		//living
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadBeastMinion.class, RenderDreadBeast::new);
@@ -52,6 +62,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMyrmexSwarmerMinion.class, manager -> new RenderMyrmexBase(manager, new ModelMyrmexRoyal(), 0.25F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMyrmexWorkerMinion.class, manager -> new RenderMyrmexBase(manager, new ModelMyrmexWorker(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixieMinion.class, RenderPixie::new);
+		//RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalDragon.class, manager -> new RenderDragonBase(manager);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrollMinion.class, RenderTroll::new);
 
 		//projectile

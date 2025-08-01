@@ -44,15 +44,12 @@ public class IFSpellPack {
 		logger = event.getModLog();
 		settings = new Settings();
 		proxy.registerRenderers();
-
 		// Loot
 		IFSPLoot.preInit();
-
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-
 		MinecraftForge.EVENT_BUS.register(instance);
 		proxy.registerParticles();
 		proxy.init();

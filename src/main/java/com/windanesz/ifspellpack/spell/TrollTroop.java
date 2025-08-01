@@ -64,7 +64,6 @@ public class TrollTroop extends SpellMinionIFSP<EntityTrollMinion> {
         minion.setWeaponType(EnumTroll.getWeaponForType(minion.getType()));
         if (caster instanceof EntityPlayer && ItemArtefact.isArtefactActive((EntityPlayer)caster, IFSPItems.CHARM_STONEBREAKER_SIGIL)) {
             ((AccessorEntityTroll)minion).ifspellpack$setSunlightImmune(true);
-            //minion.setSunlightImmune(true);
         }
     }
 

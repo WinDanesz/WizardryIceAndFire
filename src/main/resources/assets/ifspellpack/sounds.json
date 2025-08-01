@@ -1,4 +1,5 @@
 {
+  "spell.allure":                    {"category": "spells", "sounds": ["iceandfire:mermaid_idle_1"]},
   "spell.call_beast":                {"category": "spells", "sounds": ["ifspellpack:whistle1", "ifspellpack:whistle2"]},
   "spell.consume_statue.start":      {"category": "spells", "sounds": ["ebwizardry:small_aura_start"]},
   "spell.consume_statue.loop":       {"category": "spells", "sounds": ["ebwizardry:small_aura_loop"]},
@@ -22,6 +23,7 @@
   "spell.shackles":                  {"category": "spells", "sounds": ["item/armor/equip_chain1", "item/armor/equip_chain2", "item/armor/equip_chain3", "item/armor/equip_chain4", "item/armor/equip_chain5"]},
   "spell.silver_lining":             {"category": "spells", "sounds": ["ebwizardry:buff"]},
   "spell.silver_wind":               {"category": "spells", "sounds": ["mob/horse/breathe2"]},
+  "spell.siren_song":                {"category": "spells", "sounds": ["iceandfire:mermaid_idle_2", "iceandfire:mermaid_idle_3", "iceandfire:mermaid_idle_4"]},
   "spell.stymphalian_barrage":       {"category": "spells", "sounds": ["random/bow"]},
   "spell.stymphalian_storm":         {"category": "spells", "sounds": ["random/bow"]},
   "spell.tide_guardian":             {"category": "spells", "sounds": ["iceandfire:sea_serpent_roar"]},

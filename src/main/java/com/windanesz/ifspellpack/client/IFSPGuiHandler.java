@@ -17,9 +17,6 @@ public class IFSPGuiHandler implements IGuiHandler {
 	 */
 	private static int nextGuiId = 0;
 
-	public static final int CALL_BEAST = nextGuiId++;
-
-
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		return null;

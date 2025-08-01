@@ -7,19 +7,19 @@
     "dispensers": true,
     "commands": true,
     "treasure": true,
-	"trades": true,
+    "trades": true,
     "looting": true
   },
   "tier": "advanced",
-  "element": "healing",
-  "type": "buff",
-  "cost": 60,
-  "chargeup": 10,
-  "cooldown": 150,
+  "element": "earth",
+  "type": "attack",
+  "cost": 20,
+  "chargeup": 5,
+  "cooldown": 20,
   "base_properties": {
-    "effect_radius": 30,
-    "effect_duration": 900,
-    "effect_strength": 0,
-    "stat_scale": 1
+    "damage": 6,
+    "duration": 5,
+    "damage_multiplier": 1.5,
+    "velocity": 3
   }
-}
+} 

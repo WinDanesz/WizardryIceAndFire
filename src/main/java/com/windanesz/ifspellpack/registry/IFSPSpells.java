@@ -55,6 +55,11 @@ public final class IFSPSpells {
 	public static final Spell SEA_SERPENT_FURY = new SeaSerpentFury();
 	public static final Spell LIVE_WIRE = new LiveWire();
 	public static final Spell CALL_BEAST = new CallBeast();
+	public static final Spell SERPENT_SLAYER = new SerpentSlayer();
+	public static final Spell LIGHTWARD_ARMAMENT = new LightwardArmament();
+	public static final Spell DREAD_ARMY = new DreadArmy();
+	public static final Spell ALLURE = new Allure();
+	public static final Spell SIREN_SONG = new SirenSong();
 
 	private IFSPSpells() {
 	} // no instances
@@ -105,5 +110,10 @@ public final class IFSPSpells {
 		registry.register(SEA_SERPENT_FURY);
 		registry.register(LIVE_WIRE);
 		registry.register(CALL_BEAST);
+		registry.register(SERPENT_SLAYER);
+		registry.register(LIGHTWARD_ARMAMENT);
+		registry.register(DREAD_ARMY);
+		registry.register(ALLURE);
+		registry.register(SIREN_SONG);
 	}
 }
