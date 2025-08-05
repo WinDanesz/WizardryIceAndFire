@@ -245,8 +245,7 @@ public class IFSPServerEvents {
 				if (ImbueWeapon.isSword(sword)) {
 					int level = EnchantmentHelper.getEnchantmentLevel(IFSPEnchantments.SILVER_LINING, sword);
 					if (level > 0) {
-						if (entity instanceof IDreadMob) {
-							damage *= 1 + (level * EnchantmentSilverLining.DAMAGE_INCREASE);
+						if (entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
 							entity.setFire(EnchantmentSilverLining.BURN_TIME);
 						}
 					}

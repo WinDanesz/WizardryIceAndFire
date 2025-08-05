@@ -43,8 +43,8 @@ public class LightwardArmament extends SpellConjuration {
 				flag = true;
 			}
 		}
-		boolean flag2 = super.conjureItem(caster, modifiers);
-		return flag || flag2;
+		//Using 1 | is necessary as the super should be checked even if flag is true
+		return flag | super.conjureItem(caster, modifiers);
 	}
 
 }

@@ -2,7 +2,7 @@ package com.windanesz.ifspellpack;
 
 import com.windanesz.ifspellpack.client.IFSPGuiHandler;
 import com.windanesz.ifspellpack.command.CommandSchoolInfo;
-import com.windanesz.ifspellpack.network.IFSPPacketHandler;
+import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.registry.IFSPLoot;
 import com.windanesz.ifspellpack.registry.IFSPVillagerProfessions;
 import com.windanesz.ifspellpack.school.School;
@@ -53,7 +53,7 @@ public class IFSpellPack {
 		MinecraftForge.EVENT_BUS.register(instance);
 		proxy.registerParticles();
 		proxy.init();
-		IFSPPacketHandler.initPackets();
+		IFSPPackets.initPackets();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new IFSPGuiHandler());
 	}
 

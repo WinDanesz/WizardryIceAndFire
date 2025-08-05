@@ -4,12 +4,11 @@ import baubles.api.BaublesApi;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.item.ItemChargedArtefact;
-import com.windanesz.ifspellpack.network.IFSPPacketHandler;
+import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.network.C2SPacketPixieWingGlider;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import com.windanesz.ifspellpack.registry.IFSPParticles;
 import com.windanesz.ifspellpack.registry.IFSPPotions;
-import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.registry.Spells;
 import electroblob.wizardry.util.ParticleBuilder;
@@ -40,7 +39,7 @@ public class IFSPClientEvents {
 		if (event.getMovementInput().jump && ItemArtefact.isArtefactActive(player, IFSPItems.BODY_PIXIE_WING_GLIDER)) {
 			if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5))) {
 				IMessage msg = new C2SPacketPixieWingGlider.Message();
-				IFSPPacketHandler.net.sendToServer(msg);
+				IFSPPackets.net.sendToServer(msg);
 				Spells.glide.cast(player.world, player, EnumHand.MAIN_HAND, player.ticksExisted, new SpellModifiers());
 			}
 		}

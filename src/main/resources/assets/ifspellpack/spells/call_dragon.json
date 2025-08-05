@@ -11,16 +11,12 @@
     "looting": true
   },
   "tier": "master",
-  "element": "necromancy",
-  "type": "construct",
-  "cost": 500,
-  "chargeup": 25,
-  "cooldown": 900,
+  "element": "earth",
+  "type": "utility",
+  "cost": 50,
+  "chargeup": 10,
+  "cooldown": 60,
   "base_properties": {
-    "minion_count": 8,
-    "minion_lifetime": 600,
-    "summon_radius": 3,
-    "minion_spawn_interval": 10,
-    "stat_scale": 1
+    "range": 32
   }
 } 

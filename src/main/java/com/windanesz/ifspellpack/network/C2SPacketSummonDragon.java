@@ -1,7 +1,7 @@
 package com.windanesz.ifspellpack.network;
 
 import com.windanesz.ifspellpack.IFSpellPack;
-import com.windanesz.ifspellpack.spell.CallBeast;
+import com.windanesz.ifspellpack.spell.CallDragon;
 import com.windanesz.ifspellpack.world.EntityPosData;
 import electroblob.wizardry.data.WizardData;
 import io.netty.buffer.ByteBuf;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import java.util.Map;
 import java.util.UUID;
 
-public class C2SPacketSummonBeast implements IMessageHandler<C2SPacketSummonBeast.Message, IMessage> {
+public class C2SPacketSummonDragon implements IMessageHandler<C2SPacketSummonDragon.Message, IMessage> {
 
 	@Override
 	public IMessage onMessage(Message message, MessageContext ctx){
@@ -28,7 +28,7 @@ public class C2SPacketSummonBeast implements IMessageHandler<C2SPacketSummonBeas
 			player.getServerWorld().addScheduledTask(() -> {
 				WizardData wizardData = WizardData.get(player);
 				if (wizardData != null) {
-					Map<Integer, String> mounts = wizardData.getVariable(CallBeast.MOUNTS);
+					Map<Integer, String> mounts = wizardData.getVariable(CallDragon.MOUNTS);
 					if (mounts != null) {
 						UUID uuid = null;
 						for (Map.Entry<Integer, String> entry : mounts.entrySet()) {
@@ -45,25 +45,25 @@ public class C2SPacketSummonBeast implements IMessageHandler<C2SPacketSummonBeas
 							World world = player.world;
 							Entity entity = world.getMinecraftServer().getEntityFromUuid(uuid);
 							if (entity != null) {
-								if (!CallBeast.summonBeast(player, entity)) {
-									player.sendStatusMessage(new TextComponentTranslation("spell.ifspellpack:call_beast.no_space", entity.getDisplayName()), true);
+								if (!CallDragon.summonDragon(player, entity)) {
+									player.sendStatusMessage(new TextComponentTranslation("spell.ifspellpack:call_dragon.no_space", entity.getDisplayName()), true);
 								}
 							} else {
 								EntityPosData entityPosData = EntityPosData.get(world);
 								if (entityPosData != null) {
 									BlockPos pos = entityPosData.getEntityPos(uuid);
 									if (pos == null) {
-										mounts.put(message.type, CallBeast.DEAD);
-										wizardData.setVariable(CallBeast.MOUNTS, mounts);
-										player.sendStatusMessage(new TextComponentTranslation("spell.ifspellpack:call_beast.dead"), true);
+										mounts.put(message.type, CallDragon.DEAD);
+										wizardData.setVariable(CallDragon.MOUNTS, mounts);
+										player.sendStatusMessage(new TextComponentTranslation("spell.ifspellpack:call_dragon.dead"), true);
 									} else {
 										ForgeChunkManager.Ticket ticket = ForgeChunkManager.requestPlayerTicket(IFSpellPack.instance, player.getName(), world, ForgeChunkManager.Type.NORMAL);
 										ForgeChunkManager.forceChunk(ticket, new ChunkPos(pos));
 										entity = world.getMinecraftServer().getEntityFromUuid(uuid);
 										if (entity != null) {
-											if (!CallBeast.summonBeast(player, entity)) {
+											if (!CallDragon.summonDragon(player, entity)) {
 												ForgeChunkManager.releaseTicket(ticket);
-												player.sendStatusMessage(new TextComponentTranslation("spell.ifspellpack:call_beast.no_space", entity.getDisplayName()), true);
+												player.sendStatusMessage(new TextComponentTranslation("spell.ifspellpack:call_dragon.no_space", entity.getDisplayName()), true);
 											} else {
 												ForgeChunkManager.releaseTicket(ticket);
 											}

@@ -10,17 +10,13 @@
     "trades": true,
     "looting": true
   },
-  "tier": "master",
+  "tier": "advanced",
   "element": "necromancy",
-  "type": "construct",
-  "cost": 500,
-  "chargeup": 25,
-  "cooldown": 900,
+  "type": "alteration",
+  "cost": 50,
+  "chargeup": 20,
+  "cooldown": 50,
   "base_properties": {
-    "minion_count": 8,
-    "minion_lifetime": 600,
-    "summon_radius": 3,
-    "minion_spawn_interval": 10,
-    "stat_scale": 1
+    "range": 5
   }
-} 
+}

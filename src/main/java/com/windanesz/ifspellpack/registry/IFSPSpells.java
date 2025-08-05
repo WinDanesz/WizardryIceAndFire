@@ -60,14 +60,17 @@ public final class IFSPSpells {
 	public static final Spell DREAD_ARMY = new DreadArmy();
 	public static final Spell ALLURE = new Allure();
 	public static final Spell SIREN_SONG = new SirenSong();
+	public static final Spell DREAD_HOWL = new DreadHowl();
+	public static final Spell DREAD_COMPANIONS = new DreadCompanions();
+	public static final Spell CALL_DRAGON = new CallDragon();
 
 	private IFSPSpells() {
 	} // no instances
 
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Spell> event) {
-
 		IForgeRegistry<Spell> registry = event.getRegistry();
+
 		registry.register(TROLL_TROOP);
 		registry.register(HYDRA_PULSE);
 		registry.register(TIDE_GUARDIAN);
@@ -115,5 +118,8 @@ public final class IFSPSpells {
 		registry.register(DREAD_ARMY);
 		registry.register(ALLURE);
 		registry.register(SIREN_SONG);
+		registry.register(DREAD_HOWL);
+		registry.register(DREAD_COMPANIONS);
+		registry.register(CALL_DRAGON);
 	}
 }

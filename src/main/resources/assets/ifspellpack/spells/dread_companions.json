@@ -12,15 +12,14 @@
   },
   "tier": "master",
   "element": "necromancy",
-  "type": "construct",
-  "cost": 500,
-  "chargeup": 25,
-  "cooldown": 900,
+  "type": "minion",
+  "cost": 80,
+  "chargeup": 20,
+  "cooldown": 300,
   "base_properties": {
-    "minion_count": 8,
     "minion_lifetime": 600,
+    "minion_count": 2,
     "summon_radius": 3,
-    "minion_spawn_interval": 10,
     "stat_scale": 1
   }
-} 
+}

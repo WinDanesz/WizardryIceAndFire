@@ -7,6 +7,7 @@
     "MixinEntity",
     "MixinEntityDragon",
     "MixinEntityLivingBase",
-    "MixinEntityPlayer"
+    "MixinEntityPlayer",
+    "MixinEntityTameable"
   ]
 }

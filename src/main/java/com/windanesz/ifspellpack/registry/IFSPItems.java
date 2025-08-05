@@ -40,6 +40,7 @@ public final class IFSPItems {
 	public static final Item CHARM_REGENERATING_HEAD = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 3, Arrays.asList(new Item[] {IafItemRegistry.hydra_heart}), 2, 1);
 	public static final Item CHARM_SOUR_CANDY = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
+	public static final Item CHARM_TRICHOMATIC_CRYSTAL = new ItemArtefactIFSP(EnumRarity.EPIC, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_VOLATILE_RESIN = new ItemCharmVolatileResin();
 	public static final Item CHARM_WILDCALLER_WHISTLE = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
 	public static final Item HEAD_COCKATRICE_COMB = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 1000, Arrays.asList(new Item[] {IafItemRegistry.cockatrice_eye}), 1000, 1);
@@ -83,6 +84,7 @@ public final class IFSPItems {
 		ItemRegistry.registerItem(registry, "charm_regenerating_head", IFSpellPack.MODID, CHARM_REGENERATING_HEAD);
 		ItemRegistry.registerItemArtefact(registry, "charm_sour_candy", IFSpellPack.MODID, CHARM_SOUR_CANDY);
 		ItemRegistry.registerItemArtefact(registry, "charm_stonebreaker_sigil", IFSpellPack.MODID, CHARM_STONEBREAKER_SIGIL);
+		ItemRegistry.registerItem(registry, "charm_trichromatic_crystal", IFSpellPack.MODID, CHARM_TRICHOMATIC_CRYSTAL);
 		ItemRegistry.registerItem(registry, "charm_volatile_resin", IFSpellPack.MODID, CHARM_VOLATILE_RESIN);
 		ItemRegistry.registerItemArtefact(registry, "charm_wildcaller_whistle", IFSpellPack.MODID, CHARM_WILDCALLER_WHISTLE);
 		ItemRegistry.registerItem(registry, "head_cockatrice_comb", IFSpellPack.MODID, HEAD_COCKATRICE_COMB);

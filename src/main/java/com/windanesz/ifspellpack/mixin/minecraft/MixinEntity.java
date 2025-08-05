@@ -1,10 +1,9 @@
 package com.windanesz.ifspellpack.mixin.minecraft;
 
-import com.windanesz.ifspellpack.spell.CallBeast;
-import com.windanesz.ifspellpack.world.BeastPosData;
+import com.windanesz.ifspellpack.accessor.AccessorEntityTameable;
+import com.windanesz.ifspellpack.world.EntityPosData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,8 +21,8 @@ public class MixinEntity {
 		Entity entity = (Entity)(Object)this;
 		if (entity instanceof EntityTameable) {
 			EntityTameable entityTameable = (EntityTameable)entity;
-			if (CallBeast.isAcceptableBeast(entityTameable) && entityTameable.getOwner() instanceof EntityPlayer && !entity.isDead) {
-				BeastPosData.get(entity.world).addBeast(entityTameable.getUniqueID(), entityTameable.getPosition());
+			if (((AccessorEntityTameable)entityTameable).ifspellpack$shouldSavePos() && !entity.isDead) {
+				EntityPosData.get(entity.world).addEntity(entityTameable.getUniqueID(), entityTameable.getPosition());
 			}
 		}
 	}
@@ -33,8 +32,8 @@ public class MixinEntity {
 		Entity entity = (Entity)(Object)this;
 		if (entity instanceof EntityTameable) {
 			EntityTameable entityTameable = (EntityTameable)entity;
-			if (CallBeast.isAcceptableBeast(entityTameable) && entityTameable.getOwner() instanceof EntityPlayer) {
-				BeastPosData.get(entity.world).removeBeast(entity.getUniqueID());
+			if (((AccessorEntityTameable)entityTameable).ifspellpack$shouldSavePos()) {
+				EntityPosData.get(entity.world).removeEntity(entity.getUniqueID());
 			}
 		}
 	}

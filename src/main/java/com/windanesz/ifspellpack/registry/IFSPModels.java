@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.model;
+package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
 import electroblob.wizardry.item.IMultiTexturedItem;

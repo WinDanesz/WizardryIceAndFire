@@ -17,7 +17,6 @@
   "chargeup": 10,
   "cooldown": 100,
   "base_properties": {
-    "effect_scale": 1,
     "sentinel_shell_duration": 600,
     "sentinel_shell_strength": 0
   }

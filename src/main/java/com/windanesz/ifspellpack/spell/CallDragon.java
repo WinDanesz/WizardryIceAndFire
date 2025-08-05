@@ -1,12 +1,10 @@
 package com.windanesz.ifspellpack.spell;
 
-import com.github.alexthe666.iceandfire.entity.EntityAmphithere;
-import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
-import com.github.alexthe666.iceandfire.entity.EntityHippogryph;
+import com.github.alexthe666.iceandfire.entity.*;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.accessor.AccessorEntityTameable;
-import com.windanesz.ifspellpack.network.S2CPacketCallBeast;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
+import com.windanesz.ifspellpack.network.S2CPacketCallDragon;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import com.windanesz.ifspellpack.world.EntityPosData;
 import electroblob.wizardry.data.IStoredVariable;
@@ -16,7 +14,10 @@ import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.item.SpellActions;
 import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.Spell;
-import electroblob.wizardry.util.*;
+import electroblob.wizardry.util.BlockUtils;
+import electroblob.wizardry.util.NBTExtras;
+import electroblob.wizardry.util.RayTracer;
+import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,16 +36,16 @@ import net.minecraftforge.common.ForgeChunkManager;
 
 import java.util.*;
 
-public class CallBeast extends Spell {
+public class CallDragon extends Spell {
 
-	public static final int AMPHITHERE = 0;
-	public static final int HIPPOGRYPH = 1;
-	public static final int HIPPOCAMPUS = 2;
+	public static final int FIRE_DRAGON = 0;
+	public static final int ICE_DRAGON = 1;
+	public static final int LIGHTNING_DRAGON = 2;
 	public static final String DEAD = "dead";
-	public static final IStoredVariable<Map<Integer, String>> MOUNTS = new IStoredVariable.StoredVariable<Map<Integer, String>, NBTTagList>("ifspellpack:storedBeasts", s -> NBTExtras.mapToNBT(s, NBTTagInt::new, NBTTagString::new), t -> new LinkedHashMap<>(NBTExtras.NBTToMap(t, NBTTagInt::getInt, NBTTagString::getString)), Persistence.ALWAYS).setSynced();
+	public static final IStoredVariable<Map<Integer, String>> MOUNTS = new IStoredVariable.StoredVariable<Map<Integer, String>, NBTTagList>("ifspellpack:storedDragons", s -> NBTExtras.mapToNBT(s, NBTTagInt::new, NBTTagString::new), t -> new LinkedHashMap<>(NBTExtras.NBTToMap(t, NBTTagInt::getInt, NBTTagString::getString)), Persistence.ALWAYS).setSynced();
 
-	public CallBeast() {
-		super(IFSpellPack.MODID, "call_beast", SpellActions.POINT_UP, false);
+	public CallDragon() {
+		super(IFSpellPack.MODID, "call_dragon", SpellActions.POINT_UP, false);
 		this.addProperties(RANGE);
 		WizardData.registerStoredVariables(MOUNTS);
 	}
@@ -54,7 +55,7 @@ public class CallBeast extends Spell {
 		if (!world.isRemote) {
 			WizardData wizardData = WizardData.get(caster);
 			if (wizardData != null) {
-				boolean artefact = ItemArtefact.isArtefactActive(caster, IFSPItems.CHARM_WILDCALLER_WHISTLE);
+				boolean artefact = ItemArtefact.isArtefactActive(caster, IFSPItems.CHARM_TRICHOMATIC_CRYSTAL);
 				Map<Integer, String> mounts = wizardData.getVariable(MOUNTS);
 				if (mounts == null) {
 					mounts = new LinkedHashMap<>();
@@ -68,8 +69,8 @@ public class CallBeast extends Spell {
 					Entity target = rayTrace.entityHit;
 					if (target instanceof EntityTameable) {
 						EntityTameable entityTameable = (EntityTameable)target;
-						if (isAcceptableBeast(entityTameable) && entityTameable.isTamed() && entityTameable.getOwner() == caster) {
-							int beastID = beastID(entityTameable);
+						if (isAcceptableDragon(entityTameable) && entityTameable.isTamed() && entityTameable.getOwner() == caster) {
+							int dragonID = dragonID(entityTameable);
 							UUID tameableUUID = entityTameable.getUniqueID();
 							if (mounts.containsValue(tameableUUID.toString())) {
 								if (artefact) {
@@ -90,25 +91,25 @@ public class CallBeast extends Spell {
 										caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".add", entityTameable.getDisplayName()), true);
 									}
 								}
-								replaceBeast(mounts, entityTameable.getUniqueID(), beastID);
+								replaceDragon(mounts, entityTameable.getUniqueID(), dragonID);
 								wizardData.setVariable(MOUNTS, mounts);
 								((AccessorEntityTameable)entityTameable).ifspellpack$setShouldSavePos(true);
 								return false;
 							}
-							if (!containsBeast(mounts, beastID)) {
-								mounts.put(beastID, tameableUUID.toString());
+							if (!containsDragon(mounts, dragonID)) {
+								mounts.put(dragonID, tameableUUID.toString());
 								if (artefact || mounts.isEmpty()) {
 									caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".add", entityTameable.getDisplayName()), true);
 								} else {
 									caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".replace", entityTameable.getDisplayName()), true);
 								}
 							} else {
-								if (mounts.get(beastID).equals(DEAD)) {
+								if (mounts.get(dragonID).equals(DEAD)) {
 									caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".add", entityTameable.getDisplayName()), true);
 								} else {
 									caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".replace", entityTameable.getDisplayName()), true);
 								}
-								replaceBeast(mounts, entityTameable.getUniqueID(), beastID);
+								replaceDragon(mounts, entityTameable.getUniqueID(), dragonID);
 							}
 							wizardData.setVariable(MOUNTS, mounts);
 							return false;
@@ -116,12 +117,12 @@ public class CallBeast extends Spell {
 					}
 				}
 				if (mounts.size() == 0) {
-					caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".no_beasts"), true);
+					caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".no_dragons"), true);
 				} else {
 					if (artefact) {
 						if (caster instanceof EntityPlayerMP) {
 							boolean[] enabledMounts = new boolean[]{false, false, false};
-							//Set valid beast types to true to display in the GUI
+							//Set valid dragon types to true to display in the GUI
 							for (Map.Entry<Integer, String> entry : mounts.entrySet()) {
 								String string = entry.getValue();
 								//Check if the String is a valid UUID
@@ -132,7 +133,7 @@ public class CallBeast extends Spell {
 									//Dont do anything if the String is not a UUID
 								}
 							}
-							IFSPPackets.net.sendTo(new S2CPacketCallBeast.Message(enabledMounts), (EntityPlayerMP) caster);
+							IFSPPackets.net.sendTo(new S2CPacketCallDragon.Message(enabledMounts), (EntityPlayerMP) caster);
 							this.playSound(world, caster, ticksInUse, -1, modifiers);
 							return true;
 						}
@@ -140,14 +141,14 @@ public class CallBeast extends Spell {
 						List<String> strings = new ArrayList<>(mounts.values());
 						//get the last mount's UUID String
 						String string = strings.get(strings.size() - 1);
-						List<Integer> beastIDs = new ArrayList<>(mounts.keySet());
-						int beastID = beastIDs.get(beastIDs.size() - 1);
+						List<Integer> dragonIDs = new ArrayList<>(mounts.keySet());
+						int dragonID = dragonIDs.get(dragonIDs.size() - 1);
 						//Check if the String is a valid UUID
 						if (stringIsUUID(string)) {
 							UUID uuid = UUID.fromString(string);
 							Entity entity = world.getMinecraftServer().getEntityFromUuid(uuid);
 							if (entity != null) {
-								if (summonBeast(caster, entity)) {
+								if (summonDragon(caster, entity)) {
 									this.playSound(world, caster, ticksInUse, -1, modifiers);
 									return true;
 								}
@@ -156,8 +157,8 @@ public class CallBeast extends Spell {
 								if (entityPosData != null) {
 									BlockPos pos = entityPosData.getEntityPos(uuid);
 									if (pos == null) {
-										//Put a non UUID String "dead" to indicate the beast is dead
-										mounts.put(beastID, DEAD);
+										//Put a non UUID String "dead" to indicate the dragon is dead
+										mounts.put(dragonID, DEAD);
 										wizardData.setVariable(MOUNTS, mounts);
 										caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".dead"), true);
 									} else {
@@ -165,7 +166,7 @@ public class CallBeast extends Spell {
 										ForgeChunkManager.forceChunk(ticket, new ChunkPos(pos));
 										entity = world.getMinecraftServer().getEntityFromUuid(uuid);
 										if (entity != null) {
-											if (!summonBeast(caster, entity)) {
+											if (!summonDragon(caster, entity)) {
 												ForgeChunkManager.releaseTicket(ticket);
 												caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".no_space", entity.getDisplayName()), true);
 												return false;
@@ -190,29 +191,29 @@ public class CallBeast extends Spell {
 		return false;
 	}
 
-	public static int beastID(Entity entity) {
-		if (entity instanceof EntityAmphithere) {
-			return AMPHITHERE;
+	public static int dragonID(Entity entity) {
+		if (entity instanceof EntityFireDragon) {
+			return FIRE_DRAGON;
 		}
-		if (entity instanceof EntityHippogryph) {
-			return HIPPOGRYPH;
+		if (entity instanceof EntityIceDragon) {
+			return ICE_DRAGON;
 		}
-		if (entity instanceof EntityHippocampus) {
-			return HIPPOCAMPUS;
+		if (entity instanceof EntityLightningDragon) {
+			return LIGHTNING_DRAGON;
 		}
 		return 0;
 	}
 
-	public static boolean isAcceptableBeast(EntityTameable entity) {
-		if (entity instanceof EntityAmphithere || entity instanceof EntityHippogryph || entity instanceof EntityHippocampus) {
+	public static boolean isAcceptableDragon(EntityTameable entity) {
+		if (entity instanceof EntityFireDragon || entity instanceof EntityIceDragon || entity instanceof EntityLightningDragon) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public static boolean summonBeast(EntityPlayer player, Entity entity) {
-		BlockPos pos = BlockUtils.findNearbyFloorSpace(player, 2, 4);
+	public static boolean summonDragon(EntityPlayer player, Entity entity) {
+		BlockPos pos = BlockUtils.findNearbyFloorSpace(player, 4, 4);
 		if (pos == null) {
 			return false;
 		}
@@ -220,17 +221,17 @@ public class CallBeast extends Spell {
 		return true;
 	}
 
-	public static boolean containsBeast(Map<Integer, String> mounts, int beastID) {
-		if (mounts.containsKey(beastID)) {
+	public static boolean containsDragon(Map<Integer, String> mounts, int dragonID) {
+		if (mounts.containsKey(dragonID)) {
 			return true;
 		}
 		return false;
 	}
 
-	public static void replaceBeast(Map<Integer, String> mounts, UUID uuid, int beastID) {
-		if (mounts.containsKey(beastID)) {
-			mounts.remove(beastID);
-			mounts.put(beastID, uuid.toString());
+	public static void replaceDragon(Map<Integer, String> mounts, UUID uuid, int dragonID) {
+		if (mounts.containsKey(dragonID)) {
+			mounts.remove(dragonID);
+			mounts.put(dragonID, uuid.toString());
 		}
 	}
 

@@ -1,14 +1,8 @@
 package com.windanesz.ifspellpack.client;
 
-import com.windanesz.ifspellpack.client.gui.GuiCallBeast;
-import com.windanesz.ifspellpack.spell.CallBeast;
-import electroblob.wizardry.data.WizardData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-
-import java.util.Map;
-import java.util.UUID;
 
 public class IFSPGuiHandler implements IGuiHandler {
 
