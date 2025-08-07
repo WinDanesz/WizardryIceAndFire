@@ -11,12 +11,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
-import scala.actors.threadpool.Arrays;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ItemCharmVolatileResin extends ItemChargedArtefact {
@@ -25,7 +25,7 @@ public class ItemCharmVolatileResin extends ItemChargedArtefact {
 	public static final int DURATION = 200;
 
 	public ItemCharmVolatileResin() {
-		super(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, Arrays.asList(new Item[] {IafItemRegistry.myrmex_desert_resin, IafItemRegistry.myrmex_jungle_resin}), 100, 100);
+		super(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, Arrays.asList(IafItemRegistry.myrmex_desert_resin, IafItemRegistry.myrmex_jungle_resin), 100, 100);
 	}
 
 	public static <T extends EntityMyrmexBase & ISummonedCreature> void explode(T myrmex) {

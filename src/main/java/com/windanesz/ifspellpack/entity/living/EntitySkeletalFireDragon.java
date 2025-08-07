@@ -1,8 +1,6 @@
 package com.windanesz.ifspellpack.entity.living;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.entity.DragonType;
-import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -12,11 +10,10 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntitySkeletalDragon extends EntityDragonBase {
+public class EntitySkeletalFireDragon extends EntityFireDragon {
 
-
-	public EntitySkeletalDragon(World world, DragonType type) {
-		super(world, type, 1, 1 + IceAndFire.CONFIG.dragonAttackDamage, IceAndFire.CONFIG.dragonHealth * 0.04, IceAndFire.CONFIG.dragonHealth, 0.15F, 0.4F);
+	public EntitySkeletalFireDragon(World worldIn) {
+		super(worldIn);
 	}
 
 	@Override
@@ -46,11 +43,6 @@ public class EntitySkeletalDragon extends EntityDragonBase {
 	@Override
 	public ResourceLocation getDeadLootTable() {
 		return null;
-	}
-
-	@Override
-	public String getVariantName(int variant) {
-		return "skeletal_" + this.dragonType.getName() + "_";
 	}
 
 	@Override
@@ -118,6 +110,5 @@ public class EntitySkeletalDragon extends EntityDragonBase {
 	public boolean isAllowedToTriggerFlight() {
 		return false;
 	}
-
 
 }

@@ -10,44 +10,46 @@ import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
-import scala.actors.threadpool.Arrays;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 @SuppressWarnings("unchecked")
-@ObjectHolder(IFSpellPack.MODID)
+@GameRegistry.ObjectHolder(IFSpellPack.MODID)
 @Mod.EventBusSubscriber
 public final class IFSPItems {
 
 	//Artefacts
 
-	public static final Item AMULET_DAMNED = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.AMULET, 10000, Arrays.asList(new Item[] {IafItemRegistry.dread_shard}), 100, 200);
+	public static final Item AMULET_DAMNED = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.AMULET, 10000, Arrays.asList(IafItemRegistry.dread_shard), 100, 200);
 	public static final Item AMULET_DRAGON_SLAYER = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.AMULET);
 	public static final Item AMULET_LIGHTWARD = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.AMULET);
-	public static final Item BODY_FIRE_DRAGON_CORE = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 10000, Arrays.asList(new Item[] {IafItemRegistry.fire_dragon_heart}), 10000, 0);
-	public static final Item BODY_ICE_DRAGON_CORE = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 10000, Arrays.asList(new Item[] {IafItemRegistry.ice_dragon_heart}), 10000, 0);
-	public static final Item BODY_LIGHTNING_DRAGON_CORE = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 10000, Arrays.asList(new Item[] {IafItemRegistry.lightning_dragon_heart}), 10000, 0);
-	public static final Item BODY_PIXIE_WING_GLIDER = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 25000, Arrays.asList(new Item[] {IafItemRegistry.pixie_wings}), 12500, 1);
+	public static final Item BODY_FIRE_DRAGON_CORE = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 10000, Arrays.asList(IafItemRegistry.fire_dragon_heart), 10000, 0);
+	public static final Item BODY_ICE_DRAGON_CORE = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 10000, Arrays.asList(IafItemRegistry.ice_dragon_heart), 10000, 0);
+	public static final Item BODY_LIGHTNING_DRAGON_CORE = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 10000, Arrays.asList(IafItemRegistry.lightning_dragon_heart), 10000, 0);
+	public static final Item BODY_PIXIE_WING_GLIDER = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 25000, Arrays.asList(IafItemRegistry.pixie_wings), 12500, 1);
 	public static final Item BODY_REINFORCED_CHITINOUS_PLATING = new ItemBodyReinforcedChitinousPlating();
 	public static final Item CHARM_DOVAHKRIID = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DRAGON_TRANSFORM_BLOCK= new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
-	public static final Item CHARM_DREAD_HEART = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, Arrays.asList(new Item[] {IafItemRegistry.dread_shard}), 100, 50);
+	public static final Item CHARM_DREAD_HEART = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, Arrays.asList(IafItemRegistry.dread_shard), 100, 50);
 	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
-	public static final Item CHARM_ENCHANTED_MANUSCRIPT = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.CHARM, 10000, Arrays.asList(new Item[] {IafItemRegistry.manuscript}), 100, 0);
+	public static final Item CHARM_ENCHANTED_MANUSCRIPT = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.CHARM, 10000, Arrays.asList(IafItemRegistry.manuscript), 100, 0);
 	public static final Item CHARM_FRACTURE_CATALYST = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_LOVER_HEART = new ItemCharmLoversHeart();
-	public static final Item CHARM_REGENERATING_HEAD = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 3, Arrays.asList(new Item[] {IafItemRegistry.hydra_heart}), 2, 1);
+	public static final Item CHARM_REGENERATING_HEAD = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 3, Arrays.asList(IafItemRegistry.hydra_heart), 2, 1);
 	public static final Item CHARM_SOUR_CANDY = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_STONEBREAKER_SIGIL = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_TRICHOMATIC_CRYSTAL = new ItemArtefactIFSP(EnumRarity.EPIC, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_VOLATILE_RESIN = new ItemCharmVolatileResin();
 	public static final Item CHARM_WILDCALLER_WHISTLE = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.CHARM);
-	public static final Item HEAD_COCKATRICE_COMB = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 1000, Arrays.asList(new Item[] {IafItemRegistry.cockatrice_eye}), 1000, 1);
-	public static final Item HEAD_DREAD_CROWN = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 10000, Arrays.asList(new Item[] {IafItemRegistry.dread_shard}), 100, 25);
-	public static final Item HEAD_GORGON_MASK = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.HEAD, 1, Arrays.asList(new Item[] {IafItemRegistry.gorgon_head}), 1, 1);
+	public static final Item HEAD_COCKATRICE_COMB = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 1000, Arrays.asList(IafItemRegistry.hydra_heart), 1000, 1);
+	public static final Item HEAD_DREAD_CROWN = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.HEAD, 10000, Arrays.asList(IafItemRegistry.dread_shard), 100, 25);
+	public static final Item HEAD_GORGON_MASK = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.HEAD, 1, Arrays.asList(IafItemRegistry.gorgon_head), 1, 1);
 	public static final Item HEAD_TRIADIC_SERPENT_CROWN = new ItemArtefactIFSP(EnumRarity.UNCOMMON, ItemArtefact.Type.HEAD);
-	public static final Item RING_STINGER = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.RING, 10000, Arrays.asList(new Item[] {IafItemRegistry.myrmex_stinger}), 2000, 10);
+	public static final Item RING_STINGER = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.RING, 10000, Arrays.asList(IafItemRegistry.myrmex_stinger), 2000, 10);
 
 	//Magic Gear
 

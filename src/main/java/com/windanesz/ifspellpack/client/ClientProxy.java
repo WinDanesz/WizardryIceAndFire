@@ -1,10 +1,12 @@
 package com.windanesz.ifspellpack.client;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.*;
+import com.github.alexthe666.iceandfire.client.model.animator.FireDragonTabulaModelAnimator;
+import com.github.alexthe666.iceandfire.client.model.animator.IceDragonTabulaModelAnimator;
+import com.github.alexthe666.iceandfire.client.model.animator.LightningDragonTabulaModelAnimator;
+import com.github.alexthe666.iceandfire.client.model.util.IceAndFireTabulaModel;
 import com.github.alexthe666.iceandfire.client.render.entity.*;
-import com.github.alexthe666.iceandfire.entity.EntityDreadBeast;
-import com.github.alexthe666.iceandfire.entity.EntityDreadHorse;
+import com.github.alexthe666.iceandfire.entity.*;
 import com.windanesz.ifspellpack.CommonProxy;
 import com.windanesz.ifspellpack.client.particle.ParticleAllureAppearance;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhide;
@@ -23,11 +25,18 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
 
+import java.io.IOException;
 import java.util.List;
+
+import static net.ilexiconn.llibrary.client.model.tabula.TabulaModelHandler.INSTANCE;
 
 @SuppressWarnings("deprecation")
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
+
+	public IceAndFireTabulaModel<EntityFireDragon> FIRE_DRAGON_MODEL;
+	public IceAndFireTabulaModel<EntityIceDragon> ICE_DRAGON_MODEL;
+	public IceAndFireTabulaModel<EntityLightningDragon> LIGHTNING_DRAGON_MODEL;
 
 	@Override
 	public void initialiseLayers(){
@@ -47,6 +56,14 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerRenderers() {
 
+		try {
+			this.FIRE_DRAGON_MODEL = new IceAndFireTabulaModel<>(INSTANCE.loadTabulaModel("/assets/iceandfire/models/tabula/firedragon/firedragon_Ground"), new FireDragonTabulaModelAnimator());
+			this.ICE_DRAGON_MODEL = new IceAndFireTabulaModel<>(INSTANCE.loadTabulaModel("/assets/iceandfire/models/tabula/icedragon/icedragon_Ground"), new IceDragonTabulaModelAnimator());
+			this.LIGHTNING_DRAGON_MODEL = new IceAndFireTabulaModel<>(INSTANCE.loadTabulaModel("/assets/iceandfire/models/tabula/lightningdragon/lightningdragon_Ground"), new LightningDragonTabulaModelAnimator());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		//construct
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadArmy.class, RenderNothing::new);
 
@@ -62,7 +79,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMyrmexSwarmerMinion.class, manager -> new RenderMyrmexBase(manager, new ModelMyrmexRoyal(), 0.25F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMyrmexWorkerMinion.class, manager -> new RenderMyrmexBase(manager, new ModelMyrmexWorker(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityPixieMinion.class, RenderPixie::new);
-		//RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalDragon.class, manager -> new RenderDragonBase(manager);
+		RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalFireDragon.class, manager -> new RenderDragonBase(Minecraft.getMinecraft().getRenderManager(), FIRE_DRAGON_MODEL, 0));
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrollMinion.class, RenderTroll::new);
 
 		//projectile

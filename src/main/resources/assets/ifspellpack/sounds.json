@@ -27,6 +27,6 @@
   "spell.stymphalian_barrage":       {"category": "spells", "sounds": ["random/bow"]},
   "spell.stymphalian_storm":         {"category": "spells", "sounds": ["random/bow"]},
   "spell.tide_guardian":             {"category": "spells", "sounds": ["iceandfire:sea_serpent_roar"]},
-  "spell.troll_skin":                {"category": "spells", "sounds": ["iceandfire:troll_idle0", "iceandfire:troll_idle1"]},
+  "spell.troll_skin":                {"category": "spells", "sounds": ["iceandfire:troll_idle_0", "iceandfire:troll_idle_1"]},
   "spell.troll_troop":               {"category": "spells", "sounds": ["iceandfire:troll_roar"]}
 }
