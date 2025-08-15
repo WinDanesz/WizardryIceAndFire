@@ -25,6 +25,4 @@ public class CommonProxy {
 	public void init() {
 	}
 
-	public void openGuiPlayerSelect(List<EntityPlayer> players, Object enumWarpMode, EnumHand hand, Object fromWaystoneEntry) {
-	}
 }

@@ -1,3 +1,4 @@
+import org.ajoberstar.grgit.gradle.GrgitPlugin
 import org.apache.tools.ant.filters.ReplaceTokens
 import groovy.json.*
 
@@ -41,7 +42,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
-apply plugin: org.ajoberstar.grgit.gradle.GrgitPlugin
+apply plugin: GrgitPlugin
 apply plugin: 'wtf.gofancy.fancygradle'
 
 //// Project Settings ////

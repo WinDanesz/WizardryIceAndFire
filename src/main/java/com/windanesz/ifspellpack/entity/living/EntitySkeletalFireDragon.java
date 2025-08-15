@@ -1,114 +1,35 @@
 package com.windanesz.ifspellpack.entity.living;
 
-import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import com.github.alexthe666.iceandfire.entity.DragonType;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntitySkeletalFireDragon extends EntityFireDragon {
+public class EntitySkeletalFireDragon extends EntitySkeletalDragon {
 
 	public EntitySkeletalFireDragon(World worldIn) {
-		super(worldIn);
+		super(worldIn, DragonType.FIRE);
 	}
 
 	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
-		return false;
+	protected SoundEvent getAmbientSound() {
+		return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_IDLE : this.isAdult() ? IafSoundRegistry.FIREDRAGON_ADULT_IDLE : IafSoundRegistry.FIREDRAGON_CHILD_IDLE;
 	}
 
 	@Override
-	protected int getExperiencePoints(EntityPlayer player) {
-		return 0;
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_HURT : this.isAdult() ? IafSoundRegistry.FIREDRAGON_ADULT_HURT : IafSoundRegistry.FIREDRAGON_CHILD_HURT;
 	}
 
 	@Override
-	protected void breathFireAtPos(BlockPos burningTarget) {
-	}
-
-	@Override
-	protected Item getHeartItem() {
-		return null;
-	}
-
-	@Override
-	protected Item getBloodItem() {
-		return null;
-	}
-
-	@Override
-	public ResourceLocation getDeadLootTable() {
-		return null;
-	}
-
-	@Override
-	public Item getVariantScale(int variant) {
-		return null;
-	}
-
-	@Override
-	public Item getVariantEgg(int variant) {
-		return null;
-	}
-
-	@Override
-	public Item getSummoningCrystal() {
-		return null;
+	protected SoundEvent getDeathSound() {
+		return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_DEATH : this.isAdult() ? IafSoundRegistry.FIREDRAGON_ADULT_DEATH : IafSoundRegistry.FIREDRAGON_CHILD_DEATH;
 	}
 
 	@Override
 	public SoundEvent getRoarSound() {
-		return null;
-	}
-
-	@Override
-	public void stimulateFire(double burnX, double burnY, double burnZ, int syncType) {
-	}
-
-	@Override
-	public void tryScorchTarget() {
-	}
-
-	@Override
-	public boolean isSkeletal() {
-		return true;
-	}
-
-	@Override
-	public boolean isFlying() {
-		return false;
-	}
-
-	@Override
-	public void setFlying(boolean flying) {
-	}
-
-	@Override
-	public boolean useFlyingPathFinder() {
-		return false;
-	}
-
-	@Override
-	public boolean canMateWith(EntityAnimal otherAnimal) {
-		return false;
-	}
-
-	@Override
-	public boolean isAgingDisabled() {
-		return true;
-	}
-
-	@Override
-	public void setAgingDisabled(boolean isAgingDisabled) {
-	}
-
-	@Override
-	public boolean isAllowedToTriggerFlight() {
-		return false;
+		return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_ROAR : this.isAdult() ? IafSoundRegistry.FIREDRAGON_ADULT_ROAR : IafSoundRegistry.FIREDRAGON_CHILD_ROAR;
 	}
 
 }

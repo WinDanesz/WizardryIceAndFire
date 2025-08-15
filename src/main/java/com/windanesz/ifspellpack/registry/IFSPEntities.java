@@ -39,6 +39,8 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityDreadScuttlerMinion.class, "dread_scuttler_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadThrallMinion.class, "dread_thrall_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntitySkeletalFireDragon.class, "skeletal_fire_dragon", TrackingType.LIVING).build());
+		registry.register(createEntry(EntitySkeletalIceDragon.class, "skeletal_ice_dragon", TrackingType.LIVING).build());
+		registry.register(createEntry(EntitySkeletalLightningDragon.class, "skeletal_lightning_dragon", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityMyrmexSentinelMinion.class, "myrmex_sentinel_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityMyrmexSoldierMinion.class, "myrmex_soldier_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityMyrmexSwarmerMinion.class, "myrmex_swarmer_minion", TrackingType.LIVING).build());

@@ -36,6 +36,9 @@ entity.ifspellpack:myrmex_soldier_minion.name=Myrmex Soldier
 entity.ifspellpack:myrmex_swarmer_minion.name=Myrmex Swarmer
 entity.ifspellpack:myrmex_worker_minion.name=Myrmex Worker
 entity.ifspellpack:pixie_minion.name=Pixie
+entity.ifspellpack:skeletal_fire_dragon.name=Skeletal Fire Dragon
+entity.ifspellpack:skeletal_ice_dragon.name=Skeletal Ice Dragon
+entity.ifspellpack:skeletal_lightning_dragon.name=Skeletal Lightning Dragon
 entity.ifspellpack:troll_minion.name=Troll
 
         # Projectile
@@ -232,6 +235,8 @@ spell.ifspellpack:summon_myrmex_worker=Summon Myrmex Worker
 spell.ifspellpack:summon_myrmex_worker.desc=Summons a myrmex worker to fight for you. The myrmex worker will disappear after 30 seconds or if it is killed.
 spell.ifspellpack:summon_pixie_cluster=Summon Pixie Cluster
 spell.ifspellpack:summon_pixie_cluster.desc=Summons a group of pixies of each color that provide you positive potion effects. Can only have a limited amount at a time, scaling with potency.
+spell.ifspellpack:summon_skeletal_dragon=Summon Skeletal Dragon
+spell.ifspellpack:summon_skeletal_dragon.desc=Summons an undead skeletal dragon to fight for you. The dragon will disappear after 30 seconds or if it is killed.
 spell.ifspellpack:tide_guardian=Tide Guardian
 spell.ifspellpack:tide_guardian.desc=Embrace the power of the serpent.
 spell.ifspellpack:troll_skin=Troll Skin
