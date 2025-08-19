@@ -1,26 +1,17 @@
 package com.windanesz.ifspellpack.client.renderer.entity.living;
 
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerDragonBanner;
-import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerDragonEyes;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerDragonRider;
-import com.github.alexthe666.iceandfire.client.texture.ArrayLayeredTexture;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.enums.EnumDragonTextures;
-import com.google.common.collect.Maps;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerSkeletalDragonArmor;
+import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerSkeletalDragonEyes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class RenderSkeletalDragon extends RenderLiving<EntityDragonBase> {
 
@@ -28,6 +19,7 @@ public class RenderSkeletalDragon extends RenderLiving<EntityDragonBase> {
 
     public RenderSkeletalDragon(RenderManager renderManager, ModelBase model, int dragonType) {
         super(renderManager, model, 0.15F);
+        this.addLayer(new LayerSkeletalDragonEyes(this));
         this.addLayer(new LayerDragonRider(this, false));
         this.addLayer(new LayerDragonBanner(this));
         this.addLayer(new LayerSkeletalDragonArmor(this));

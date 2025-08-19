@@ -1,11 +1,16 @@
 package com.windanesz.ifspellpack.spell;
 
+import baubles.api.BaublesApi;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.entity.living.EntitySkeletalDragon;
 import com.windanesz.ifspellpack.entity.living.EntitySkeletalFireDragon;
 import com.windanesz.ifspellpack.entity.living.EntitySkeletalIceDragon;
 import com.windanesz.ifspellpack.entity.living.EntitySkeletalLightningDragon;
+import com.windanesz.ifspellpack.item.ItemChargedArtefact;
+import com.windanesz.ifspellpack.item.ItemCharmDwarvenPocketForge;
+import com.windanesz.ifspellpack.registry.IFSPItems;
+import electroblob.wizardry.item.ItemArtefact;
 import electroblob.wizardry.item.SpellActions;
 import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.Spell;
@@ -96,7 +101,7 @@ public class SummonSkeletalDragon extends Spell {
 		EntitySkeletalDragon dragon = generateDragon(world);
 		dragon.setPosition(x + 0.5, y, z + 5);
 		if (caster != null) {
-		dragon.setCaster(caster);
+			dragon.setCaster(caster);
 		}
 		dragon.setLifetime((int)(getProperty(MINION_LIFETIME).floatValue() * modifiers.get(WizardryItems.duration_upgrade)));
 		dragon.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier(HEALTH_MODIFIER, modifiers.get(HEALTH_MODIFIER) - 1, EntityUtils.Operations.MULTIPLY_CUMULATIVE));
@@ -105,11 +110,13 @@ public class SummonSkeletalDragon extends Spell {
 		dragon.setVariant(new Random().nextInt(4));
 		dragon.setSleeping(false);
 		dragon.updateAttributes();
+		if (caster instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)caster;
+			if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_DWARVEN_POCKET_FORGE)) {
+				ItemCharmDwarvenPocketForge.armorDragon(player, dragon, BaublesApi.getBaublesHandler(player).getStackInSlot(6));
+			}
+		}
 		dragon.setHealth(dragon.getMaxHealth());
-		dragon.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(IafItemRegistry.dragon_armor_copper, 1, 0));
-		dragon.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(IafItemRegistry.dragon_armor_copper, 1, 1));
-		dragon.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(IafItemRegistry.dragon_armor_copper, 1, 2));
-		dragon.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(IafItemRegistry.dragon_armor_copper, 1, 3));
 		world.spawnEntity(dragon);
 	}
 

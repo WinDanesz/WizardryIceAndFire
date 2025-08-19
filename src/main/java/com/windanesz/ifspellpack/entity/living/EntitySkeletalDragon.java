@@ -308,7 +308,12 @@ public abstract class EntitySkeletalDragon extends EntityDragonBase implements I
 	}
 
 	@Override
-	public void setAgingDisabled(boolean isAgingDisabled) {
+	public boolean isSleeping() {
+		return false;
+	}
+
+	@Override
+	public void breakBlock() {
 	}
 
 	@Override

@@ -36,6 +36,7 @@ public final class IFSPItems {
 	public static final Item CHARM_DRAGON_TRANSFORM_BLOCK= new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DREAD_HEART = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, Arrays.asList(IafItemRegistry.dread_shard), 100, 50);
 	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
+	public static final Item CHARM_DWARVEN_POCKET_FORGE = new ItemCharmDwarvenPocketForge();
 	public static final Item CHARM_ENCHANTED_MANUSCRIPT = new ItemChargedArtefact(EnumRarity.RARE, ItemArtefact.Type.CHARM, 10000, Arrays.asList(IafItemRegistry.manuscript), 100, 0);
 	public static final Item CHARM_FRACTURE_CATALYST = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_LOVER_HEART = new ItemCharmLoversHeart();
@@ -80,6 +81,7 @@ public final class IFSPItems {
 		ItemRegistry.registerItemArtefact(registry, "charm_dragon_transform_block", IFSpellPack.MODID, CHARM_DRAGON_TRANSFORM_BLOCK);
 		ItemRegistry.registerItem(registry, "charm_dread_heart", IFSpellPack.MODID, CHARM_DREAD_HEART);
 		ItemRegistry.registerItemArtefact(registry, "charm_dwarven_gearbox", IFSpellPack.MODID, CHARM_DWARVEN_GEARBOX);
+		ItemRegistry.registerItemArtefact(registry, "charm_dwarven_pocket_forge", IFSpellPack.MODID, CHARM_DWARVEN_POCKET_FORGE);
 		ItemRegistry.registerItem(registry, "charm_enchanted_manuscript", IFSpellPack.MODID, CHARM_ENCHANTED_MANUSCRIPT);
 		ItemRegistry.registerItemArtefact(registry, "charm_fracture_catalyst", IFSpellPack.MODID, CHARM_FRACTURE_CATALYST);
 		ItemRegistry.registerItemArtefact(registry, "charm_lover_heart", IFSpellPack.MODID, CHARM_LOVER_HEART);
