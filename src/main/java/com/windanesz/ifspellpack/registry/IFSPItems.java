@@ -5,6 +5,7 @@ import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.item.*;
 import com.windanesz.wizardryutils.registry.ItemRegistry;
 import electroblob.wizardry.item.ItemArtefact;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
@@ -33,6 +34,7 @@ public final class IFSPItems {
 	public static final Item BODY_PIXIE_WING_GLIDER = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.BODY, 25000, Arrays.asList(IafItemRegistry.pixie_wings), 12500, 1);
 	public static final Item BODY_REINFORCED_CHITINOUS_PLATING = new ItemBodyReinforcedChitinousPlating();
 	public static final Item CHARM_DOVAHKRIID = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
+	public static final Item CHARM_DRAGON_EYE = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DRAGON_TRANSFORM_BLOCK= new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DREAD_HEART = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, Arrays.asList(IafItemRegistry.dread_shard), 100, 50);
 	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
@@ -59,6 +61,11 @@ public final class IFSPItems {
 	public static final Item DREAD_STEEL_CLOTH = new ItemIFSP();
 	public static final Item DREAD_STEEL_INGOT = new ItemIFSP();
 	public static final Item DREAD_STEEL_NUGGET = new ItemIFSP();
+	public static final Item LIGHTWARD_BOOTS = new ItemLightwardArmor(EntityEquipmentSlot.FEET);
+	public static final Item LIGHTWARD_CHESTPLATE = new ItemLightwardArmor(EntityEquipmentSlot.CHEST);
+	public static final Item LIGHTWARD_HELMET = new ItemLightwardArmor(EntityEquipmentSlot.HEAD);
+	public static final Item LIGHTWARD_LEGGINGS = new ItemLightwardArmor(EntityEquipmentSlot.LEGS);
+	public static final Item LIGHTWARD_SWORD = new ItemLightwardSword();
 
 	private IFSPItems() {
 	} // No instances!
@@ -78,6 +85,7 @@ public final class IFSPItems {
 		ItemRegistry.registerItem(registry, "body_pixie_wing_glider", IFSpellPack.MODID, BODY_PIXIE_WING_GLIDER);
 		ItemRegistry.registerItem(registry, "body_reinforced_chitinous_plating", IFSpellPack.MODID, BODY_REINFORCED_CHITINOUS_PLATING);
 		ItemRegistry.registerItemArtefact(registry, "charm_dovahkriid", IFSpellPack.MODID, CHARM_DOVAHKRIID);
+		ItemRegistry.registerItemArtefact(registry, "charm_dragon_eye", IFSpellPack.MODID, CHARM_DRAGON_EYE);
 		ItemRegistry.registerItemArtefact(registry, "charm_dragon_transform_block", IFSpellPack.MODID, CHARM_DRAGON_TRANSFORM_BLOCK);
 		ItemRegistry.registerItem(registry, "charm_dread_heart", IFSpellPack.MODID, CHARM_DREAD_HEART);
 		ItemRegistry.registerItemArtefact(registry, "charm_dwarven_gearbox", IFSpellPack.MODID, CHARM_DWARVEN_GEARBOX);
@@ -102,6 +110,12 @@ public final class IFSPItems {
 		ItemRegistry.registerItem(registry, "dread_steel_cloth", IFSpellPack.MODID, DREAD_STEEL_CLOTH);
 		ItemRegistry.registerItem(registry, "dread_steel_ingot", IFSpellPack.MODID, DREAD_STEEL_INGOT);
 		ItemRegistry.registerItem(registry,"dread_steel_nugget", IFSpellPack.MODID, DREAD_STEEL_NUGGET);
+		ItemRegistry.registerItem(registry,"lightward_boots", IFSpellPack.MODID, LIGHTWARD_BOOTS);
+		ItemRegistry.registerItem(registry,"lightward_chestplate", IFSpellPack.MODID, LIGHTWARD_CHESTPLATE);
+		ItemRegistry.registerItem(registry,"lightward_helmet", IFSpellPack.MODID, LIGHTWARD_HELMET);
+		ItemRegistry.registerItem(registry,"lightward_leggings", IFSpellPack.MODID, LIGHTWARD_LEGGINGS);
+		ItemRegistry.registerItem(registry,"lightward_sword", IFSpellPack.MODID, LIGHTWARD_SWORD);
+
 	}
 
 }

@@ -9,5 +9,6 @@ public class IFSPParticles {
 	}
 
 	public static final ResourceLocation ALLURE_APPEARANCE = new ResourceLocation(IFSpellPack.MODID, "allure_appearance");
+	public static final ResourceLocation MENACE = new ResourceLocation(IFSpellPack.MODID, "menace");
 
 }

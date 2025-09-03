@@ -10,6 +10,8 @@ import com.windanesz.ifspellpack.enchantment.EnchantmentSilverLining;
 import com.windanesz.ifspellpack.entity.living.*;
 import com.windanesz.ifspellpack.item.ItemChargedArtefact;
 import com.windanesz.ifspellpack.item.ItemCharmLoversHeart;
+import com.windanesz.ifspellpack.item.ItemLightwardArmor;
+import com.windanesz.ifspellpack.item.ItemLightwardSword;
 import com.windanesz.ifspellpack.potion.PotionAllure;
 import com.windanesz.ifspellpack.potion.PotionDragonrend;
 import com.windanesz.ifspellpack.potion.PotionMyrmexBlessing;
@@ -231,8 +233,9 @@ public class IFSPServerEvents {
 				}
 			}
 		}
-		//For attacks against EntityLivingBase
-		//For attacks from EntityLivingBase
+		//Attacks against EntityLivingBase
+
+		//Attacks from EntityLivingBase
 		if (source.getTrueSource() instanceof EntityLivingBase) {
 			EntityLivingBase attacker = (EntityLivingBase)source.getTrueSource();
 			//Allure bonus damage from Lover's Heart
@@ -241,6 +244,16 @@ public class IFSPServerEvents {
 				damage *= ItemCharmLoversHeart.damageMultiplier(potion.getAmplifier());
 			}
 			if (EntityUtils.isMeleeDamage(source)) {
+				//Lightward Sword burn
+				if (attacker.getHeldItemMainhand().getItem() instanceof ItemLightwardSword) {
+					if (entity instanceof IDreadMob) {
+						entity.setFire(ItemLightwardSword.BURN_TIME);
+					}
+				}
+				//Lightward Armor burn
+				if (attacker instanceof IDreadMob) {
+					ItemLightwardArmor.igniteAttackers(entity, attacker);
+				}
 				ItemStack sword = attacker.getHeldItemMainhand();
 				if (ImbueWeapon.isSword(sword)) {
 					int level = EnchantmentHelper.getEnchantmentLevel(IFSPEnchantments.SILVER_LINING, sword);

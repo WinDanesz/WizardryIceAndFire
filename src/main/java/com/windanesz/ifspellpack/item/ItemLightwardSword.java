@@ -1,5 +1,8 @@
 package com.windanesz.ifspellpack.item;
 
+import com.github.alexthe666.iceandfire.enums.EnumToolEffect;
+import com.github.alexthe666.iceandfire.item.IaFTool;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.google.common.collect.Multimap;
 import com.windanesz.ifspellpack.registry.IFSPSpells;
 import electroblob.wizardry.item.IConjuredItem;
@@ -17,10 +20,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemLightwardHammer extends ItemSword implements IConjuredItem {
+public class ItemLightwardSword extends ItemSword implements IConjuredItem, IaFTool {
 
-	public ItemLightwardHammer() {
-		super(ToolMaterial.IRON);
+	public static final int BURN_TIME = 8;
+
+	public ItemLightwardSword() {
+		super(IafItemRegistry.silverTools);
 		setMaxDamage(1200);
 		setNoRepair();
 		setCreativeTab(null);
@@ -76,12 +81,6 @@ public class ItemLightwardHammer extends ItemSword implements IConjuredItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack stack){
-		return true;
-	}
-
-	@Override
 	public boolean getIsRepairable(ItemStack stack, ItemStack par2ItemStack){
 		return false;
 	}
@@ -107,4 +106,8 @@ public class ItemLightwardHammer extends ItemSword implements IConjuredItem {
 		return false;
 	}
 
+	@Override
+	public EnumToolEffect getToolEffect() {
+		return EnumToolEffect.SILVER;
+	}
 }

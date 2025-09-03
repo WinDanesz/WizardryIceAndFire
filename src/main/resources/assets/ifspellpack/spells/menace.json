@@ -1,0 +1,24 @@
+{
+  "enabled": {
+    "book": true,
+    "scroll": true,
+    "wands": true,
+    "npcs": true,
+    "dispensers": true,
+    "commands": true,
+    "treasure": true,
+	"trades": true,
+    "looting": true
+  },
+  "tier": "advanced",
+  "element": "necromancy",
+  "type": "buff",
+  "cost": 100,
+  "chargeup": 20,
+  "cooldown": 300,
+  "base_properties": {
+    "effect_scale": 1,
+    "menace_duration": 400,
+    "menace_strength": 0
+  }
+}

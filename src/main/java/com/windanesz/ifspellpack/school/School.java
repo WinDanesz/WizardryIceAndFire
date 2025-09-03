@@ -77,7 +77,7 @@ public class School extends IForgeRegistryEntry.Impl<School> {
 	public static Set<String> getSchoolNames(Spell spell) {
 		Set<String> schoolNames = new HashSet<>();
 		for (School school : getSchoolsForSpell(spell)) {
-			schoolNames.add(spell.getRegistryName().toString());
+			schoolNames.add(school.getRegistryName().toString());
 		}
 		return schoolNames;
 	}

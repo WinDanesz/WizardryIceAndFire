@@ -2,6 +2,8 @@ package com.windanesz.ifspellpack.event;
 
 import baubles.api.BaublesApi;
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.model.ModelDeathWorm;
+import com.github.alexthe666.iceandfire.client.render.entity.RenderDeathWorm;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.item.ItemChargedArtefact;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
@@ -14,13 +16,17 @@ import electroblob.wizardry.registry.Spells;
 import electroblob.wizardry.util.ParticleBuilder;
 import electroblob.wizardry.util.SpellModifiers;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.InputUpdateEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -51,8 +57,13 @@ public class IFSPClientEvents {
 		World world = entity.world;
 		if (world.isRemote) {
 			EntityRenderer renderer = Minecraft.getMinecraft().entityRenderer;
+			//Menacing aura while potion is active
+			if (entity.isPotionActive(IFSPPotions.MENACE)) {
+				ParticleBuilder.create(IFSPParticles.MENACE).entity(entity).spawn(world);
+			}
 			if (entity instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) entity;
+				//Allure entity and shader display
 				if (player.isPotionActive(IFSPPotions.ALLURE)) {
 					if (world.rand.nextInt(40) == 0) {
 						ParticleBuilder.create(IFSPParticles.ALLURE_APPEARANCE).pos(player.getPositionVector()).spawn(world);

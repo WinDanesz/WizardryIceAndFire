@@ -64,6 +64,7 @@ public final class IFSPSpells {
 	public static final Spell DREAD_COMPANIONS = new DreadCompanions();
 	public static final Spell CALL_DRAGON = new CallDragon();
 	public static final Spell SUMMON_SKELETAL_DRAGON = new SummonSkeletalDragon();
+	public static final Spell MENACE = new Menace();
 
 	private IFSPSpells() {
 	} // no instances
@@ -123,5 +124,6 @@ public final class IFSPSpells {
 		registry.register(DREAD_COMPANIONS);
 		registry.register(CALL_DRAGON);
 		registry.register(SUMMON_SKELETAL_DRAGON);
+		registry.register(MENACE);
 	}
 }

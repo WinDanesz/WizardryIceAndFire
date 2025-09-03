@@ -70,11 +70,6 @@ public class ParticleAllureAppearance extends ParticleWizardry {
 			GlStateManager.translate(0.0F, -0.8F, -1.5F);
 			GlStateManager.scale(0.6F, 0.6F, 0.6F);
 			GlStateManager.rotate((allurer.ticksExisted % 90) * 4, 0.0F, 1.0F, 0.0F);
-			//Remove these because it causes the entity's model to have improper rotations
-//			this.allurer.rotationYaw = 0.0F;
-//			this.allurer.rotationYawHead = 0.0F;
-//			this.allurer.prevRotationYaw = 0.0F;
-//			this.allurer.prevRotationYawHead = 0.0F;
 			rendermanager.renderEntity(this.allurer, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, false);
 			GlStateManager.popMatrix();
 			GlStateManager.enableDepth();

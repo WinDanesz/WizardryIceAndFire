@@ -4,13 +4,13 @@ block.ifspellpack:ice_spikes.name=Ice Spikes
 
 # Command
 
-command.ifspellpack:schoolinfo.usage =/%1$s <schools/spells> <spell/school>
-command.ifspellpack:schoolinfo.school_not_found = %1$s school does not exist
-command.ifspellpack:schoolinfo.no_spells = %1$s does not contain any spells
-command.ifspellpack:schoolinfo.list_spells = %1$s has the spells: %2$s
-command.ifspellpack:schoolinfo.spell_not_found = %1$s spell does not exist
-command.ifspellpack:schoolinfo.no_schools = %1$s does not contain any schools
-command.ifspellpack:schoolinfo.list_schools = %1$s has the schools: %2$s
+command.ifspellpack:schoolinfo.usage=/%1$s <schools/spells> <spell/school>
+command.ifspellpack:schoolinfo.school_not_found=%1$s school does not exist
+command.ifspellpack:schoolinfo.no_spells=%1$s does not contain any spells
+command.ifspellpack:schoolinfo.list_spells=%1$s has the spells: %2$s
+command.ifspellpack:schoolinfo.spell_not_found=%1$s spell does not exist
+command.ifspellpack:schoolinfo.no_schools=%1$s does not contain any schools
+command.ifspellpack:schoolinfo.list_schools=%1$s has the schools: %2$s
 
 # Enchantment
 
@@ -72,6 +72,8 @@ item.ifspellpack:body_reinforced_chitinous_plating.name=Reinforced Chitinous Pla
 item.ifspellpack:body_reinforced_chitinous_plating.desc=Your myrmex minions have increased armor toughness. Charge this with myrmex chitin to activate it.
 item.ifspellpack:charm_dovahkriid.name=Horn of Dovahkriid
 item.ifspellpack:charm_dovahkriid.desc=Dragonrend weakens dragons, making them take more damage.
+item.ifspellpack:charm_dragon_eye.name=Dragon Eye Charm
+item.ifspellpack:charm_dragon_eye.desc=Allows you to faintly see invisible creatures.
 item.ifspellpack:charm_dragon_transform_block.name=Tectauryx
 item.ifspellpack:charm_dragon_transform_block.desc=Draconic spells transform terrain.
 item.ifspellpack:charm_dread_heart.name=Heart of the Dread
@@ -114,6 +116,11 @@ item.ifspellpack:ring_stinger.desc=Your melee attacks sting targets, inflicting 
 item.ifspellpack:dread_steel_cloth.name=Dread Steel Cloth
 item.ifspellpack:dread_steel_ingot.name=Dread Steel Ingot
 item.ifspellpack:dread_steel_nugget.name=Dread Steel Nugget
+item.ifspellpack:lightward_boots.name=Lightward Boots
+item.ifspellpack:lightward_chestplate.name=Lightward Chestplate
+item.ifspellpack:lightward_helmet.name=Lightward Helmet
+item.ifspellpack:lightward_leggings.name=Lightward Leggings
+item.ifspellpack:lightward_sword.name=Lightward Sword
 
 # Item Group
 
@@ -124,6 +131,7 @@ itemGroup.ifspellpack=Wizardry Ice And Fire
 potion.ifspellpack:allure=Allure
 potion.ifspellpack:dragonhide=Dragonhide
 potion.ifspellpack:dragonrend=Dragonrend
+potion.ifspellpack:menace=Menace
 potion.ifspellpack:myrmex_blessing=Myrmex Blessing
 potion.ifspellpack:sentinel_shell=Sentinel Shell
 potion.ifspellpack:tide_guardian=Tide Guardian
@@ -190,9 +198,11 @@ spell.ifspellpack:hydra_pulse.desc=You will feel as though you have regrown a he
 spell.ifspellpack:hydra_breath=Hydra Breath
 spell.ifspellpack:hydra_breath.desc=Spew venomous breath, damage and poisoning targets hit.
 spell.ifspellpack:lightward_armament=Lightward Armament
-spell.ifspellpack:lightward_armament.desc=Conjure a lightward hammer that deals increased damage to dread creatures and ignites them and lightward armor that reduces damage from dread creatures. They last 90 seconds.
+spell.ifspellpack:lightward_armament.desc=Conjure an enhanced silver armor and sword set that ignites dread creatures. They last 90 seconds.
 spell.ifspellpack:live_wire=Live Wire
 spell.ifspellpack:live_wire.desc=Deal constant shock damage to all targets chained to you.
+spell.ifspellpack:menace=Menace
+spell.ifspellpack:menace.desc=Emanate the colossal ferocity of a cyclops, striking fear into your enemies, weakening and slowing them.
 spell.ifspellpack:myrmex_blessing=Myrmex Blessing
 spell.ifspellpack:myrmex_blessing.desc=Gain increased melee damage against non-arthropods and deathworms.
 spell.ifspellpack:no_escape=No Escape
@@ -232,7 +242,7 @@ spell.ifspellpack:summon_myrmex_sentinel.desc=Summons a myrmex sentinel to fight
 spell.ifspellpack:summon_myrmex_soldier=Summon Myrmex Soldier
 spell.ifspellpack:summon_myrmex_soldier.desc=Summons a myrmex soldier to fight for you. The myrmex soldier will disappear after 30 seconds or if it is killed.
 spell.ifspellpack:summon_myrmex_swarm=Summon Myrmex Swarm
-spell.ifspellpack:summon_myrmex_worker.desc=Summons 5 myrmex swarmers to fight for you. The swarmers will disappear after 30 seconds or if they are killed.
+spell.ifspellpack:summon_myrmex_swarm.desc=Summons 5 myrmex swarmers to fight for you. The swarmers will disappear after 30 seconds or if they are killed.
 spell.ifspellpack:summon_myrmex_worker=Summon Myrmex Worker
 spell.ifspellpack:summon_myrmex_worker.desc=Summons a myrmex worker to fight for you. The myrmex worker will disappear after 30 seconds or if it is killed.
 spell.ifspellpack:summon_pixie_cluster=Summon Pixie Cluster

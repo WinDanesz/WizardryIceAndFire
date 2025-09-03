@@ -42,14 +42,14 @@ public class Settings {
 
 		@Config.Name("Dragon Breath Spells Power Forge")
 		@Config.Comment("Do dragon breath spells power their respective forges")
-		public boolean dragonBreathSpellsPowerForge = true;
+		public boolean dragonBreathSpellsPowerForge = false;
 
 		@Config.Name("Dragonrend Damage Increase")
-		@Config.Comment("Bonus damage applied to dragons with the dragonrend effect with the horn of dovakriid")
+		@Config.Comment("Bonus damage applied to dragons with the dragonrend effect with the horn of dovahkriid")
 		public float dragonrendBonusDamage = 0.15f;
 
 		@Config.Name("IAF Potency Modifier")
-		@Config.Comment("Multiplies the global potency for all IFSpellpack spells")
+		@Config.Comment("Multiplies the global potency for all " + IFSpellPack.NAME + " spells")
 		public float iafPotencyModifier = 1f;
 
 		@Config.Name("School Info Name")

@@ -16,6 +16,7 @@ public class IFSPPotions {
 	public static final Potion ALLURE = new PotionAllure();
 	public static final Potion DRAGONHIDE = new PotionDragonhide();
 	public static final Potion DRAGONREND = new PotionDragonrend();
+	public static final Potion MENACE = new PotionMenace();
 	public static final Potion MYRMEX_BLESSING = new PotionMyrmexBlessing();
 	public static final Potion SENTINEL_SHELL = new PotionSentinelShell();
 	public static final Potion TIDE_GUARDIAN = new PotionTideGuardian();
@@ -37,6 +38,7 @@ public class IFSPPotions {
 		registerPotion(registry, "allure", ALLURE);
 		registerPotion(registry, "dragonhide", DRAGONHIDE);
 		registerPotion(registry, "dragonrend", DRAGONREND);
+		registerPotion(registry, "menace", MENACE);
 		registerPotion(registry, "myrmex_blessing", MYRMEX_BLESSING);
 		registerPotion(registry, "sentinel_shell", SENTINEL_SHELL);
 		registerPotion(registry, "tide_guardian", TIDE_GUARDIAN);

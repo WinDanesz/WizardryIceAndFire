@@ -2,6 +2,7 @@ package com.windanesz.ifspellpack.spell;
 
 import com.google.common.collect.ImmutableMap;
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.registry.IFSPItems;
 import electroblob.wizardry.item.IConjuredItem;
 import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.spell.SpellConjuration;
@@ -19,13 +20,13 @@ import java.util.Map;
 public class LightwardArmament extends SpellConjuration {
 
 	private static final Map<EntityEquipmentSlot, Item> LIGHTWARD_ARMAMENT_MAP = ImmutableMap.of(
-			EntityEquipmentSlot.HEAD, WizardryItems.spectral_helmet,
-			EntityEquipmentSlot.CHEST, WizardryItems.spectral_chestplate,
-			EntityEquipmentSlot.LEGS, WizardryItems.spectral_leggings,
-			EntityEquipmentSlot.FEET, WizardryItems.spectral_boots);
+			EntityEquipmentSlot.HEAD, IFSPItems.LIGHTWARD_HELMET,
+			EntityEquipmentSlot.CHEST, IFSPItems.LIGHTWARD_CHESTPLATE,
+			EntityEquipmentSlot.LEGS, IFSPItems.LIGHTWARD_LEGGINGS,
+			EntityEquipmentSlot.FEET, IFSPItems.LIGHTWARD_BOOTS);
 
 	public LightwardArmament(){
-		super(IFSpellPack.MODID, "lightward_armament", WizardryItems.spectral_sword);
+		super(IFSpellPack.MODID, "lightward_armament", IFSPItems.LIGHTWARD_SWORD);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.github.alexthe666.iceandfire.client.render.entity.*;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.windanesz.ifspellpack.CommonProxy;
 import com.windanesz.ifspellpack.client.particle.ParticleAllureAppearance;
+import com.windanesz.ifspellpack.client.particle.ParticleMenace;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhide;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhideNext;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerSentinelShell;
@@ -45,6 +46,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void registerParticles() {
 		ParticleWizardry.registerParticle(IFSPParticles.ALLURE_APPEARANCE, ParticleAllureAppearance::new);
+		ParticleWizardry.registerParticle(IFSPParticles.MENACE, ParticleMenace::new);
 	}
 
 	/**

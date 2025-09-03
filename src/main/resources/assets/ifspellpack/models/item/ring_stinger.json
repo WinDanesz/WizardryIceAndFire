@@ -2,5 +2,8 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "ifspellpack:items/ring_stinger"
-  }
+  },
+  "overrides": [
+    {"predicate": {"charged": 1.0}, "model": "ifspellpack:item/ring_stinger_inactive"}
+  ]
 }
