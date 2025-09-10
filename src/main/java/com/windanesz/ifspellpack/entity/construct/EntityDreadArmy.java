@@ -2,6 +2,7 @@ package com.windanesz.ifspellpack.entity.construct;
 
 import baubles.api.BaublesApi;
 import com.github.alexthe666.iceandfire.entity.*;
+import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.entity.living.EntityDreadBeastMinion;
 import com.windanesz.ifspellpack.entity.living.EntityDreadGhoulMinion;
 import com.windanesz.ifspellpack.entity.living.EntityDreadScuttlerMinion;
@@ -57,11 +58,18 @@ public class EntityDreadArmy extends EntityMagicConstruct {
 					if (pos != null) {
 						EntityLivingBase caster = this.getCaster();
 						EntityDreadMob minion = this.getRandomNewMinion();
-						if (minion instanceof EntityDreadThrallMinion && caster instanceof EntityPlayer) {
+						if (caster instanceof EntityPlayer) {
 							EntityPlayer player = (EntityPlayer) caster;
-							if (ItemArtefact.isArtefactActive(player, IFSPItems.HEAD_DREAD_CROWN)) {
-								if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(4))) {
-									((EntityDreadThrallMinion) minion).setEquipment(true);
+							if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_DREAD_HEART)) {
+								if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6))) {
+									((ISummonedCreature)minion).setLifetime((int)(((ISummonedCreature)minion).getLifetime() * IFSpellPack.settings.heartOfDreadDurationMultiplier));
+								}
+							}
+							if (minion instanceof EntityDreadThrallMinion) {
+								if (ItemArtefact.isArtefactActive(player, IFSPItems.HEAD_DREAD_CROWN)) {
+									if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(4))) {
+										((EntityDreadThrallMinion) minion).setEquipment(true);
+									}
 								}
 							}
 						}
