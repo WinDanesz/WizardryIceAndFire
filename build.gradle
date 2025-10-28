@@ -184,7 +184,7 @@ jar {
                 "FMLCorePluginContainsFMLMod": true,
                 "Built-On-Java"              : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
                 "Built-On"                   : "${project.mc_version}-${project.forge_version}",
-                "ForceLoadAsMod:             : true
+                "ForceLoadAsMod":            : true
         ])
     }
 }
