@@ -107,7 +107,7 @@ item.ifspellpack:head_dread_crown.desc=Your dread thralls summon with armor. Cha
 item.ifspellpack:head_gorgon_mask.name=Gorgon Mask
 item.ifspellpack:head_gorgon_mask.desc=Increases the damage of Gorgon Gaze. Charge this with gorgon heads to activate it.
 item.ifspellpack:head_triadic_serpent_crown.name=Triadic Serpent Crown
-item.ifspellpack:head_triadic_serpent_crownk.desc=Hydra breath fires two additional breaths angled from the center breath.
+item.ifspellpack:head_triadic_serpent_crown.desc=Hydra breath fires two additional breaths angled from the center breath.
 item.ifspellpack:ring_stinger.name=Stinger Ring
 item.ifspellpack:ring_stinger.desc=Your melee attacks sting targets, inflicting them with a strong poison for a short duration. Charge this with myrmex stingers to activate it.
 
