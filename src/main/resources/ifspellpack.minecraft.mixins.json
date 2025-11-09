@@ -9,5 +9,8 @@
     "MixinEntityLivingBase",
     "MixinEntityPlayer",
     "MixinEntityTameable"
+  ],
+  "client": [
+    "ClientMixinEntity"
   ]
 }

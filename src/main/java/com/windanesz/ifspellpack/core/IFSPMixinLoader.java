@@ -1,5 +1,6 @@
 package com.windanesz.ifspellpack.core;
 
+import net.minecraftforge.fml.common.Loader;
 import zone.rong.mixinbooter.ILateMixinLoader;
 
 import java.util.ArrayList;
@@ -10,10 +11,6 @@ public class IFSPMixinLoader implements ILateMixinLoader {
 	public List<String> getMixinConfigs() {
 		List<String> configs = new ArrayList<>();
 		// CLIENT ONLY
-		if (IFSPLoadingPlugin.isClient) {
-			configs.add("ifspellpack.ebwizardry.client.mixins.json");
-			configs.add("ifspellpack.iceandfire.client.mixins.json");
-		}
 		// COMMON
 		configs.add("ifspellpack.ebwizardry.mixins.json");
 		configs.add("ifspellpack.iceandfire.mixins.json");
@@ -22,10 +19,12 @@ public class IFSPMixinLoader implements ILateMixinLoader {
 
 	@Override
 	public boolean shouldMixinConfigQueue(String mixinConfig) {
-		if (IFSPLoadingPlugin.isClient) {
-			if (mixinConfig.equals("ifspellpack.ebwizardry.client.mixins.json") || mixinConfig.equals("ifspellpack.iceandfire.client.mixins.json")) {
-				return true;
-			}
+		// Only load mixins if the target mod is present
+		if (mixinConfig.contains("ebwizardry")) {
+			return Loader.isModLoaded("ebwizardry");
+		}
+		if (mixinConfig.contains("iceandfire")) {
+			return Loader.isModLoaded("iceandfire");
 		}
 		return true;
 	}

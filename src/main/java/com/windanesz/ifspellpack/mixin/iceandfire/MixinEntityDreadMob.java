@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
-@Mixin(EntityDreadMob.class)
+@Mixin(value = EntityDreadMob.class, remap = false)
 public abstract class MixinEntityDreadMob {
 
 	@Inject(method = "isOnSameTeam(Lnet/minecraft/entity/Entity;)Z", at = @At("RETURN"), cancellable = true)

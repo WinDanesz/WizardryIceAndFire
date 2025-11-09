@@ -44,22 +44,12 @@ public class IFSPLoadingPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 	@Override
 	public List<String> getMixinConfigs() {
 		List<String> configs = new ArrayList<>();
-		// CLIENT ONLY
-		if (isClient) {
-			configs.add("ifspellpack.minecraft.client.mixins.json");
-		}
-		// COMMON
 		configs.add("ifspellpack.minecraft.mixins.json");
 		return configs;
 	}
 
 	@Override
 	public boolean shouldMixinConfigQueue(String mixinConfig) {
-		if (isClient) {
-			if (mixinConfig.equals("ifspellpack.minecraft.client.mixins.json")) {
-				return true;
-			}
-		}
 		return true;
 	}
 }

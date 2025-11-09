@@ -9,18 +9,25 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import javax.annotation.Nonnull;
+
 @GameRegistry.ObjectHolder(IFSpellPack.MODID)
 @Mod.EventBusSubscriber
 public class IFSPPotions {
 
-	public static final Potion ALLURE = new PotionAllure();
-	public static final Potion DRAGONHIDE = new PotionDragonhide();
-	public static final Potion DRAGONREND = new PotionDragonrend();
-	public static final Potion MENACE = new PotionMenace();
-	public static final Potion MYRMEX_BLESSING = new PotionMyrmexBlessing();
-	public static final Potion SENTINEL_SHELL = new PotionSentinelShell();
-	public static final Potion TIDE_GUARDIAN = new PotionTideGuardian();
-	public static final Potion TROLL_SKIN = new PotionTrollSkin();
+	@Nonnull
+	@SuppressWarnings("ConstantConditions")
+	private static <T> T placeholder() {
+		return null;
+	}
+	public static final Potion ALLURE = placeholder();
+	public static final Potion DRAGONHIDE = placeholder();
+	public static final Potion DRAGONREND = placeholder();
+	public static final Potion MENACE = placeholder();
+	public static final Potion MYRMEX_BLESSING = placeholder();
+	public static final Potion SENTINEL_SHELL = placeholder();
+	public static final Potion TIDE_GUARDIAN = placeholder();
+	public static final Potion TROLL_SKIN = placeholder();
 
 	private IFSPPotions() {
 	}
@@ -35,14 +42,14 @@ public class IFSPPotions {
 	@SubscribeEvent
 	public static void register(RegistryEvent.Register<Potion> event) {
 		IForgeRegistry<Potion> registry = event.getRegistry();
-		registerPotion(registry, "allure", ALLURE);
-		registerPotion(registry, "dragonhide", DRAGONHIDE);
-		registerPotion(registry, "dragonrend", DRAGONREND);
-		registerPotion(registry, "menace", MENACE);
-		registerPotion(registry, "myrmex_blessing", MYRMEX_BLESSING);
-		registerPotion(registry, "sentinel_shell", SENTINEL_SHELL);
-		registerPotion(registry, "tide_guardian", TIDE_GUARDIAN);
-		registerPotion(registry, "troll_skin", TROLL_SKIN);
+		registerPotion(registry, "allure", new PotionAllure());
+		registerPotion(registry, "dragonhide", new PotionDragonhide());
+		registerPotion(registry, "dragonrend", new PotionDragonrend());
+		registerPotion(registry, "menace", new PotionMenace());
+		registerPotion(registry, "myrmex_blessing", new PotionMyrmexBlessing());
+		registerPotion(registry, "sentinel_shell", new PotionSentinelShell());
+		registerPotion(registry, "tide_guardian", new PotionTideGuardian());
+		registerPotion(registry, "troll_skin", new PotionTrollSkin());
 	}
 
 }

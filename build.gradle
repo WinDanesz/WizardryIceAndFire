@@ -110,6 +110,7 @@ repositories {
     maven {
         url "https://www.cursemaven.com"
     }
+    maven { url = 'https://maven.cleanroommc.com' }
     maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
@@ -151,7 +152,12 @@ dependencies {
     implementation fg.deobf("curse.maven:baubles-${baubles_projectid}:${baubles_fileid}")
     implementation fg.deobf("mezz.jei:jei_${mc_version}:${jei_version}")
     implementation fg.deobf("curse.maven:antique-atlas-${antiqueatlas_projectid}:${antiqueatlas_fileid}")
-    implementation fg.deobf("curse.maven:MixinBooter-${mixinbooter_projectid}:${mixinbooter_fileid}")
+    implementation ('zone.rong:mixinbooter:10.0') {
+        transitive = false
+    }
+    annotationProcessor ('zone.rong:mixinbooter:10.0') {
+        transitive = false
+    }
     implementation fg.deobf("curse.maven:IceAndFireROTN-${iceandfire_projectid}:${iceandfire_fileid}")
     implementation fg.deobf("curse.maven:LLibrary-${llibrary_projectid}:${llibrary_fileid}")
     implementation fg.deobf("curse.maven:WizardryUtils-${wizardryutils_projectid}:${wizardryutils_fileid}")
@@ -159,11 +165,6 @@ dependencies {
     annotationProcessor 'com.google.guava:guava:32.1.2-jre'
     annotationProcessor 'com.google.code.gson:gson:2.8.9'
 
-}
-
-mixin {
-    add sourceSets.main, "ifspellpack.refmap.json"
-    disableAnnotationProcessorCheck()
 }
 
 //// Project manifest data ////
@@ -180,11 +181,12 @@ jar {
                 "Implementation-Version"     : "${version}",
                 "Implementation-Vendor"      : "WinDanesz",
                 "Implementation-Timestamp"   : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "FMLCorePlugin"              : "${coremod_plugin_class_name}",
+                "FMLCorePlugin"              : "com.windanesz.ifspellpack.core.IFSPLoadingPlugin",
                 "FMLCorePluginContainsFMLMod": true,
                 "Built-On-Java"              : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
+                'TweakClass'                 : "org.spongepowered.asm.launch.MixinTweaker",
                 "Built-On"                   : "${project.mc_version}-${project.forge_version}",
-                "ForceLoadAsMod":            : true
+                "ForceLoadAsMod"             : true
         ])
     }
 }

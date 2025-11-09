@@ -11,7 +11,8 @@
     "MixinEntityStymphalianFeather",
     "MixinEntityTroll",
     "MixinServerEvents",
-    "MixinTrollAIFleeSun"
-
+    "MixinTrollAIFleeSun",
+    "MixinEntityDreadLichSkull",
+    "MixinEntityTideTrident"
   ]
 }

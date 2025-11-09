@@ -21,11 +21,11 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(EntityTroll.class)
+@Mixin(value = EntityTroll.class, remap = false)
 public abstract class MixinEntityTroll extends EntityMob implements AccessorEntityTroll {
 
 	@Unique
-	private static final DataParameter<Boolean> SUNLIGHT_IMMUNE = EntityDataManager.createKey(MixinEntityTroll.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> SUNLIGHT_IMMUNE = EntityDataManager.createKey(EntityTroll.class, DataSerializers.BOOLEAN);
 
 	public MixinEntityTroll(World worldIn) {
 		super(worldIn);
@@ -54,6 +54,7 @@ public abstract class MixinEntityTroll extends EntityMob implements AccessorEnti
 
 	@Inject(method = "entityInit()V", at = @At("TAIL"))
 	private void injectEntityInit(CallbackInfo info) {
+		System.out.println("Injecting entity init for troll sunlight immunity");
 		this.dataManager.register(SUNLIGHT_IMMUNE, false);
 	}
 

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(TrollAIFleeSun.class)
+@Mixin(value = TrollAIFleeSun.class, remap = false)
 public class MixinTrollAIFleeSun {
 
 	@Shadow @Final private EntityTroll troll;

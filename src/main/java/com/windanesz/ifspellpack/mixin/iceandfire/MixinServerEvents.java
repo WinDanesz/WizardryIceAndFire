@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.List;
 
-@Mixin(ServerEvents.class)
+@Mixin(value = ServerEvents.class, remap = false)
 public abstract class MixinServerEvents {
 
 	@Redirect(method = "onEntityDie(Lnet/minecraftforge/event/entity/living/LivingDeathEvent;)V", at = @At(value = "FIELD", target = "Lcom/github/alexthe666/iceandfire/entity/ChainEntityProperties;connectedEntities:Ljava/util/List;", opcode = Opcodes.GETFIELD))

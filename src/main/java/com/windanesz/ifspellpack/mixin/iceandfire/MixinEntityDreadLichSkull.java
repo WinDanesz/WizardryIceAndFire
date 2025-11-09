@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.List;
 
-@Mixin(EntityDreadLichSkull.class)
+@Mixin(value = EntityDreadLichSkull.class, remap = false)
 public class MixinEntityDreadLichSkull {
 
 	//Ignore Intellij errors

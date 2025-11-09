@@ -1,8 +1,0 @@
-{
-  "package": "com.windanesz.ifspellpack.mixin.minecraft",
-  "refmap": "ifspellpack.refmap.json",
-  "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [],
-  "client": []
-}

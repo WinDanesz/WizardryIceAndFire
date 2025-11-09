@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(EntityTideTrident.class)
+@Mixin(value = EntityTideTrident.class, remap = false)
 public class MixinEntityTideTrident implements AccessorEntityTideTrident {
 
 	@Shadow protected int timeInGround;
