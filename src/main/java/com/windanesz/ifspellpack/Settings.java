@@ -9,18 +9,23 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = IFSpellPack.MODID, name = "IFSpellPack") // No fancy configs here so we can use the annotation, hurrah!
 public class Settings {
 
+	@Config.Name("General Settings")
+	public static GeneralSettings generalSettings = new GeneralSettings();
+
 	public boolean dragonBreathSpellsPowerForge = generalSettings.dragonBreathSpellsPowerForge;
 	public float dragonrendBonusDamage = generalSettings.dragonrendBonusDamage;
 	public float iafPotencyModifier = generalSettings.iafPotencyModifier;
 	public String schoolinfo = generalSettings.schoolinfo;
 
-	@Config.Name("General Settings")
-	public static GeneralSettings generalSettings = new GeneralSettings();
+	@Config.Name("Artefact Settings")
+	public static ArtefactSettings artefactSettings = new ArtefactSettings();
 
 	public float heartOfDreadDurationMultiplier = artefactSettings.heartOfDreadDurationMultiplier;
 
-	@Config.Name("Artefact Settings")
-	public static ArtefactSettings artefactSettings = new ArtefactSettings();
+	@Config.Name("World Generation Settings")
+	public static WorldGenerationSettings worldGenerationSettings = new WorldGenerationSettings();
+
+	public int slayerVillageChance = worldGenerationSettings.slayerVillageChance;
 
 	@SuppressWarnings("unused")
 	@Mod.EventBusSubscriber(modid = IFSpellPack.MODID)
@@ -63,6 +68,15 @@ public class Settings {
 		@Config.Name("Heart of Dread Duration Increase")
 		@Config.Comment("Duration increase of the heart of dread charm")
 		public float heartOfDreadDurationMultiplier = 2f;
+
+	}
+
+	public static class WorldGenerationSettings {
+
+		@Config.Name("Slayer Village Spawn Chance")
+		@Config.Comment("Rarity of slayer villages. 1 in this many chunks will contain a slayer village, meaning higher numbers are rarer.")
+		public int slayerVillageChance = 1;
+		//public int slayerVillageChance = 100;
 
 	}
 }

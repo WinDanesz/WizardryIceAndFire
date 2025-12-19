@@ -33,7 +33,6 @@ public class EntityPixieMinion extends EntityPixie implements ISummonedCreature 
 	private static final DataParameter<Boolean> SPAWN_PARTICLES = EntityDataManager.createKey(EntityPixieMinion.class, DataSerializers.BOOLEAN);
 
 	private int lifetime = -1;
-	private UUID casterUUID;
 
 	public EntityPixieMinion(World worldIn) {
 		super(worldIn);
@@ -45,12 +44,6 @@ public class EntityPixieMinion extends EntityPixie implements ISummonedCreature 
 
 	@Override
 	public void setLifetime(int lifetime){ this.lifetime = lifetime; }
-
-	@Override
-	public UUID getOwnerId(){ return casterUUID; }
-
-	@Override
-	public void setOwnerId(UUID uuid){ this.casterUUID = uuid; }
 
 	@Override
 	protected void entityInit(){

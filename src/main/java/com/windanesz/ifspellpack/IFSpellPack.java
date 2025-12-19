@@ -6,6 +6,7 @@ import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.registry.IFSPLoot;
 import com.windanesz.ifspellpack.registry.IFSPVillagerProfessions;
 import com.windanesz.ifspellpack.school.School;
+import com.windanesz.ifspellpack.world.MapGenSlayerVillage;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
@@ -51,6 +53,7 @@ public class IFSpellPack {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(instance);
+		GameRegistry.registerWorldGenerator(new MapGenSlayerVillage(), 20);
 		proxy.registerParticles();
 		proxy.init();
 		IFSPPackets.initPackets();

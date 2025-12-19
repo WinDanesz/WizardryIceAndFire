@@ -42,7 +42,6 @@ public abstract class EntitySkeletalDragon extends EntityDragonBase implements I
 	public static final float[] growth_stage_4 = new float[]{12.5F, 20F};
 	public static final float[] growth_stage_5 = new float[]{20F, 30F};
 	private int lifetime = -1;
-	private UUID casterUUID;
 	private int modelDeadTime;
 
 	public EntitySkeletalDragon(World worldIn, DragonType dragonType) {
@@ -85,16 +84,6 @@ public abstract class EntitySkeletalDragon extends EntityDragonBase implements I
 	@Override
 	public void setLifetime(int lifetime) {
 		this.lifetime = lifetime;
-	}
-
-	@Override
-	public UUID getOwnerId() {
-		return this.casterUUID;
-	}
-
-	@Override
-	public void setOwnerId(UUID uuid) {
-		this.casterUUID = uuid;
 	}
 
 	public int getModelDeadTime() {

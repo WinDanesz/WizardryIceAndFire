@@ -123,9 +123,12 @@ public class IFSPServerEvents {
 			EntityPlayer player = (EntityPlayer)entityLivingBase;
 			if (event.getAmount() >= player.getHealth()) {
 				if (ItemArtefact.isArtefactActive(player, IFSPItems.CHARM_REGENERATING_HEAD)) {
-					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6))) {
-						event.setCanceled(true);
-						IFSPSpells.HYDRA_PULSE.cast(player.world, player, EnumHand.MAIN_HAND, 0, new SpellModifiers());
+					if (!player.getCooldownTracker().hasCooldown(IFSPItems.CHARM_REGENERATING_HEAD)) {
+						if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(6))) {
+							event.setCanceled(true);
+							IFSPSpells.HYDRA_PULSE.cast(player.world, player, EnumHand.MAIN_HAND, 0, new SpellModifiers());
+							player.getCooldownTracker().setCooldown(IFSPItems.CHARM_REGENERATING_HEAD, 600);
+						}
 					}
 				}
 			}
