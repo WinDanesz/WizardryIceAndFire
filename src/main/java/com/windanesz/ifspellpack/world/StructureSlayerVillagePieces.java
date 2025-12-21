@@ -1,9 +1,12 @@
 package com.windanesz.ifspellpack.world;
 
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -48,29 +51,27 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 		this.componentType = tagCompound.getByte("Type");
 	}
 
-	public Template getTemplate() {
-		return this.template;
+	public static boolean isGroundBlockReplaceable(IBlockState blockState, BlockPos blockPos, World world) {
+		return (blockState.getMaterial() == Material.GRASS || blockState.getMaterial() == Material.SAND) && (world.isAirBlock(blockPos.up()) || blockState.getMaterial().isReplaceable());
 	}
 
-	public int getAverageGroundLevel(World worldIn, StructureBoundingBox structurebb) {
-		int i = 0;
-		int j = 0;
-		BlockPos.MutableBlockPos blockPos$mutableBlockPos = new BlockPos.MutableBlockPos();
-		for (int k = this.boundingBox.minZ; k <= this.boundingBox.maxZ; ++k) {
-			for (int l = this.boundingBox.minX; l <= this.boundingBox.maxX; ++l) {
-				blockPos$mutableBlockPos.setPos(l, 64, k);
-				if (structurebb.isVecInside(blockPos$mutableBlockPos)) {
-					i += Math.max(worldIn.getTopSolidOrLiquidBlock(blockPos$mutableBlockPos).getY(), worldIn.provider.getAverageGroundLevel() - 1);
-					++j;
-				}
+	public int getYPlacement(BlockPos blockPos, World world, StructureBoundingBox structureBoundingBox) {
+		int y = -1;
+		if (structureBoundingBox.isVecInside(blockPos)) {
+		blockPos = world.getTopSolidOrLiquidBlock(blockPos);
+			if (blockPos.getY() < world.getSeaLevel()) {
+				blockPos = new BlockPos(blockPos.getX(), world.getSeaLevel(), blockPos.getZ());
 			}
+			while (blockPos.getY() >= world.getSeaLevel()) {
+				IBlockState groundBlock = world.getBlockState(blockPos.down());
+				if (isGroundBlockReplaceable(groundBlock, blockPos, world) || groundBlock.getMaterial().isLiquid()) {
+					break;
+				}
+				blockPos = blockPos.down();
+			}
+			y = blockPos.getY();
 		}
-		if (j == 0) {
-			return -1;
-		}
-		else {
-			return i / j;
-		}
+		return y;
 	}
 
 	protected boolean canVillageGoDeeper() {
@@ -78,22 +79,20 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 	}
 
 	@Override
-	public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+	public boolean addComponentParts(World world, Random rand, StructureBoundingBox structureBoundingBox) {
 		if (this.template == null) {
 			return true;
 		}
-		if (this.averageGroundLvl < 0) {
-			this.averageGroundLvl = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
-			if (this.averageGroundLvl < 0) {
-				return true;
-			}
-			this.templatePosition.offset(EnumFacing.UP, this.averageGroundLvl);
+		int y = this.getYPlacement(this.templatePosition, world, structureBoundingBox);
+		if (y < 0) {
+			return true;
 		}
-		return super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
+		this.templatePosition = new BlockPos(this.templatePosition.getX(), y, this.templatePosition.getZ());
+		return super.addComponentParts(world, rand, structureBoundingBox);
 	}
 
 	@Override
-	protected void handleDataMarker(String function, BlockPos pos, World worldIn, Random rand, StructureBoundingBox sbb) {
+	protected void handleDataMarker(String function, BlockPos pos, World world, Random rand, StructureBoundingBox structureBoundingBox) {
 	}
 
     //determines the total weight of all of the structures
@@ -150,8 +149,9 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
         if (Math.abs(structureMinX - this.startPiece.getBoundingBox().minX) <= this.startPiece.radius && Math.abs(structureMinZ - this.startPiece.getBoundingBox().minZ) <= this.startPiece.radius) {
             StructureSlayerVillagePieces structurecomponent = this.generateComponent(rand);
             if (structurecomponent != null) {
+            	//.setup(structurecomponent.template, new BlockPos(structureMinX, structureMinY, structureMinZ), structurecomponent.placeSettings.getRotation().rotate(EnumFacing.EAST));
             	structurecomponent.templatePosition = new BlockPos(structureMinX, structureMinY, structureMinZ);
-            	structurecomponent.placeSettings.getRotation().rotate(facing);
+            	structurecomponent.placeSettings.setRotation(structurecomponent.placeSettings.getRotation().add(Rotation.values()[rand.nextInt(Rotation.values().length)]));
             	//Need to offset bounding box to the position for StructureStart$generateStructure to see that the bounding boxes have intersected and call addComponentParts
             	structurecomponent.getBoundingBox().offset(structureMinX, structureMinY, structureMinZ);
                 structureComponents.add(structurecomponent);
@@ -169,11 +169,11 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 
     //Adds road to start generation
 	@Nullable
-    public StructureComponent generateAndAddRoad(List<StructureComponent> structureComponents, Random rand, int x, int y, int z, EnumFacing facing, int type) {
+    public StructureComponent generateAndAddRoad(List<StructureComponent> structureComponents, Random rand, int x, int y, int z, EnumFacing facing) {
         if (Math.abs(x - this.startPiece.getBoundingBox().minX) <= this.startPiece.radius && Math.abs(z - this.startPiece.getBoundingBox().minZ) <= this.startPiece.radius) {
-            StructureBoundingBox structureBoundingBox = StructureSlayerVillagePieces.Path.findPieceBox(structureComponents, rand, x, y, z, facing);
+            StructureBoundingBox structureBoundingBox = Road.findPieceBox(structureComponents, rand, x, y, z, facing);
             if (structureBoundingBox != null && structureBoundingBox.minY > 10) {
-                StructureComponent structurecomponent = new StructureSlayerVillagePieces.Path(this.startPiece, type, structureBoundingBox, facing);
+                StructureComponent structurecomponent = new Road(this.startPiece, this.startPiece.componentType, structureBoundingBox, facing);
                 structureComponents.add(structurecomponent);
                 this.startPiece.pendingRoads.add(structurecomponent);
                 return structurecomponent;
@@ -187,12 +187,12 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
         }
     }
 
-    public static class Path extends StructureComponent {
+    public static class Road extends StructureComponent {
 
 		private int length;
 		private StructureSlayerVillagePieces.Start start;
 
-		public Path(StructureSlayerVillagePieces.Start start, int type, StructureBoundingBox structureBoundingBox, EnumFacing facing) {
+		public Road(StructureSlayerVillagePieces.Start start, int type, StructureBoundingBox structureBoundingBox, EnumFacing facing) {
 			super(type);
 			this.start = start;
 			this.setCoordBaseMode(facing);
@@ -208,11 +208,31 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 			this.length = tagCompound.getInteger("Length");
 		}
 
+		//This allows the placement of the road in the ground
+		public int getYPlacement(BlockPos blockPos, World world, StructureBoundingBox structureBoundingBox) {
+			int y = -1;
+			if (structureBoundingBox.isVecInside(blockPos)) {
+				blockPos = world.getTopSolidOrLiquidBlock(blockPos).down();
+				if (blockPos.getY() < world.getSeaLevel()) {
+					blockPos = new BlockPos(blockPos.getX(), world.getSeaLevel(), blockPos.getZ());
+				}
+				while (blockPos.getY() >= world.getSeaLevel()) {
+					IBlockState groundBlock = world.getBlockState(blockPos);
+					if (isGroundBlockReplaceable(groundBlock, blockPos, world) || groundBlock.getMaterial().isLiquid()) {
+						break;
+					}
+					blockPos = blockPos.down();
+				}
+				y = blockPos.getY();
+			}
+			return y;
+		}
+
 		public void buildComponent(StructureComponent structureComponent, List<StructureComponent> structureComponents, Random rand) {
 			boolean flag = false;
 			//Adds houses every 2 - 7 + the house's width blocks
 			for (int i = rand.nextInt(5); i < this.length - 8; i += 2 + rand.nextInt(5)) {
-				StructureComponent house1 = this.getNextComponentNN(structureComponents, rand, 0, i);
+				StructureComponent house1 = this.getNextComponentNN(structureComponents, rand, i);
 				if (house1 != null) {
 					i += Math.max(house1.getBoundingBox().getXSize(), house1.getBoundingBox().getZSize());
 					flag = true;
@@ -220,7 +240,7 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 			}
 			//Adds houses every 2 - 7 + the house's width blocks
 			for (int j = rand.nextInt(5); j < this.length - 8; j += 2 + rand.nextInt(5)) {
-				StructureComponent house2 = this.getNextComponentPP(structureComponents, rand, 0, j);
+				StructureComponent house2 = this.getNextComponentPP(structureComponents, rand, j);
 				if (house2 != null) {
 					j += Math.max(house2.getBoundingBox().getXSize(), house2.getBoundingBox().getZSize());
 					flag = true;
@@ -232,16 +252,16 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 				switch (enumfacing) {
 					case NORTH:
 					default:
-						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ, EnumFacing.WEST, this.getComponentType());
+						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX - 1, this.boundingBox.minY, this.boundingBox.minZ, EnumFacing.WEST);
 						break;
 					case SOUTH:
-						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.maxZ, EnumFacing.WEST, this.getComponentType());
+						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX - 1, this.boundingBox.minY, this.boundingBox.maxZ - 2, EnumFacing.WEST);
 						break;
 					case WEST:
-						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ, EnumFacing.NORTH, this.getComponentType());
+						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ - 1, EnumFacing.NORTH);
 						break;
 					case EAST:
-						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.minZ, EnumFacing.NORTH, this.getComponentType());
+						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX - 2, this.boundingBox.minY, this.boundingBox.minZ - 1, EnumFacing.NORTH);
 				}
 			}
 			//Generates roads to the east or south of the end randomly
@@ -249,24 +269,26 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 				switch (enumfacing) {
 					case NORTH:
 					default:
-						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.minZ, EnumFacing.EAST, this.getComponentType());
+						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX + 1, this.boundingBox.minY, this.boundingBox.minZ, EnumFacing.EAST);
 						break;
 					case SOUTH:
-						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.maxZ, EnumFacing.EAST, this.getComponentType());
+						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX + 1, this.boundingBox.minY, this.boundingBox.maxZ - 2, EnumFacing.EAST);
 						break;
 					case WEST:
-						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.maxZ, EnumFacing.SOUTH, this.getComponentType());
+						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.maxZ + 1, EnumFacing.SOUTH);
 						break;
 					case EAST:
-						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.maxZ, EnumFacing.SOUTH, this.getComponentType());
+						this.start.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX - 2, this.boundingBox.minY, this.boundingBox.maxZ + 1, EnumFacing.SOUTH);
 				}
 			}
 		}
 
-		//Generates a path 7 - 35 blocks long
+		//Generates a boundingbox 7 - 35 blocks long as it doesnt intersect with an existing structure
+		@Nullable
 		public static StructureBoundingBox findPieceBox(List<StructureComponent> structureComponents, Random rand, int x, int y, int z, EnumFacing facing) {
 			for (int i = 7 * MathHelper.getInt(rand, 3, 5); i >= 7; i -= 7) {
 				StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(x, y, z, 0, 0, 0, 3, 3, i, facing);
+				//Ignore intellij saying it cant be null
 				if (StructureComponent.findIntersecting(structureComponents, structureboundingbox) == null) {
 					return structureboundingbox;
 				}
@@ -274,12 +296,35 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 			return null;
 		}
 
-		//Creates the path blocks in the world
+		//Creates the road blocks in the world
 		public boolean addComponentParts(World world, Random random, StructureBoundingBox structureBoundingBox) {
-			IBlockState pathBlock = Blocks.STONEBRICK.getDefaultState();
+			IBlockState roadBlock = Blocks.STONEBRICK.getDefaultState();
+			IBlockState dockBlock = Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.OAK);
 			for (int i = this.boundingBox.minX; i <= this.boundingBox.maxX; ++i) {
 				for (int j = this.boundingBox.minZ; j <= this.boundingBox.maxZ; ++j) {
-					BlockPos blockpos = new BlockPos(i, 64, j);
+					BlockPos blockpos = new BlockPos(i, this.boundingBox.minY, j);
+					int y = this.getYPlacement(blockpos, world, structureBoundingBox);
+					if (structureBoundingBox.isVecInside(blockpos)) {
+						blockpos = new BlockPos(blockpos.getX(), y, blockpos.getZ());
+						IBlockState groundBlock = world.getBlockState(blockpos);
+						if (isGroundBlockReplaceable(groundBlock, blockpos, world)) {
+							world.setBlockState(blockpos, roadBlock, 2);
+						}
+						else if (groundBlock.getMaterial().isLiquid()) {
+							world.setBlockState(blockpos, dockBlock, 2);
+						}
+					}
+				}
+			}
+			return true;
+		}
+
+/*		//Creates the road blocks in the world
+		public boolean addComponentParts(World world, Random random, StructureBoundingBox structureBoundingBox) {
+			IBlockState roadBlock = Blocks.STONEBRICK.getDefaultState();
+			for (int i = this.boundingBox.minX; i <= this.boundingBox.maxX; ++i) {
+				for (int j = this.boundingBox.minZ; j <= this.boundingBox.maxZ; ++j) {
+					BlockPos blockpos = new BlockPos(i, this.boundingBox.minY, j);
 					if (structureBoundingBox.isVecInside(blockpos)) {
 						blockpos = world.getTopSolidOrLiquidBlock(blockpos).down();
 						if (blockpos.getY() < world.getSeaLevel()) {
@@ -288,11 +333,11 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 						while (blockpos.getY() >= world.getSeaLevel() - 1) {
 							IBlockState groundBlock = world.getBlockState(blockpos);
 							if (groundBlock.getBlock() == Blocks.GRASS && world.isAirBlock(blockpos.up())) {
-								world.setBlockState(blockpos, pathBlock, 2);
+								world.setBlockState(blockpos, roadBlock, 2);
 								break;
 							}
 							if (groundBlock.getMaterial().isLiquid()) {
-								world.setBlockState(blockpos, pathBlock, 2);
+								world.setBlockState(blockpos, roadBlock, 2);
 								break;
 							}
 							blockpos = blockpos.down();
@@ -301,19 +346,19 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 				}
 			}
 			return true;
-		}
+		}*/
 
 		@Nullable
-		protected StructureComponent getNextComponentNN(List<StructureComponent> structureComponents, Random rand, int shift1, int shift2) {
+		protected StructureComponent getNextComponentNN(List<StructureComponent> structureComponents, Random rand, int shift) {
 			EnumFacing enumfacing = this.getCoordBaseMode();
 			if (enumfacing != null) {
 				switch (enumfacing) {
 					case NORTH:
 					default:
-						return start.generateAndAddHouse(structureComponents, rand, this.boundingBox.minX - 1, this.boundingBox.minY + shift1, this.boundingBox.minZ + shift2, EnumFacing.WEST);
+						return start.generateAndAddHouse(structureComponents, rand, this.boundingBox.minX - 1, this.boundingBox.minY, this.boundingBox.minZ + shift, EnumFacing.WEST);
 					case WEST:
 					case EAST:
-						return start.generateAndAddHouse(structureComponents, rand, this.boundingBox.minX + shift2, this.boundingBox.minY + shift1, this.boundingBox.minZ - 1, EnumFacing.NORTH);
+						return start.generateAndAddHouse(structureComponents, rand, this.boundingBox.minX + shift, this.boundingBox.minY, this.boundingBox.minZ - 1, EnumFacing.NORTH);
 				}
 			} else {
 				return null;
@@ -321,16 +366,16 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 		}
 
 		@Nullable
-		protected StructureComponent getNextComponentPP(List<StructureComponent> structureComponents, Random rand, int shift1, int shift2) {
+		protected StructureComponent getNextComponentPP(List<StructureComponent> structureComponents, Random rand, int shift) {
 			EnumFacing enumfacing = this.getCoordBaseMode();
 			if (enumfacing != null) {
 				switch (enumfacing) {
 					case NORTH:
 					default:
-						return start.generateAndAddHouse(structureComponents, rand, this.boundingBox.maxX + 1, this.boundingBox.minY + shift1, this.boundingBox.minZ + shift2, EnumFacing.EAST);
+						return start.generateAndAddHouse(structureComponents, rand, this.boundingBox.maxX + 1, this.boundingBox.minY, this.boundingBox.minZ + shift, EnumFacing.EAST);
 					case WEST:
 					case EAST:
-						return start.generateAndAddHouse(structureComponents, rand, this.boundingBox.minX + shift2, this.boundingBox.minY + shift1, this.boundingBox.maxZ + 1, EnumFacing.SOUTH);
+						return start.generateAndAddHouse(structureComponents, rand, this.boundingBox.minX + shift, this.boundingBox.minY, this.boundingBox.maxZ + 1, EnumFacing.SOUTH);
 				}
 			} else {
 				return null;
@@ -375,10 +420,10 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 
 		@Override
 		public void buildComponent(StructureComponent start, List<StructureComponent> structureComponents, Random rand) {
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX - 1, this.boundingBox.maxY, this.boundingBox.minZ + 1, EnumFacing.WEST, this.getComponentType());
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX + 5, this.boundingBox.maxY, this.boundingBox.minZ + 1, EnumFacing.EAST, this.getComponentType());
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX + 1, this.boundingBox.maxY, this.boundingBox.minZ - 1, EnumFacing.NORTH, this.getComponentType());
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX + 1, this.boundingBox.maxY, this.boundingBox.maxZ + 5, EnumFacing.SOUTH, this.getComponentType());
+			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX - 1, this.boundingBox.maxY, this.boundingBox.minZ + 1, EnumFacing.WEST);
+			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX + 5, this.boundingBox.maxY, this.boundingBox.minZ + 1, EnumFacing.EAST);
+			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX + 1, this.boundingBox.maxY, this.boundingBox.minZ - 1, EnumFacing.NORTH);
+			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX + 1, this.boundingBox.maxY, this.boundingBox.maxZ + 5, EnumFacing.SOUTH);
 		}
 
 	}

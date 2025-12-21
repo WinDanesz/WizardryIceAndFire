@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.world;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import electroblob.wizardry.Wizardry;
 import net.minecraft.init.Biomes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -16,19 +17,22 @@ import net.minecraft.world.gen.structure.template.Template;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class MapGenSlayerVillage implements IWorldGenerator {
 
-    private final int radius = 32;
+    private final int radius = 60;
     private final BiomeDictionary.Type[] generationBiomes = new BiomeDictionary.Type[]{BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.HILLS};
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (rand.nextInt(IFSpellPack.settings.slayerVillageChance) == 0) {
 			//this doesnt actually randomly change the BlockPos
-			BlockPos blockPos = new BlockPos(chunkX * 16 + rand.nextInt(16), 64, chunkZ * 16 + rand.nextInt(16));
+			int posX = chunkX * 16 + rand.nextInt(16);
+			int posZ = chunkZ * 16 + rand.nextInt(16);
+			BlockPos blockPos = new BlockPos(posX, 64, posZ);
 			BiomeProvider biomeProvider = world.getBiomeProvider();
 			Biome biome = biomeProvider.getBiome(blockPos, Biomes.DEFAULT);
 			int biomeType = 0;
@@ -43,7 +47,7 @@ public class MapGenSlayerVillage implements IWorldGenerator {
 				return;
 			}*/
 /*			this.getStructureStart(world, chunkX, chunkZ, biomeType, rand, radius).generateStructure(world, rand, new StructureBoundingBox(blockPos.getX(), blockPos.getZ(), blockPos.getX(), blockPos.getZ()));*/
-			this.getStructureStart(world, chunkX, chunkZ, biomeType, rand, radius).generateStructure(world, rand, new StructureBoundingBox(blockPos.getX() - this.radius, blockPos.getZ() - this.radius, blockPos.getX() + this.radius, blockPos.getZ() + this.radius));
+			this.getStructureStart(world, chunkX, chunkZ, posX, posZ, biomeType, rand, radius).generateStructure(world, rand, new StructureBoundingBox(blockPos.getX() - this.radius, blockPos.getZ() - this.radius, blockPos.getX() + this.radius, blockPos.getZ() + this.radius));
 		}
 	}
 
@@ -51,20 +55,20 @@ public class MapGenSlayerVillage implements IWorldGenerator {
 		return this.generationBiomes;
 	}
 
-	public StructureStart getStructureStart(World world, int chunkX, int chunkZ, int biomeType, Random random, int radius) {
-		return new MapGenSlayerVillage.Start(world, random, chunkX, chunkZ, biomeType, radius);
+	public StructureStart getStructureStart(World world, int chunkX, int chunkZ, int posX, int posZ, int biomeType, Random random, int radius) {
+		return new MapGenSlayerVillage.Start(world, random, chunkX, chunkZ, posX, posZ, biomeType, radius);
 	}
 
     public static class Start extends StructureStart {
 
 		private boolean hasMoreThanTwoComponents;
 
-		public Start(World world, Random rand, int x, int z, int biomeType, int radius) {
-			super(x, z);
-			StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(biomeType, (x << 4) + 2, (z << 4) + 2, radius);
-			StructureSlayerVillagePieces.Piece church = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church")}, biomeType, world), 20, 5);
-			start.pieces.add(church);
-			//start.pieces.add(new StructureSlayerVillagePieces.Piece(church, 20, MathHelper.getInt(rand, 1, 2)));
+		public Start(World world, Random rand, int chunkX, int chunkZ, int posX, int posZ, int biomeType, int radius) {
+			super(chunkX, chunkZ);
+			StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(biomeType, posX, posZ, radius);
+			StructureSlayerVillagePieces.Piece church = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church")}, biomeType, world), 20, 3);
+			StructureSlayerVillagePieces.Piece shrine = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(Wizardry.MODID, "wizard_tower_0"), new ResourceLocation(Wizardry.MODID, "wizard_tower_1"), new ResourceLocation(Wizardry.MODID, "wizard_tower_2")}, biomeType, world), 20, 3);
+			start.pieces.addAll(Arrays.asList(church, shrine));
 			this.components.add(start);
 			start.buildComponent(start, this.components, rand);
 			List<StructureComponent> roads = start.pendingRoads;
