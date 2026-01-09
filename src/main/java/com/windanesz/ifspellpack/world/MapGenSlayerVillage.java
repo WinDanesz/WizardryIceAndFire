@@ -2,11 +2,13 @@ package com.windanesz.ifspellpack.world;
 
 import com.windanesz.ifspellpack.IFSpellPack;
 import electroblob.wizardry.Wizardry;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
@@ -23,13 +25,16 @@ import java.util.Random;
 
 public class MapGenSlayerVillage implements IWorldGenerator {
 
-    private final int radius = 60;
+    private final int radius;
     private final BiomeDictionary.Type[] generationBiomes = new BiomeDictionary.Type[]{BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.HILLS};
+
+    public MapGenSlayerVillage(int radius) {
+    	this.radius = radius;
+	}
 
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (rand.nextInt(IFSpellPack.settings.slayerVillageChance) == 0) {
-			//this doesnt actually randomly change the BlockPos
 			int posX = chunkX * 16 + rand.nextInt(16);
 			int posZ = chunkZ * 16 + rand.nextInt(16);
 			BlockPos blockPos = new BlockPos(posX, 64, posZ);
@@ -61,14 +66,17 @@ public class MapGenSlayerVillage implements IWorldGenerator {
 
     public static class Start extends StructureStart {
 
-		private boolean hasMoreThanTwoComponents;
-
 		public Start(World world, Random rand, int chunkX, int chunkZ, int posX, int posZ, int biomeType, int radius) {
 			super(chunkX, chunkZ);
-			StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(biomeType, posX, posZ, radius);
-			StructureSlayerVillagePieces.Piece church = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church")}, biomeType, world), 20, 3);
-			StructureSlayerVillagePieces.Piece shrine = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(Wizardry.MODID, "wizard_tower_0"), new ResourceLocation(Wizardry.MODID, "wizard_tower_1"), new ResourceLocation(Wizardry.MODID, "wizard_tower_2")}, biomeType, world), 20, 3);
-			start.pieces.addAll(Arrays.asList(church, shrine));
+			StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(biomeType, posX, posZ, radius, Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.OAK));
+			start.setCoordBaseMode(EnumFacing.values()[rand.nextInt(EnumFacing.values().length)]);
+			StructureSlayerVillagePieces.Piece church = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church")}, biomeType, world), 3);
+			StructureSlayerVillagePieces.Piece tower = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(Wizardry.MODID, "wizard_tower_0"), new ResourceLocation(Wizardry.MODID, "wizard_tower_1"), new ResourceLocation(Wizardry.MODID, "wizard_tower_2")}, biomeType, world), 3);
+			start.buildingPieces.addAll(Arrays.asList(church, tower));
+
+			StructureSlayerVillagePieces.Piece road = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(IFSpellPack.MODID, "road"), new ResourceLocation(IFSpellPack.MODID, "road"), new ResourceLocation(IFSpellPack.MODID, "road")}, biomeType, world), 0);
+			start.roadPiece = road;
+
 			this.components.add(start);
 			start.buildComponent(start, this.components, rand);
 			List<StructureComponent> roads = start.pendingRoads;
@@ -81,36 +89,24 @@ public class MapGenSlayerVillage implements IWorldGenerator {
 				}
 				else {
 					int j = rand.nextInt(roads.size());
-					StructureComponent road = roads.remove(j);
-					road.buildComponent(start, this.components, rand);
+					StructureComponent road2 = roads.remove(j);
+					road2.buildComponent(start, this.components, rand);
 				}
 			}
 			this.updateBoundingBox();
-			int k = 0;
-			for (StructureComponent structureComponent : this.components) {
-				if (!(structureComponent instanceof StructureVillagePieces.Road)) {
-					++k;
-				}
-			}
-			this.hasMoreThanTwoComponents = k > 2;
 		}
 
 		public Template getTemplate(ResourceLocation[] resourceLocations, int biomeType, World world) {
 			return world.getSaveHandler().getStructureTemplateManager().getTemplate(world.getMinecraftServer(), resourceLocations[biomeType]);
 		}
 
-		public boolean isSizeableStructure() {
-			return this.hasMoreThanTwoComponents;
-		}
-
 		public void writeToNBT(NBTTagCompound tagCompound) {
 			super.writeToNBT(tagCompound);
-			tagCompound.setBoolean("Valid", this.hasMoreThanTwoComponents);
 		}
 
 		public void readFromNBT(NBTTagCompound tagCompound) {
 			super.readFromNBT(tagCompound);
-			this.hasMoreThanTwoComponents = tagCompound.getBoolean("Valid");
 		}
 	}
 }
+

@@ -53,7 +53,7 @@ public class IFSpellPack {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(instance);
-		GameRegistry.registerWorldGenerator(new MapGenSlayerVillage(), 20);
+		GameRegistry.registerWorldGenerator(new MapGenSlayerVillage(60), 20);
 		proxy.registerParticles();
 		proxy.init();
 		IFSPPackets.initPackets();
