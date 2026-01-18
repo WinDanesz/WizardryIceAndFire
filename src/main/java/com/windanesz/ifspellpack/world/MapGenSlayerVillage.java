@@ -6,8 +6,8 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -68,15 +68,10 @@ public class MapGenSlayerVillage implements IWorldGenerator {
 
 		public Start(World world, Random rand, int chunkX, int chunkZ, int posX, int posZ, int biomeType, int radius) {
 			super(chunkX, chunkZ);
-			StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(biomeType, posX, posZ, radius, Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.OAK));
-			start.setCoordBaseMode(EnumFacing.values()[rand.nextInt(EnumFacing.values().length)]);
+			StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(world, posX, posZ, radius, Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.OAK)).setRotation(Rotation.values()[rand.nextInt(Rotation.values().length)]);
 			StructureSlayerVillagePieces.Piece church = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church")}, biomeType, world), 3);
 			StructureSlayerVillagePieces.Piece tower = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(Wizardry.MODID, "wizard_tower_0"), new ResourceLocation(Wizardry.MODID, "wizard_tower_1"), new ResourceLocation(Wizardry.MODID, "wizard_tower_2")}, biomeType, world), 3);
 			start.buildingPieces.addAll(Arrays.asList(church, tower));
-
-			StructureSlayerVillagePieces.Piece road = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(IFSpellPack.MODID, "road"), new ResourceLocation(IFSpellPack.MODID, "road"), new ResourceLocation(IFSpellPack.MODID, "road")}, biomeType, world), 0);
-			start.roadPiece = road;
-
 			this.components.add(start);
 			start.buildComponent(start, this.components, rand);
 			List<StructureComponent> roads = start.pendingRoads;
