@@ -11,10 +11,14 @@ import electroblob.wizardry.spell.Spell;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -25,6 +29,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+@Mod.EventBusSubscriber
 public class School extends IForgeRegistryEntry.Impl<School> {
 
 	private int id;
@@ -40,7 +45,16 @@ public class School extends IForgeRegistryEntry.Impl<School> {
 		schoolSpells.put(this, new ArrayList<>());
 	}
 
-	public School (String name) {
+	@SubscribeEvent
+	public static void createRegistry(RegistryEvent.NewRegistry event){
+		RegistryBuilder<School> builder = new RegistryBuilder<>();
+		builder.setType(School.class);
+		builder.setName(new ResourceLocation(IFSpellPack.MODID, "schools"));
+		builder.setIDRange(0, 5000);
+		School.registry = builder.create();
+	}
+
+	public School(String name) {
 		this(IFSpellPack.MODID, name);
 	}
 
@@ -119,7 +133,7 @@ public class School extends IForgeRegistryEntry.Impl<School> {
 		}
 		List<School> schools = School.getSchools(s -> s.getRegistryName().getNamespace().equals(modID));
 		IFSpellPack.logger.info("Loading built-in school properties for " + schools.size() + " schools in mod " + modID);
-		boolean success = CraftingHelper.findFiles(mod, "assets/" + modID + "/schools", null, (root, file) -> {
+		return CraftingHelper.findFiles(mod, "assets/" + modID + "/schools", null, (root, file) -> {
 			String relative = root.relativize(file).toString();
 			if (!"json".equals(FilenameUtils.getExtension(file.toString())) || relative.startsWith("_")) {
 				return true;
@@ -157,6 +171,5 @@ public class School extends IForgeRegistryEntry.Impl<School> {
 			return true;
 		},
 		true, true);
-		return success;
 	}
 }

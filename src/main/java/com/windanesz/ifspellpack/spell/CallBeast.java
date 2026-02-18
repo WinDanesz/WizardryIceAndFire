@@ -132,7 +132,7 @@ public class CallBeast extends Spell {
 									//Dont do anything if the String is not a UUID
 								}
 							}
-							IFSPPackets.net.sendTo(new S2CPacketCallBeast.Message(enabledMounts), (EntityPlayerMP) caster);
+							IFSPPackets.net.sendTo(new S2CPacketCallBeast.Message(enabledMounts), (EntityPlayerMP)caster);
 							this.playSound(world, caster, ticksInUse, -1, modifiers);
 							return true;
 						}

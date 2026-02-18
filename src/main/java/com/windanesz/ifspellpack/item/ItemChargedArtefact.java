@@ -15,17 +15,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchItem {
 
-	private final List<Item> chargeItems;
+	private final Set<Item> chargeItems;
 	private final int chargePerItem;
 	private final int chargePerUse;
 	public static final Set<Item> VALID_ITEMS = new HashSet<>();
 
-	public ItemChargedArtefact(EnumRarity rarity, Type type, int maxCharges, List<Item> chargeItems, int chargePerItem, int chargePerUse) {
+	public ItemChargedArtefact(EnumRarity rarity, Type type, int maxCharges, Set<Item> chargeItems, int chargePerItem, int chargePerUse) {
 		super(rarity, type);
 		this.setMaxDamage(maxCharges);
 		this.chargeItems = chargeItems;
@@ -44,7 +43,7 @@ public class ItemChargedArtefact extends ItemArtefactIFSP implements IWorkbenchI
 		});
 	}
 
-	public List<Item> getChargeItems() {
+	public Set<Item> getChargeItems() {
 		return this.chargeItems;
 	}
 

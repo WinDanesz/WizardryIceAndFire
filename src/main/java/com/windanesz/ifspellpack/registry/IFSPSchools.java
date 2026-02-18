@@ -14,15 +14,6 @@ public class IFSPSchools {
 
 	private IFSPSchools() {}
 
-	@SubscribeEvent
-	public static void createRegistry(RegistryEvent.NewRegistry event){
-		RegistryBuilder<School> builder = new RegistryBuilder<>();
-		builder.setType(School.class);
-		builder.setName(new ResourceLocation(IFSpellPack.MODID, "schools"));
-		builder.setIDRange(0, 5000);
-		School.registry = builder.create();
-	}
-
 	public static final School BEAST = new School("beast");
 	public static final School DRACONIC = new School("draconic");
 	public static final School DREAD = new School("dread");

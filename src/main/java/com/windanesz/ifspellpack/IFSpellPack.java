@@ -2,11 +2,13 @@ package com.windanesz.ifspellpack;
 
 import com.windanesz.ifspellpack.client.IFSPGuiHandler;
 import com.windanesz.ifspellpack.command.CommandSchoolInfo;
+import com.windanesz.ifspellpack.command.CommandSlayerTracker;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.registry.IFSPLoot;
 import com.windanesz.ifspellpack.registry.IFSPVillagerProfessions;
 import com.windanesz.ifspellpack.school.School;
 import com.windanesz.ifspellpack.world.MapGenSlayerVillage;
+import com.windanesz.ifspellpack.world.SlayerTracker;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -65,10 +67,12 @@ public class IFSpellPack {
 		proxy.initialiseLayers();
 		School.init();
 		IFSPVillagerProfessions.init();
+		SlayerTracker.init();
 	}
 
 	@EventHandler
 	public void serverStartup(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandSchoolInfo());
+		event.registerServerCommand(new CommandSlayerTracker());
 	}
 }

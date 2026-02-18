@@ -29,7 +29,13 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 		}
 		if (template != null) {
 			this.setup(template, template.getSize(), this.placeSettings);
+			Rotation rotation = this.placeSettings.getRotation();
+			int i = 0;
 		}
+	}
+
+	public Rotation getRotation() {
+		return this.placeSettings.getRotation();
 	}
 
 	protected void writeStructureToNBT(NBTTagCompound tagCompound) {
@@ -112,6 +118,7 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 				}*/
                 structureComponents.add(building);
                 this.startPiece.pendingHouses.add(building);
+                Rotation rotation1 = building.placeSettings.getRotation();
                 return building;
             }
             else {
@@ -336,7 +343,7 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 		private final IBlockState dockBlock;
 		public List<Piece> buildingPieces = new ArrayList<>();
  		public List<StructureSlayerVillagePieces> pendingHouses = new ArrayList<>();
-		public List<StructureComponent> pendingRoads = new ArrayList<>();
+		public List<StructureSlayerVillagePieces> pendingRoads = new ArrayList<>();
 
 		public Start(World world, int x, int z, int radius, IBlockState dockBlock) {
 			super(null, null);

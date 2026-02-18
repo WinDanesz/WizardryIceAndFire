@@ -4,13 +4,18 @@ block.ifspellpack:ice_spikes.name=Ice Spikes
 
 # Command
 
-command.ifspellpack:schoolinfo.usage=/%1$s <schools/spells> <spell/school>
-command.ifspellpack:schoolinfo.school_not_found=%1$s school does not exist
-command.ifspellpack:schoolinfo.no_spells=%1$s does not contain any spells
-command.ifspellpack:schoolinfo.list_spells=%1$s has the spells: %2$s
-command.ifspellpack:schoolinfo.spell_not_found=%1$s spell does not exist
-command.ifspellpack:schoolinfo.no_schools=%1$s does not contain any schools
 command.ifspellpack:schoolinfo.list_schools=%1$s has the schools: %2$s
+command.ifspellpack:schoolinfo.list_spells=%1$s has the spells: %2$s
+command.ifspellpack:schoolinfo.no_schools=%1$s does not contain any schools
+command.ifspellpack:schoolinfo.no_spells=%1$s does not contain any spells
+command.ifspellpack:schoolinfo.school_not_found=%1$s school does not exist
+command.ifspellpack:schoolinfo.spell_not_found=%1$s spell does not exist
+command.ifspellpack:schoolinfo.usage=/%1$s <schools/spells> <spell/school>
+command.ifspellpack:slayertracker.entities=Tracked entities: %1$s
+command.ifspellpack:slayertracker.kills=You have killed %1$s %2$s %3$s
+command.ifspellpack:slayertracker.player=Must be cast by a player!
+command.ifspellpack:slayertracker.points=You have %1$s slayer %2$s
+command.ifspellpack:slayertracker.usage=/%1$s <points/entities/killcount>
 
 # Enchantment
 

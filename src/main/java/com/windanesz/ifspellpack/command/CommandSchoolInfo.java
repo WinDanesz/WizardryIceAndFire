@@ -13,12 +13,12 @@ import java.util.Set;
 
 public class CommandSchoolInfo extends CommandBase {
 
-	private final String SPELLS = "spells";
-	private final String SCHOOLS = "schools";
+	private final String spells = "spells";
+	private final String schools = "schools";
 
 	@Override
 	public String getName(){
-		return IFSpellPack.settings.schoolinfo;
+		return IFSpellPack.settings.schoolInfo;
 	}
 
 	@Override
@@ -41,11 +41,11 @@ public class CommandSchoolInfo extends CommandBase {
 			BlockPos pos){
 		switch(arguments.length){
 			case 1:
-				return getListOfStringsMatchingLastWord(arguments, SPELLS, SCHOOLS);
+				return getListOfStringsMatchingLastWord(arguments, this.spells, this.schools);
 			case 2:
-				if (arguments[0].equals(SPELLS)) {
+				if (arguments[0].equals(this.spells)) {
 					return getListOfStringsMatchingLastWord(arguments, School.getSchoolNames());
-				} else if (arguments[0].equals(SCHOOLS)) {
+				} else if (arguments[0].equals(this.schools)) {
 					return getListOfStringsMatchingLastWord(arguments, Spell.getSpellNames());
 				}
 		}
@@ -61,7 +61,7 @@ public class CommandSchoolInfo extends CommandBase {
 			throw new WrongUsageException("Need two arguments");
 		} else {
 			Set<String> output;
-			if (arguments[0].equals(SPELLS)) {
+			if (arguments[0].equals(this.spells)) {
 				School school = School.get(arguments[1]);
 				if (school == null) {
 					throw new NumberInvalidException("command." + IFSpellPack.MODID + ":schoolinfo.school_not_found", arguments[1]);
@@ -74,7 +74,7 @@ public class CommandSchoolInfo extends CommandBase {
 				Object spellNames = joinNiceStringFromCollection(output);
 				sender.sendMessage(new TextComponentTranslation("command." + IFSpellPack.MODID + ":schoolinfo.list_spells", arguments[1], spellNames));
 			}
-			if (arguments[0].equals(SCHOOLS)) {
+			if (arguments[0].equals(this.schools)) {
 				Spell spell = Spell.get(arguments[1]);
 				if (spell == null) {
 					throw new NumberInvalidException("command." + IFSpellPack.MODID + ":schoolinfo.spell_not_found", arguments[1]);

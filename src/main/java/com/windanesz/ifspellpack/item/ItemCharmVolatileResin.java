@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class ItemCharmVolatileResin extends ItemChargedArtefact {
@@ -25,7 +26,7 @@ public class ItemCharmVolatileResin extends ItemChargedArtefact {
 	public static final int DURATION = 200;
 
 	public ItemCharmVolatileResin() {
-		super(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, Arrays.asList(IafItemRegistry.myrmex_desert_resin, IafItemRegistry.myrmex_jungle_resin), 100, 100);
+		super(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, new HashSet<>(Arrays.asList(IafItemRegistry.myrmex_desert_resin, IafItemRegistry.myrmex_jungle_resin)), 100, 100);
 	}
 
 	public static <T extends EntityMyrmexBase & ISummonedCreature> void explode(T myrmex) {

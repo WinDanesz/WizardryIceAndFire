@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ItemCharmDwarvenPocketForge extends ItemArtefactIFSP {
 
-	public static final List<Item> validItems = Arrays.asList(Items.IRON_INGOT, Items.GOLD_INGOT, Items.DIAMOND, IafItemRegistry.silverIngot, IafItemRegistry.dragonsteel_fire_ingot, IafItemRegistry.dragonsteel_ice_ingot, IafItemRegistry.copperIngot, IafItemRegistry.dragonsteel_lightning_ingot);
+	public static final List<Item> VALID_ITEMS = Arrays.asList(Items.IRON_INGOT, Items.GOLD_INGOT, Items.DIAMOND, IafItemRegistry.silverIngot, IafItemRegistry.dragonsteel_fire_ingot, IafItemRegistry.dragonsteel_ice_ingot, IafItemRegistry.copperIngot, IafItemRegistry.dragonsteel_lightning_ingot);
 	public static final int INGOTS_CONSUMED_PER_USE = 1;
 
 	@Override
@@ -74,23 +74,24 @@ public class ItemCharmDwarvenPocketForge extends ItemArtefactIFSP {
 		return false;
 	}
 
+	//could be rewritten using a Map of a valid item and dragon armor
 	@Nullable
 	public static Item armorForIngot(Item item) {
-		if (item == validItems.get(0)) {
+		if (item == VALID_ITEMS.get(0)) {
 			return IafItemRegistry.dragon_armor_iron;
-		} else if (item == validItems.get(1)) {
+		} else if (item == VALID_ITEMS.get(1)) {
 			return IafItemRegistry.dragon_armor_gold;
-		} else if (item == validItems.get(2)) {
+		} else if (item == VALID_ITEMS.get(2)) {
 			return IafItemRegistry.dragon_armor_diamond;
-		} else if (item == validItems.get(3)) {
+		} else if (item == VALID_ITEMS.get(3)) {
 			return IafItemRegistry.dragon_armor_silver;
-		} else if (item == validItems.get(4)) {
+		} else if (item == VALID_ITEMS.get(4)) {
 			return IafItemRegistry.dragon_armor_dragonsteel_fire;
-		} else if (item == validItems.get(5)) {
+		} else if (item == VALID_ITEMS.get(5)) {
 			return IafItemRegistry.dragon_armor_dragonsteel_ice;
-		} else if (item == validItems.get(6)) {
+		} else if (item == VALID_ITEMS.get(6)) {
 			return IafItemRegistry.dragon_armor_copper;
-		} else if (item == validItems.get(7)) {
+		} else if (item == VALID_ITEMS.get(7)) {
 			return IafItemRegistry.dragon_armor_dragonsteel_lightning;
 		} else {
 			return null;
@@ -120,6 +121,6 @@ public class ItemCharmDwarvenPocketForge extends ItemArtefactIFSP {
 	}
 
 	public static boolean isItemValid(Item item) {
-		return validItems.contains(item);
+		return VALID_ITEMS.contains(item);
 	}
 }

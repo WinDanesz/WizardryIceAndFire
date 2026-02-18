@@ -20,6 +20,7 @@ import com.windanesz.ifspellpack.school.School;
 import com.windanesz.ifspellpack.spell.DreadLichSkull;
 import com.windanesz.ifspellpack.spell.GorgonGaze;
 import com.windanesz.ifspellpack.spell.TrollSkin;
+import com.windanesz.ifspellpack.world.SlayerTracker;
 import electroblob.wizardry.constants.Element;
 import electroblob.wizardry.data.IVariable;
 import electroblob.wizardry.data.Persistence;
@@ -60,9 +61,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Mod.EventBusSubscriber
 public class IFSPServerEvents {
@@ -144,6 +143,38 @@ public class IFSPServerEvents {
 	@SubscribeEvent
 	public static void onLivingDeathEvent(LivingDeathEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
+		DamageSource source = event.getSource();
+		//Slayer Tracker
+		if (SlayerTracker.isEntityValid(entity) && source.getTrueSource() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer)source.getTrueSource();
+			WizardData data = WizardData.get(player);
+			if (data != null) {
+				//Kill Tracker
+				Map<String, Integer> slayertracker = data.getVariable(SlayerTracker.KILL_TRACKER);
+				String entityName = EntityList.getKey(entity).toString();
+				if (slayertracker == null) {
+					slayertracker = new HashMap<>();
+					slayertracker.put(entityName, 1);
+				} else {
+					if (slayertracker.containsKey(entityName)) {
+						slayertracker.put(entityName, slayertracker.get(entityName) + 1);
+					} else {
+						slayertracker.put(entityName, 1);
+					}
+				}
+				data.setVariable(SlayerTracker.KILL_TRACKER, slayertracker);
+				//Point Tracker
+				Integer slayerPoints = data.getVariable(SlayerTracker.POINT_TRACKER);
+				int points = SlayerTracker.getPoints(entity);
+				if (slayerPoints == null) {
+					slayerPoints = points;
+				} else {
+					slayerPoints += points;
+				}
+				data.setVariable(SlayerTracker.POINT_TRACKER, slayerPoints);
+			}
+		}
+		//Amulet of the Damned
 		if (!(entity instanceof ISummonedCreature) && event.getSource().getImmediateSource() instanceof EntityDreadLichSkull && event.getSource().getTrueSource() instanceof EntityPlayer) {
 			EntityDreadLichSkull skull = (EntityDreadLichSkull)event.getSource().getImmediateSource();
 			EntityPlayer player = (EntityPlayer)event.getSource().getTrueSource();
