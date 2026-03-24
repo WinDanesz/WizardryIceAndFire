@@ -68,9 +68,8 @@ public class MapGenSlayerVillage implements IWorldGenerator {
 
 		public Start(World world, Random rand, int chunkX, int chunkZ, int posX, int posZ, int biomeType, int radius) {
 			super(chunkX, chunkZ);
-			StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(world, posX, posZ, radius, Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.OAK)).setRotation(Rotation.NONE);
-			//StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(world, posX, posZ, radius, Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.OAK)).setRotation(Rotation.values()[rand.nextInt(Rotation.values().length)]);
-			Rotation rotation = start.getRotation();
+			//StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(world, posX, posZ, radius, Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.OAK)).setRotation(Rotation.NONE);
+			StructureSlayerVillagePieces.Start start = new StructureSlayerVillagePieces.Start(world, posX, posZ, radius, Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.OAK)).setRotation(Rotation.values()[rand.nextInt(Rotation.values().length)]);
 			StructureSlayerVillagePieces.Piece church = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church"), new ResourceLocation(IFSpellPack.MODID, "church")}, biomeType, world), 3);
 			StructureSlayerVillagePieces.Piece tower = new StructureSlayerVillagePieces.Piece(this.getTemplate(new ResourceLocation[]{new ResourceLocation(Wizardry.MODID, "wizard_tower_0"), new ResourceLocation(Wizardry.MODID, "wizard_tower_1"), new ResourceLocation(Wizardry.MODID, "wizard_tower_2")}, biomeType, world), 3);
 			start.buildingPieces.addAll(Arrays.asList(church, tower));
@@ -78,15 +77,11 @@ public class MapGenSlayerVillage implements IWorldGenerator {
 			start.buildComponent(start, this.components, rand);
 			List<StructureSlayerVillagePieces> roads = start.pendingRoads;
 			List<StructureSlayerVillagePieces> houses = start.pendingHouses;
-			Rotation rotation3 = houses.get(0).getRotation();
 			while (!roads.isEmpty() || !houses.isEmpty()) {
 				if (roads.isEmpty()) {
 					int i = rand.nextInt(houses.size());
 					StructureSlayerVillagePieces house = houses.remove(i);
-					Rotation rotation1 = house.getRotation();
 					house.buildComponent(start, this.components, rand);
-					Rotation rotation2 = house.getRotation();
-					int y = 0;
 				}
 				else {
 					int j = rand.nextInt(roads.size());
@@ -95,8 +90,6 @@ public class MapGenSlayerVillage implements IWorldGenerator {
 				}
 			}
 			this.updateBoundingBox();
-			Rotation rotation1 = start.getRotation();
-			int y = 0;
 		}
 
 		public Template getTemplate(ResourceLocation[] resourceLocations, int biomeType, World world) {

@@ -172,6 +172,7 @@ public class IFSPServerEvents {
 					slayerPoints += points;
 				}
 				data.setVariable(SlayerTracker.POINT_TRACKER, slayerPoints);
+				data.sync();
 			}
 		}
 		//Amulet of the Damned

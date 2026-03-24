@@ -1,6 +1,10 @@
 package com.windanesz.ifspellpack.inventory;
 
-import net.minecraft.entity.IMerchant;
+import com.windanesz.ifspellpack.entity.ISlayerMerchant;
+import com.windanesz.ifspellpack.entity.SlayerMerchantTrade;
+import com.windanesz.ifspellpack.entity.SlayerMerchantTradeList;
+import com.windanesz.ifspellpack.world.SlayerTracker;
+import electroblob.wizardry.data.WizardData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -12,44 +16,52 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class InventorySlayer implements IInventory {
-    private final IMerchant merchant;
+public class InventorySlayerMerchant implements IInventory {
     @Nonnull
     private ItemStack stack = ItemStack.EMPTY;
     private final EntityPlayer player;
-    private MerchantRecipe currentRecipe;
+    private final ISlayerMerchant merchant;
+    @Nullable
+    private SlayerMerchantTrade currentRecipe;
     private int currentRecipeIndex;
 
-    public InventorySlayer(EntityPlayer thePlayerIn, IMerchant theMerchantIn) {
-        this.player = thePlayerIn;
-        this.merchant = theMerchantIn;
+    public InventorySlayerMerchant(EntityPlayer player, ISlayerMerchant merchant) {
+        this.player = player;
+        this.merchant = merchant;
     }
 
+    @Override
     public int getSizeInventory()
     {
         return 1;
     }
 
+    @Override
     public boolean isEmpty() {
         return this.stack.isEmpty();
     }
 
+    @Override
     public ItemStack getStackInSlot(int index)
     {
         return this.stack;
     }
 
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         return this.stack.splitStack(count);
     }
 
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         ItemStack itemStack = this.stack.copy();
         this.stack = ItemStack.EMPTY;
         return itemStack;
     }
 
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         this.stack = stack;
         if (!stack.isEmpty() && stack.getCount() > this.getInventoryStackLimit())
@@ -58,6 +70,7 @@ public class InventorySlayer implements IInventory {
         }
     }
 
+    @Override
     public String getName()
     {
         return "mob.slayer";
@@ -68,59 +81,86 @@ public class InventorySlayer implements IInventory {
         return false;
     }
 
+    @Override
     public ITextComponent getDisplayName()
     {
         return this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName());
     }
 
+    @Override
     public int getInventoryStackLimit()
     {
         return 64;
     }
 
+    @Override
     public boolean isUsableByPlayer(EntityPlayer player)
     {
         return this.merchant.getCustomer() == player;
     }
 
+    @Override
     public void openInventory(EntityPlayer player) {
     }
 
+    @Override
     public void closeInventory(EntityPlayer player) {
     }
 
-    //see what this does
+    @Override
     public boolean isItemValidForSlot(int index, ItemStack stack)
     {
         return true;
     }
 
+    @Override
     public void markDirty() {
     }
 
-    public MerchantRecipe getCurrentRecipe()
-    {
-        return this.currentRecipe;
+    public void resetTrade() {
+        this.currentRecipe = null;
+        this.stack = ItemStack.EMPTY;
+        SlayerMerchantTradeList trades = this.merchant.getTrades();
+        if (this.currentRecipeIndex >= 0 && this.currentRecipeIndex < trades.size()) {
+            this.currentRecipe = trades.get(this.currentRecipeIndex);
+            WizardData data = WizardData.get(this.player);
+            if (data != null) {
+                Integer points = data.getVariable(SlayerTracker.POINT_TRACKER);
+                if (points != null) {
+                    if (points >= this.currentRecipe.getCost()) {
+                        ItemStack stack = currentRecipe.getStack().copy();
+                        this.setInventorySlotContents(0, stack);
+                    }
+                }
+            }
+        }
     }
 
-    public void setCurrentRecipeIndex(int currentRecipeIndexIn)
-    {
-        this.currentRecipeIndex = currentRecipeIndexIn;
-    }
-
+    @Override
     public int getField(int id)
     {
         return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
     }
 
+    @Override
     public int getFieldCount() {
         return 0;
     }
 
+    @Override
     public void clear() {
         this.stack = ItemStack.EMPTY;
+    }
+
+    public SlayerMerchantTrade getCurrentRecipe() {
+        return this.currentRecipe;
+    }
+
+    public void setCurrentRecipeIndex(int currentRecipeIndexIn) {
+        this.currentRecipeIndex = currentRecipeIndexIn;
     }
 }

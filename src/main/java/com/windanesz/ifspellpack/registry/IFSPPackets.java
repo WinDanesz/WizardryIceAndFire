@@ -15,12 +15,14 @@ public class IFSPPackets {
 
 	public static void initPackets() {
 		net = NetworkRegistry.INSTANCE.newSimpleChannel(IFSpellPack.MODID.toUpperCase());
+		registerMessage(C2SPacketGuiSlayerMerchant.class, C2SPacketGuiSlayerMerchant.Message.class);
+		registerMessage(C2SPacketPixieWingGlider.class, C2SPacketPixieWingGlider.Message.class);
+		registerMessage(C2SPacketSummonBeast.class, C2SPacketSummonBeast.Message.class);
+		registerMessage(C2SPacketSlayerPointSpend.class, C2SPacketSlayerPointSpend.Message.class);
+		registerMessage(C2SPacketSummonDragon.class, C2SPacketSummonDragon.Message.class);
 		registerMessage(S2CPacketCallBeast.class, S2CPacketCallBeast.Message.class);
 		registerMessage(S2CPacketCallDragon.class, S2CPacketCallDragon.Message.class);
 		registerMessage(S2CPacketLiveWire.class, S2CPacketLiveWire.Message.class);
-		registerMessage(C2SPacketSummonBeast.class, C2SPacketSummonBeast.Message.class);
-		registerMessage(C2SPacketSummonDragon.class, C2SPacketSummonDragon.Message.class);
-		registerMessage(C2SPacketPixieWingGlider.class, C2SPacketPixieWingGlider.Message.class);
 	}
 
 	private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> packet, Class<REQ> message) {

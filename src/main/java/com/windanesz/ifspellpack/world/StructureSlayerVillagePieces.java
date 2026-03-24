@@ -28,14 +28,9 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 			this.startPiece = start;
 		}
 		if (template != null) {
+			this.placeSettings = this.placeSettings.copy();
 			this.setup(template, template.getSize(), this.placeSettings);
-			Rotation rotation = this.placeSettings.getRotation();
-			int i = 0;
 		}
-	}
-
-	public Rotation getRotation() {
-		return this.placeSettings.getRotation();
 	}
 
 	protected void writeStructureToNBT(NBTTagCompound tagCompound) {
@@ -70,7 +65,6 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 		if (this.template == null) {
 			return true;
 		}
-		Rotation rotation = this.placeSettings.getRotation();
 		return super.addComponentParts(world, rand, structureBoundingBox);
 	}
 
@@ -109,8 +103,6 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
             	building.placeSettings.setRotation(rotation);
 				building.templatePosition = building.template.getZeroPositionWithTransform(building.templatePosition, building.placeSettings.getMirror(), building.placeSettings.getRotation());
 				building.getBoundingBox().offset(building.templatePosition.getX(), building.templatePosition.getY(), building.templatePosition.getZ());
-				BlockPos pos = building.templatePosition;
-				StructureBoundingBox box = building.getBoundingBox();
 /*            	for (StructureComponent structureComponentExisting : structureComponents) {
             		if (structureComponentExisting.getBoundingBox().intersectsWith(structureComponent.boundingBox)) {
             			return null;
@@ -118,7 +110,6 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 				}*/
                 structureComponents.add(building);
                 this.startPiece.pendingHouses.add(building);
-                Rotation rotation1 = building.placeSettings.getRotation();
                 return building;
             }
             else {
@@ -358,6 +349,10 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 			return this.dockBlock;
 		}
 
+		public Rotation getRotation() {
+			return this.placeSettings.getRotation();
+		}
+
 		public Start setRotation(Rotation rotation) {
 			this.placeSettings.setRotation(rotation);
 			return this;
@@ -365,9 +360,9 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 
 		@Override
 		public void buildComponent(StructureComponent start, List<StructureComponent> structureComponents, Random rand) {
-			this.generateAndAddBuilding(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minZ, Rotation.NONE);
-			this.generateAndAddBuilding(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minZ, Rotation.CLOCKWISE_180);
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.minX, this.boundingBox.maxZ, Rotation.NONE);
+			this.generateAndAddBuilding(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minZ, this.getRotation());
+			this.generateAndAddBuilding(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minZ, this.getRotation().add(Rotation.CLOCKWISE_180));
+			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.NONE);
 			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.CLOCKWISE_90);
 			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.CLOCKWISE_180);
 			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.COUNTERCLOCKWISE_90);

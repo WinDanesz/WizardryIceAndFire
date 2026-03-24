@@ -46,6 +46,7 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityMyrmexSwarmerMinion.class, "myrmex_swarmer_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityMyrmexWorkerMinion.class, "myrmex_worker_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityPixieMinion.class, "pixie_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntitySlayerMerchant.class, "slayer_merchant", TrackingType.LIVING).egg(0, 0).build());
 		registry.register(createEntry(EntityTrollMinion.class, "troll_minion", TrackingType.LIVING).build());
 
 		//projectile

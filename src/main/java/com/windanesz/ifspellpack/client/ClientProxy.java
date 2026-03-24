@@ -14,13 +14,17 @@ import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhide;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhideNext;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerSentinelShell;
 import com.windanesz.ifspellpack.client.renderer.entity.living.RenderSkeletalDragon;
+import com.windanesz.ifspellpack.client.renderer.entity.living.RenderSlayerMerchant;
 import com.windanesz.ifspellpack.entity.construct.EntityDreadArmy;
 import com.windanesz.ifspellpack.entity.living.*;
 import com.windanesz.ifspellpack.entity.projectile.*;
 import com.windanesz.ifspellpack.registry.IFSPParticles;
 import electroblob.wizardry.client.particle.ParticleWizardry;
+import electroblob.wizardry.client.renderer.entity.RenderWizard;
 import electroblob.wizardry.client.renderer.entity.layers.*;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModelHandler;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
@@ -83,6 +87,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalFireDragon.class, manager -> new RenderSkeletalDragon(manager, FIRE_DRAGON_MODEL, 0));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalIceDragon.class, manager -> new RenderSkeletalDragon(manager, ICE_DRAGON_MODEL, 1));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalLightningDragon.class, manager -> new RenderSkeletalDragon(manager, LIGHTNING_DRAGON_MODEL, 2));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySlayerMerchant.class, RenderSlayerMerchant::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrollMinion.class, RenderTroll::new);
 
 		//projectile

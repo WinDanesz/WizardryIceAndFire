@@ -20,7 +20,7 @@ public class SlayerTracker {
 
 	public static final IStoredVariable<Map<String, Integer>> KILL_TRACKER = new IStoredVariable.StoredVariable<Map<String, Integer>, NBTTagList>("ifspellpack:KillTracker", s -> NBTExtras.mapToNBT(s, NBTTagString::new, NBTTagInt::new), t -> new HashMap<>(NBTExtras.NBTToMap(t, NBTTagString::getString, NBTTagInt::getInt)), Persistence.ALWAYS).setSynced();
 
-	public static final IStoredVariable<Integer> POINT_TRACKER = IStoredVariable.StoredVariable.ofInt("ifspellpack:PointTracker", Persistence.ALWAYS);
+	public static final IStoredVariable<Integer> POINT_TRACKER = IStoredVariable.StoredVariable.ofInt("ifspellpack:PointTracker", Persistence.ALWAYS).setSynced();
 
 	public static void init() {
 		WizardData.registerStoredVariables(KILL_TRACKER, POINT_TRACKER);
