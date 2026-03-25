@@ -4,6 +4,8 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.client.IFSPGuiHandler;
+import electroblob.wizardry.Wizardry;
+import electroblob.wizardry.data.WizardData;
 import electroblob.wizardry.util.InventoryUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -15,15 +17,20 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ItemCharmDwarvenPocketForge extends ItemArtefactIFSP {
 
-	public static final List<Item> VALID_ITEMS = Arrays.asList(Items.IRON_INGOT, Items.GOLD_INGOT, Items.DIAMOND, IafItemRegistry.silverIngot, IafItemRegistry.dragonsteel_fire_ingot, IafItemRegistry.dragonsteel_ice_ingot, IafItemRegistry.copperIngot, IafItemRegistry.dragonsteel_lightning_ingot);
+	public static final List<Item> VALID_ITEMS_OLD = Arrays.asList(Items.IRON_INGOT, Items.GOLD_INGOT, Items.DIAMOND, IafItemRegistry.silverIngot, IafItemRegistry.dragonsteel_fire_ingot, IafItemRegistry.dragonsteel_ice_ingot, IafItemRegistry.copperIngot, IafItemRegistry.dragonsteel_lightning_ingot);
+
+	public static final Map<Item, Item> VALID_ITEMS = new HashMap<>();
 	public static final int INGOTS_CONSUMED_PER_USE = 1;
 
 	@Override
@@ -36,6 +43,27 @@ public class ItemCharmDwarvenPocketForge extends ItemArtefactIFSP {
 	public ItemCharmDwarvenPocketForge() {
 		super(EnumRarity.RARE, Type.CHARM);
 		this.setMaxDamage(MAX_STACK_SIZE);
+	}
+
+	public static void init() {
+		for (String string : IFSpellPack.settings.dwarvenPocketForgeValidItems) {
+			String[] args = string.split(" ");
+			if (args.length != 2) {
+				IFSpellPack.logger.warn("Invalid entry in dwarven pocket forge: {}", string);
+			} else {
+				Item material = Item.REGISTRY.getObject(new ResourceLocation(args[0]));
+				if (material == null) {
+					IFSpellPack.logger.warn("Invalid material item in dwarven pocket forge: {}", string);
+				} else {
+					Item armor = Item.REGISTRY.getObject(new ResourceLocation(args[1]));
+					if (armor == null) {
+						IFSpellPack.logger.warn("Invalid armor item in dwarven pocket forge: {}", string);
+					} else {
+						VALID_ITEMS.put(material, armor);
+					}
+				}
+			}
+		}
 	}
 
 	@Override
@@ -74,28 +102,9 @@ public class ItemCharmDwarvenPocketForge extends ItemArtefactIFSP {
 		return false;
 	}
 
-	//could be rewritten using a Map of a valid item and dragon armor
 	@Nullable
 	public static Item armorForIngot(Item item) {
-		if (item == VALID_ITEMS.get(0)) {
-			return IafItemRegistry.dragon_armor_iron;
-		} else if (item == VALID_ITEMS.get(1)) {
-			return IafItemRegistry.dragon_armor_gold;
-		} else if (item == VALID_ITEMS.get(2)) {
-			return IafItemRegistry.dragon_armor_diamond;
-		} else if (item == VALID_ITEMS.get(3)) {
-			return IafItemRegistry.dragon_armor_silver;
-		} else if (item == VALID_ITEMS.get(4)) {
-			return IafItemRegistry.dragon_armor_dragonsteel_fire;
-		} else if (item == VALID_ITEMS.get(5)) {
-			return IafItemRegistry.dragon_armor_dragonsteel_ice;
-		} else if (item == VALID_ITEMS.get(6)) {
-			return IafItemRegistry.dragon_armor_copper;
-		} else if (item == VALID_ITEMS.get(7)) {
-			return IafItemRegistry.dragon_armor_dragonsteel_lightning;
-		} else {
-			return null;
-		}
+		return VALID_ITEMS.get(item);
 	}
 
 	@Override
@@ -121,6 +130,6 @@ public class ItemCharmDwarvenPocketForge extends ItemArtefactIFSP {
 	}
 
 	public static boolean isItemValid(Item item) {
-		return VALID_ITEMS.contains(item);
+		return VALID_ITEMS.containsKey(item);
 	}
 }

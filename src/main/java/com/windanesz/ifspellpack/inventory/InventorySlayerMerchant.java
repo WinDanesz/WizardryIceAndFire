@@ -101,6 +101,8 @@ public class InventorySlayerMerchant implements IInventory {
 
     @Override
     public void openInventory(EntityPlayer player) {
+        //this does nothing
+        //this.resetTrade();
     }
 
     @Override
@@ -115,6 +117,8 @@ public class InventorySlayerMerchant implements IInventory {
 
     @Override
     public void markDirty() {
+        //this makes it so that the spell book appears when the inventory is first opened
+        this.resetTrade();
     }
 
     public void resetTrade() {
@@ -127,7 +131,7 @@ public class InventorySlayerMerchant implements IInventory {
             if (data != null) {
                 Integer points = data.getVariable(SlayerTracker.POINT_TRACKER);
                 if (points != null) {
-                    if (points >= this.currentRecipe.getCost()) {
+                    if (points >= this.currentRecipe.getCost() && !this.currentRecipe.isTradeDisabled()) {
                         ItemStack stack = currentRecipe.getStack().copy();
                         this.setInventorySlotContents(0, stack);
                     }

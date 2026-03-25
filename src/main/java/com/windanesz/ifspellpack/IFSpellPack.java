@@ -3,6 +3,7 @@ package com.windanesz.ifspellpack;
 import com.windanesz.ifspellpack.client.IFSPGuiHandler;
 import com.windanesz.ifspellpack.command.CommandSchoolInfo;
 import com.windanesz.ifspellpack.command.CommandSlayerTracker;
+import com.windanesz.ifspellpack.item.ItemCharmDwarvenPocketForge;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.registry.IFSPLoot;
 import com.windanesz.ifspellpack.registry.IFSPVillagerProfessions;
@@ -68,6 +69,7 @@ public class IFSpellPack {
 		School.init();
 		IFSPVillagerProfessions.init();
 		SlayerTracker.init();
+		ItemCharmDwarvenPocketForge.init();
 	}
 
 	@EventHandler

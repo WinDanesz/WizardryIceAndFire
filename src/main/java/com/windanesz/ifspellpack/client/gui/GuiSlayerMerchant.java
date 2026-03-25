@@ -43,6 +43,8 @@ public class GuiSlayerMerchant extends GuiContainer {
         super(new ContainerSlayerMerchant(playerInventoryIn, merchantIn));
         this.merchant = merchantIn;
         this.chatComponent = merchantIn.getDisplayName();
+        //this does nothing
+        //((ContainerSlayerMerchant)this.inventorySlots).resetTrade();
     }
 
     public void initGui() {
@@ -64,8 +66,6 @@ public class GuiSlayerMerchant extends GuiContainer {
         super.updateScreen();
         SlayerMerchantTradeList trades = this.merchant.getTrades();
         if (trades != null) {
-            //Is there a way I can have this appear when the GUI opens so I dont have to call it every tick?
-            ((ContainerSlayerMerchant)this.inventorySlots).resetTrade();
             this.nextButton.enabled = this.selectedTrade < trades.size() - 1;
             this.previousButton.enabled = this.selectedTrade > 0;
         }
@@ -90,8 +90,7 @@ public class GuiSlayerMerchant extends GuiContainer {
         }
         if (flag) {
             ((ContainerSlayerMerchant)this.inventorySlots).setCurrentRecipeIndex(this.selectedTrade);
-            //I call this every tick currently, so no need for it to be here too
-            //((ContainerSlayerMerchant)this.inventorySlots).resetTrade();
+            ((ContainerSlayerMerchant)this.inventorySlots).resetTrade();
             IFSPPackets.net.sendToServer(new C2SPacketGuiSlayerMerchant.Message(this.selectedTrade));
         }
     }

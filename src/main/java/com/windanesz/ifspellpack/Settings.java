@@ -1,10 +1,14 @@
 package com.windanesz.ifspellpack;
 
+import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Config(modid = IFSpellPack.MODID, name = "IFSpellPack") // No fancy configs here so we can use the annotation, hurrah!
 public class Settings {
@@ -23,6 +27,8 @@ public class Settings {
 	public static ArtefactSettings artefactSettings = new ArtefactSettings();
 
 	public float heartOfDreadDurationMultiplier = artefactSettings.heartOfDreadDurationMultiplier;
+
+	public String[] dwarvenPocketForgeValidItems = artefactSettings.dwarvenPocketForgeValidItems;
 
 	@Config.Name("World Generation Settings")
 	public static WorldGenerationSettings worldGenerationSettings = new WorldGenerationSettings();
@@ -79,6 +85,11 @@ public class Settings {
 		@Config.Name("Heart of Dread Duration Increase")
 		@Config.Comment("Duration increase of the heart of dread charm")
 		public float heartOfDreadDurationMultiplier = 2f;
+
+		@Config.Name("Dwarven Pocket Forge Valid Items")
+		@Config.Comment("Map of dragon armor materials and respective dragon armor")
+		@Config.RequiresWorldRestart
+		public String[] dwarvenPocketForgeValidItems = new String[]{"minecraft:iron_ingot iceandfire:dragonarmor_iron", "minecraft:gold_ingot iceandfire:dragonarmor_gold", "minecraft:diamond iceandfire:dragonarmor_diamond", "iceandfire:silver_ingot iceandfire:dragonarmor_silver", "iceandfire:dragonsteel_fire_ingot iceandfire:dragonarmor_dragonsteel_fire", "iceandfire:dragonsteel_ice_ingot iceandfire:dragonarmor_dragonsteel_ice", "iceandfire:copper_ingot iceandfire:dragonarmor_copper", "iceandfire:dragonsteel_lightning_ingot iceandfire:dragonarmor_dragonsteel_lightning"};
 
 	}
 

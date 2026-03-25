@@ -93,11 +93,7 @@ public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerch
 	}
 
 	public int costForTier(Tier tier) {
-		return 0;
-	}
-
-/*	public int costForTier(Tier tier) {
-		if (tier == Tier.NOVICE) {
+/*		if (tier == Tier.NOVICE) {
 			return 5;
 		}
 		else if (tier == Tier.APPRENTICE) {
@@ -111,8 +107,9 @@ public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerch
 		}
 		else {
 			return 5;
-		}
-	}*/
+		}*/
+		return 0;
+	}
 
 	@Override
 	public void purchaseItem(SlayerMerchantTrade recipe) {
@@ -133,9 +130,8 @@ public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerch
 			if (this.world.getTotalWorldTime() >= this.tradeResetTime) {
 				this.hasTradesOnCooldown = false;
 				for (SlayerMerchantTrade trade : this.getTrades()) {
-					if (trade.isTradeDisabled()) {
-						trade.setCurrentTradeUses(0);
-					}
+					//Reset all trades, even the ones not on cooldown
+					trade.setCurrentTradeUses(0);
 				}
 				this.playSound(WizardrySounds.ENTITY_WIZARD_TRADING, this.getSoundVolume(), this.getSoundPitch());
 			}

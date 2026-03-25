@@ -85,9 +85,7 @@ public class ContainerSlayerMerchant extends Container
 
     @Override
     public void onContainerClosed(EntityPlayer playerIn) {
-        //Do I need both?
         super.onContainerClosed(playerIn);
         this.merchant.setCustomer(null);
-        super.onContainerClosed(playerIn);
     }
 }
