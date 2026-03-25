@@ -24,12 +24,15 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
-@Mod(modid = IFSpellPack.MODID, name = IFSpellPack.NAME, version = "@VERSION@", acceptedMinecraftVersions = "[@MCVERSION@]",
-		dependencies = "required-after:mixinbooter;required-after:ebwizardry@[@WIZARDRY_VERSION@,4.4);required-after:wizardryutils;after:pointer")
+@Mod(modid = IFSpellPack.MODID, name = IFSpellPack.NAME, version = IFSpellPack.VERSION, acceptedMinecraftVersions = "[" + IFSpellPack.MCVERSION + "]",
+		dependencies = "required-after:mixinbooter;required-after:ebwizardry@[" + IFSpellPack.WIZARDRY_VERSION + ",4.4);required-after:wizardryutils;after:pointer")
 public class IFSpellPack {
 
 	public static final String MODID = "ifspellpack";
 	public static final String NAME = "Wizardry: Ice and Fire";
+	public static final String VERSION = Tags.VERSION;
+	public static final String MCVERSION = Tags.MCVERSION;
+	public static final String WIZARDRY_VERSION = Tags.WIZARDRY_VERSION;
 
 	public static final Random rand = new Random();
 

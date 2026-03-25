@@ -1,0 +1,28 @@
+{
+  "name": "WizardryIceAndFire",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "25"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-gradle"
+      ],
+      "settings": {
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-25",
+            "path": "/usr/local/sdkman/candidates/java/current",
+            "default": true
+          }
+        ],
+        "java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current"
+      }
+    }
+  },
+  "postCreateCommand": "java -version && chmod +x ./gradlew && ./gradlew --version"
+}
