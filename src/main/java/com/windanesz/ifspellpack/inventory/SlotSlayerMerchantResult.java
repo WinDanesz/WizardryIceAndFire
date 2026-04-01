@@ -2,9 +2,6 @@ package com.windanesz.ifspellpack.inventory;
 
 import com.windanesz.ifspellpack.entity.ISlayerMerchant;
 import com.windanesz.ifspellpack.entity.SlayerMerchantTrade;
-import com.windanesz.ifspellpack.network.C2SPacketSlayerPointSpend;
-import com.windanesz.ifspellpack.network.C2SPacketSummonBeast;
-import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.world.SlayerTracker;
 import electroblob.wizardry.data.WizardData;
 import net.minecraft.entity.player.EntityPlayer;
@@ -65,7 +62,6 @@ public class SlotSlayerMerchantResult extends Slot {
                     if (points >= merchantRecipe.getCost()) {
                         points -= merchantRecipe.getCost();
                         data.setVariable(SlayerTracker.POINT_TRACKER, points);
-                        IFSPPackets.net.sendToServer(new C2SPacketSlayerPointSpend.Message(points));
                         this.merchant.purchaseItem(merchantRecipe);
                         this.merchantInventory.resetTrade();
                     }

@@ -1,47 +1,32 @@
 package com.windanesz.ifspellpack.entity;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.village.MerchantRecipe;
+import net.minecraft.village.MerchantRecipeList;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class SlayerMerchantTradeList extends ArrayList<SlayerMerchantTrade> {
 
-	public SlayerMerchantTradeList() {
-	}
+	public static final String RECIPES_KEY = "Recipes";
+
+	public SlayerMerchantTradeList() { }
 
 	public SlayerMerchantTradeList(NBTTagCompound compound) {
 		this.readRecipiesFromTags(compound);
 	}
 
-	public static SlayerMerchantTradeList readFromBuf(PacketBuffer buffer) throws IOException {
-		SlayerMerchantTradeList merchantRecipes = new SlayerMerchantTradeList();
-		int i = buffer.readByte() & 255;
-		for (int j = 0; j < i; ++j) {
-			ItemStack itemstack = buffer.readItemStack();
-			int cost = buffer.readInt();
-			SlayerMerchantTrade merchantrecipe = new SlayerMerchantTrade(itemstack, cost);
-			merchantRecipes.add(merchantrecipe);
-		}
-		return merchantRecipes;
-	}
-
-	public void writeToBuf(PacketBuffer buffer) {
-		buffer.writeByte((byte)(this.size() & 255));
-		for (SlayerMerchantTrade merchantRecipe : this) {
-			buffer.writeItemStack(merchantRecipe.getStack());
-			buffer.writeInt(merchantRecipe.getCost());
-		}
-	}
-
 	public void readRecipiesFromTags(NBTTagCompound compound) {
-		NBTTagList nbttaglist = compound.getTagList("Recipes", 10);
-
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
+		NBTTagList nbttaglist = compound.getTagList(RECIPES_KEY, 10);
+		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
 			this.add(new SlayerMerchantTrade(nbttagcompound));
 		}
@@ -53,8 +38,33 @@ public class SlayerMerchantTradeList extends ArrayList<SlayerMerchantTrade> {
 		for (SlayerMerchantTrade slayerMerchantRecipe : this) {
 			nbttaglist.appendTag(slayerMerchantRecipe.writeToTags());
 		}
-		nbttagcompound.setTag("Recipes", nbttaglist);
+		nbttagcompound.setTag(RECIPES_KEY, nbttaglist);
 		return nbttagcompound;
+	}
+
+	public void writeToBuf(ByteBuf buf) {
+		buf.writeByte((byte)(this.size() & 255));
+		for (SlayerMerchantTrade trade : this) {
+			ByteBufUtils.writeItemStack(buf, trade.getStack());
+			buf.writeInt(trade.getCost());
+			buf.writeInt(trade.getCurrentTradeUses());
+			buf.writeInt(trade.getMaxTradeUses());
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static SlayerMerchantTradeList readFromBuf(ByteBuf buf) {
+		SlayerMerchantTradeList trades = new SlayerMerchantTradeList();
+		int i = buf.readByte() & 255;
+		for (int j = 0; j < i; ++j) {
+			ItemStack itemstack = ByteBufUtils.readItemStack(buf);
+			int cost = buf.readInt();
+			int currentTradeUses = buf.readInt();
+			int maxTradeUses = buf.readInt();
+			SlayerMerchantTrade trade = new SlayerMerchantTrade(itemstack, cost, currentTradeUses, maxTradeUses);
+			trades.add(trade);
+		}
+		return trades;
 	}
 
 }

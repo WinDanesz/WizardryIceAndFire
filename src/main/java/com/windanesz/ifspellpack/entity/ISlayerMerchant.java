@@ -17,7 +17,8 @@ public interface ISlayerMerchant {
     @Nullable
     SlayerMerchantTradeList getTrades();
 
-    void setTrades(@Nullable SlayerMerchantTradeList recipes);
+    @Nullable
+    void setTrades(SlayerMerchantTradeList trades);
 
     void purchaseItem(SlayerMerchantTrade recipe);
 

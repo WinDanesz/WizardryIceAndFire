@@ -3,5 +3,9 @@
   "ifspellpack:summon_dread_ghoul",
   "ifspellpack:summon_dread_knight",
   "ifspellpack:dread_lich_skull",
-  "ifspellpack:summon_dread_horse"
+  "ifspellpack:summon_dread_horse",
+  "ifspellpack:dread_army",
+  "ifspellpack:dread_howl",
+  "ifspellpack:dread_companions",
+  "ifspellpack:summon_skeletal_dragon"
 ]

@@ -5,12 +5,11 @@ import com.windanesz.ifspellpack.entity.ISlayerMerchant;
 import com.windanesz.ifspellpack.entity.SlayerMerchantTrade;
 import com.windanesz.ifspellpack.entity.SlayerMerchantTradeList;
 import com.windanesz.ifspellpack.inventory.ContainerSlayerMerchant;
-import com.windanesz.ifspellpack.network.C2SPacketGuiSlayerMerchant;
-import com.windanesz.ifspellpack.network.C2SPacketSummonBeast;
+import com.windanesz.ifspellpack.network.C2SPacketGuiSlayerMerchantReset;
+import com.windanesz.ifspellpack.network.C2SPacketGuiSlayerMerchantSetIndex;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.world.SlayerTracker;
 import electroblob.wizardry.data.WizardData;
-import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -19,15 +18,10 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.io.IOException;
 
 @SideOnly(Side.CLIENT)
 public class GuiSlayerMerchant extends GuiContainer {
@@ -43,8 +37,6 @@ public class GuiSlayerMerchant extends GuiContainer {
         super(new ContainerSlayerMerchant(playerInventoryIn, merchantIn));
         this.merchant = merchantIn;
         this.chatComponent = merchantIn.getDisplayName();
-        //this does nothing
-        //((ContainerSlayerMerchant)this.inventorySlots).resetTrade();
     }
 
     public void initGui() {
@@ -69,6 +61,8 @@ public class GuiSlayerMerchant extends GuiContainer {
             this.nextButton.enabled = this.selectedTrade < trades.size() - 1;
             this.previousButton.enabled = this.selectedTrade > 0;
         }
+        ((ContainerSlayerMerchant)this.inventorySlots).resetTrade();
+        IFSPPackets.net.sendToServer(new C2SPacketGuiSlayerMerchantReset.Message());
     }
 
     protected void actionPerformed(GuiButton button) {
@@ -91,7 +85,7 @@ public class GuiSlayerMerchant extends GuiContainer {
         if (flag) {
             ((ContainerSlayerMerchant)this.inventorySlots).setCurrentRecipeIndex(this.selectedTrade);
             ((ContainerSlayerMerchant)this.inventorySlots).resetTrade();
-            IFSPPackets.net.sendToServer(new C2SPacketGuiSlayerMerchant.Message(this.selectedTrade));
+            IFSPPackets.net.sendToServer(new C2SPacketGuiSlayerMerchantSetIndex.Message(this.selectedTrade));
         }
     }
 
@@ -119,6 +113,9 @@ public class GuiSlayerMerchant extends GuiContainer {
             this.itemRender.renderItemAndEffectIntoGUI(itemstack, this.getGuiLeft() + 120, this.getGuiTop() + 24);
             this.itemRender.renderItemOverlays(this.fontRenderer, itemstack, this.getGuiLeft() + 120, this.getGuiTop() + 24);
             this.itemRender.zLevel = 0.0F;
+            if (this.isPointInRegion(120, 24, 16, 16, mouseX, mouseY) && !itemstack.isEmpty()) {
+                this.renderToolTip(itemstack, mouseX, mouseY);
+            }
             //Render trade cost
             this.fontRenderer.drawString("Cost: " + trade.getCost(), this.getGuiLeft() + 35, this.getGuiTop() + 51, 0);
             WizardData data = WizardData.get(mc.player);
@@ -126,17 +123,10 @@ public class GuiSlayerMerchant extends GuiContainer {
                 Integer points = data.getVariable(SlayerTracker.POINT_TRACKER);
                 if (points != null) {
                     //Render total slayer points
-                    this.fontRenderer.drawString("Points: " + points.toString(), this.getGuiLeft() + 35, this.getGuiTop() + 24, 0);
+                    this.fontRenderer.drawString("Points: " + points, this.getGuiLeft() + 35, this.getGuiTop() + 24, 0);
                 }
             }
             GlStateManager.disableLighting();
-            if (this.isPointInRegion(120, 24, 16, 16, mouseX, mouseY) && !itemstack.isEmpty()) {
-                this.renderToolTip(itemstack, mouseX, mouseY);
-            }
-            else if (trade.isTradeDisabled() && (this.isPointInRegion(83, 21, 28, 21, mouseX, mouseY) || this.isPointInRegion(83, 51, 28, 21, mouseX, mouseY))) {
-                this.drawHoveringText(I18n.format("merchant.deprecated"), mouseX, mouseY);
-            }
-            //Render red x over disabled trades
             if (trade.isTradeDisabled()) {
                 this.mc.getTextureManager().bindTexture(MERCHANT_GUI_TEXTURE);
                 GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

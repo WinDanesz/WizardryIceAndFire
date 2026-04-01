@@ -1,11 +1,24 @@
 [
+  "ifspellpack:hydra_pulse",
   "ifspellpack:troll_troop",
   "ifspellpack:tide_guardian",
   "ifspellpack:stymphalian_storm",
   "ifspellpack:stymphalian_barrage",
   "ifspellpack:cockatrice_stare",
+  "ifspellpack:hydra_breath",
   "ifspellpack:troll_skin",
   "ifspellpack:gorgon_gaze",
   "ifspellpack:explode_statue",
-  "ifspellpack:consume_statue"
+  "ifspellpack:consume_statue",
+  "ifspellpack:summon_myrmex_soldier",
+  "ifspellpack:summon_myrmex_worker",
+  "ifspellpack:summon_myrmex_sentinel",
+  "ifspellpack:summon_myrmex_swarm",
+  "ifspellpack:myrmex_blessing",
+  "ifspellpack:sentinel_shell",
+  "ifspellpack:sea_serpent_bubbles",
+  "ifspellpack:sea_serpent_fury",
+  "ifspellpack:allure",
+  "ifspellpack:siren_song",
+  "ifspellpack:menace"
 ]

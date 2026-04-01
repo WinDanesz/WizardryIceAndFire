@@ -1,12 +1,10 @@
 package com.windanesz.ifspellpack.inventory;
 
 import com.windanesz.ifspellpack.entity.ISlayerMerchant;
-import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class ContainerSlayerMerchant extends Container
 {
@@ -16,7 +14,10 @@ public class ContainerSlayerMerchant extends Container
     public ContainerSlayerMerchant(InventoryPlayer playerInventory, ISlayerMerchant merchant) {
         this.merchant = merchant;
         this.merchantInventory = new InventorySlayerMerchant(playerInventory.player, merchant);
+        //Have trade reset on opening
+        this.merchantInventory.markDirty();
         this.addSlotToContainer(new SlotSlayerMerchantResult(playerInventory.player, merchant, this.merchantInventory, 0, 120, 54));
+        //Player Inventory
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));

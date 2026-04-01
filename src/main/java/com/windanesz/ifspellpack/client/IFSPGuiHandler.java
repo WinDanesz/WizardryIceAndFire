@@ -7,6 +7,8 @@ import com.windanesz.ifspellpack.entity.ISlayerMerchant;
 import com.windanesz.ifspellpack.inventory.ContainerDwarvenPocketForge;
 import com.windanesz.ifspellpack.inventory.ContainerSlayerMerchant;
 import com.windanesz.ifspellpack.inventory.InventoryDwarvenPocketForge;
+import com.windanesz.ifspellpack.network.S2CPacketGuiSlayerMerchantSync;
+import com.windanesz.ifspellpack.registry.IFSPPackets;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -31,6 +33,7 @@ public class IFSPGuiHandler implements IGuiHandler {
 			Entity entity = world.getEntityByID(x);
 			if (entity instanceof ISlayerMerchant) {
 				ISlayerMerchant slayerMerchant = (ISlayerMerchant)entity;
+				IFSPPackets.net.sendToAll(new S2CPacketGuiSlayerMerchantSync.Message(x, slayerMerchant.getTrades()));
 				return new ContainerSlayerMerchant(player.inventory, slayerMerchant);
 			} else {
 				IFSpellPack.logger.warn("Trading partner is not an ISlayerMerchant!");

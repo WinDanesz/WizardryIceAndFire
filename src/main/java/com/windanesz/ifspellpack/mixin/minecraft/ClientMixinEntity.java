@@ -14,7 +14,6 @@ public class ClientMixinEntity {
 	@Inject(method = "isInvisibleToPlayer(Lnet/minecraft/entity/player/EntityPlayer;)Z", at = @At("HEAD"), cancellable = true)
 	private void injectIsEntityInvisibleToPlayer(EntityPlayer player, CallbackInfoReturnable<Boolean> info) {
 		if (VanillaMixinHelper.hasArtefact(player)) {
-			;
 			info.setReturnValue(false);
 		}
 	}

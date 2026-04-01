@@ -30,12 +30,14 @@ entity.ifspellpack:dread_army.name=Dread Army
 
         # Living
 
+entity.ifspellpack:archivist.name=Archivist
 entity.ifspellpack:dread_beast_minion.name=Dread Beast
 entity.ifspellpack:dread_ghoul_minion.name=Dread Ghoul
 entity.ifspellpack:dread_horse_minion.name=Dread Horse
 entity.ifspellpack:dread_knight_minion.name=Dread Knight
 entity.ifspellpack:dread_scuttler_minion.name=Dread Scuttler
 entity.ifspellpack:dread_thrall_minion.name=Dread Thrall
+entity.ifspellpack:lightward_battlemage.name=Lightward Battlemage
 entity.ifspellpack:myrmex_sentinel_minion.name=Myrmex Sentinel
 entity.ifspellpack:myrmex_soldier_minion.name=Myrmex Soldier
 entity.ifspellpack:myrmex_swarmer_minion.name=Myrmex Swarmer

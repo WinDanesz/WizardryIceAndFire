@@ -32,12 +32,14 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityDreadArmy.class, "dread_army", TrackingType.CONSTRUCT).build());
 
 		//living
+		registry.register(createEntry(EntityArchivist.class, "archivist", TrackingType.LIVING).egg(0, 0).build());
 		registry.register(createEntry(EntityDreadBeastMinion.class, "dread_beast_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadGhoulMinion.class, "dread_ghoul_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadHorseMinion.class, "dread_horse_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadKnightMinion.class, "dread_knight_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadScuttlerMinion.class, "dread_scuttler_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadThrallMinion.class, "dread_thrall_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityLightwardBattlemage.class, "lightward_battlemage", TrackingType.LIVING).egg(0, 0).build());
 		registry.register(createEntry(EntitySkeletalFireDragon.class, "skeletal_fire_dragon", TrackingType.LIVING).build());
 		registry.register(createEntry(EntitySkeletalIceDragon.class, "skeletal_ice_dragon", TrackingType.LIVING).build());
 		registry.register(createEntry(EntitySkeletalLightningDragon.class, "skeletal_lightning_dragon", TrackingType.LIVING).build());
@@ -46,7 +48,6 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityMyrmexSwarmerMinion.class, "myrmex_swarmer_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityMyrmexWorkerMinion.class, "myrmex_worker_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityPixieMinion.class, "pixie_minion", TrackingType.LIVING).build());
-		registry.register(createEntry(EntitySlayerMerchant.class, "slayer_merchant", TrackingType.LIVING).egg(0, 0).build());
 		registry.register(createEntry(EntityTrollMinion.class, "troll_minion", TrackingType.LIVING).build());
 
 		//projectile

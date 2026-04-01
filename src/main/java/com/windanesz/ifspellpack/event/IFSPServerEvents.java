@@ -33,6 +33,7 @@ import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.EntityUtils;
 import electroblob.wizardry.util.SpellModifiers;
 import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -42,6 +43,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -60,6 +62,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.*;
 
@@ -138,7 +141,6 @@ public class IFSPServerEvents {
 			}
 		}
 	}
-
 
 	@SubscribeEvent
 	public static void onLivingDeathEvent(LivingDeathEvent event) {

@@ -22,12 +22,12 @@ public class Settings {
 	public String schoolInfo = generalSettings.schoolInfo;
 	public String slayerTrackerInfo = generalSettings.slayerTrackerInfo;
 	public String[] slayerTrackerEntities = generalSettings.slayerTrackerEntities;
+	public int tradeResetTimer = generalSettings.tradeResetTimer;
 
 	@Config.Name("Artefact Settings")
 	public static ArtefactSettings artefactSettings = new ArtefactSettings();
 
 	public float heartOfDreadDurationMultiplier = artefactSettings.heartOfDreadDurationMultiplier;
-
 	public String[] dwarvenPocketForgeValidItems = artefactSettings.dwarvenPocketForgeValidItems;
 
 	@Config.Name("World Generation Settings")
@@ -77,6 +77,12 @@ public class Settings {
 		@Config.Comment("The list of monsters to be tracked for slayer and points per kill")
 		@Config.RequiresWorldRestart
 		public String[] slayerTrackerEntities = new String[]{"iceandfire:firedragon 5", "iceandfire:icedragon 5", "iceandfire:hippogryph 2", "iceandfire:gorgon 3", "iceandfire:if_pixie 1", "iceandfire:cyclops 3", "iceandfire:siren 2", "iceandfire:hippocampus 1", "iceandfire:deathworm 2", "iceandfire:if_cockatrice 2", "iceandfire:stymphalianbird 2", "iceandfire:if_troll 2", "iceandfire:myrmex_worker 1", "iceandfire:myrmex_soldier 2", "iceandfire:myrmex_sentinel 3", "iceandfire:myrmex_royal 4", "iceandfire:myrmex_queen 5", "iceandfire:seaserpent 4", "iceandfire:dread_thrall 1", "iceandfire:dread_ghoul 2", "iceandfire:dread_beast 2", "iceandfire:dread_scuttler 3", "iceandfire:dread_lich 4", "iceandfire:dread_knight 3", "iceandfire:dread_horse 1", "iceandfire:if_hydra 4", "iceandfire:lightningdragon 5", "iceandfire:blackfrost 5", "iceandfire:dread_queen 5"};
+
+		@Config.Name("Trade Reset Timer")
+		@Config.Comment("The time it takes for a trade to reset after the first is disabled")
+		public int tradeResetTimer = 12000;
+
+
 
 	}
 

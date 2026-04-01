@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class C2SPacketGuiSlayerMerchant implements IMessageHandler<C2SPacketGuiSlayerMerchant.Message, IMessage> {
+public class C2SPacketGuiSlayerMerchantSetIndex implements IMessageHandler<C2SPacketGuiSlayerMerchantSetIndex.Message, IMessage> {
 
 	@Override
 	public IMessage onMessage(Message message, MessageContext ctx){
@@ -18,6 +18,7 @@ public class C2SPacketGuiSlayerMerchant implements IMessageHandler<C2SPacketGuiS
 				Container container = player.openContainer;
 				if (container instanceof ContainerSlayerMerchant) {
 					((ContainerSlayerMerchant)container).setCurrentRecipeIndex(message.selectedTrade);
+					((ContainerSlayerMerchant)container).resetTrade();
 				}
 			});
 		}

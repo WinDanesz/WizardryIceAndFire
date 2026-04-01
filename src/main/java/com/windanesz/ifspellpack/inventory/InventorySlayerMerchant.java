@@ -7,13 +7,10 @@ import com.windanesz.ifspellpack.world.SlayerTracker;
 import electroblob.wizardry.data.WizardData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.village.MerchantRecipe;
-import net.minecraft.village.MerchantRecipeList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -101,8 +98,6 @@ public class InventorySlayerMerchant implements IInventory {
 
     @Override
     public void openInventory(EntityPlayer player) {
-        //this does nothing
-        //this.resetTrade();
     }
 
     @Override
@@ -117,7 +112,7 @@ public class InventorySlayerMerchant implements IInventory {
 
     @Override
     public void markDirty() {
-        //this makes it so that the spell book appears when the inventory is first opened
+        //Sync client and server trades or something :)
         this.resetTrade();
     }
 
@@ -125,19 +120,29 @@ public class InventorySlayerMerchant implements IInventory {
         this.currentRecipe = null;
         this.stack = ItemStack.EMPTY;
         SlayerMerchantTradeList trades = this.merchant.getTrades();
-        if (this.currentRecipeIndex >= 0 && this.currentRecipeIndex < trades.size()) {
-            this.currentRecipe = trades.get(this.currentRecipeIndex);
-            WizardData data = WizardData.get(this.player);
-            if (data != null) {
-                Integer points = data.getVariable(SlayerTracker.POINT_TRACKER);
-                if (points != null) {
-                    if (points >= this.currentRecipe.getCost() && !this.currentRecipe.isTradeDisabled()) {
-                        ItemStack stack = currentRecipe.getStack().copy();
-                        this.setInventorySlotContents(0, stack);
+        if (trades != null) {
+            if (this.currentRecipeIndex >= 0 && this.currentRecipeIndex < trades.size()) {
+                this.currentRecipe = trades.get(this.currentRecipeIndex);
+                WizardData data = WizardData.get(this.player);
+                if (data != null) {
+                    Integer points = data.getVariable(SlayerTracker.POINT_TRACKER);
+                    if (points != null) {
+                        if (points >= this.currentRecipe.getCost() && !this.currentRecipe.isTradeDisabled()) {
+                            ItemStack stack = currentRecipe.getStack().copy();
+                            this.setInventorySlotContents(0, stack);
+                        }
                     }
                 }
             }
         }
+    }
+
+    public SlayerMerchantTrade getCurrentRecipe() {
+        return this.currentRecipe;
+    }
+
+    public void setCurrentRecipeIndex(int currentRecipeIndexIn) {
+        this.currentRecipeIndex = currentRecipeIndexIn;
     }
 
     @Override
@@ -160,11 +165,4 @@ public class InventorySlayerMerchant implements IInventory {
         this.stack = ItemStack.EMPTY;
     }
 
-    public SlayerMerchantTrade getCurrentRecipe() {
-        return this.currentRecipe;
-    }
-
-    public void setCurrentRecipeIndex(int currentRecipeIndexIn) {
-        this.currentRecipeIndex = currentRecipeIndexIn;
-    }
 }

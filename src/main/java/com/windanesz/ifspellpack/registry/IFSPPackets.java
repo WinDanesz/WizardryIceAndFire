@@ -15,13 +15,14 @@ public class IFSPPackets {
 
 	public static void initPackets() {
 		net = NetworkRegistry.INSTANCE.newSimpleChannel(IFSpellPack.MODID.toUpperCase());
-		registerMessage(C2SPacketGuiSlayerMerchant.class, C2SPacketGuiSlayerMerchant.Message.class);
+		registerMessage(C2SPacketGuiSlayerMerchantReset.class, C2SPacketGuiSlayerMerchantReset.Message.class);
+		registerMessage(C2SPacketGuiSlayerMerchantSetIndex.class, C2SPacketGuiSlayerMerchantSetIndex.Message.class);
 		registerMessage(C2SPacketPixieWingGlider.class, C2SPacketPixieWingGlider.Message.class);
 		registerMessage(C2SPacketSummonBeast.class, C2SPacketSummonBeast.Message.class);
-		registerMessage(C2SPacketSlayerPointSpend.class, C2SPacketSlayerPointSpend.Message.class);
 		registerMessage(C2SPacketSummonDragon.class, C2SPacketSummonDragon.Message.class);
 		registerMessage(S2CPacketCallBeast.class, S2CPacketCallBeast.Message.class);
 		registerMessage(S2CPacketCallDragon.class, S2CPacketCallDragon.Message.class);
+		registerMessage(S2CPacketGuiSlayerMerchantSync.class, S2CPacketGuiSlayerMerchantSync.Message.class);
 		registerMessage(S2CPacketLiveWire.class, S2CPacketLiveWire.Message.class);
 	}
 

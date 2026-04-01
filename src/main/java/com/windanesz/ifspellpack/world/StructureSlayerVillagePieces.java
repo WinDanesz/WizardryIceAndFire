@@ -91,7 +91,7 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 
     //Adds house to start generation
 	@Nullable
-    public StructureSlayerVillagePieces generateAndAddBuilding(List<StructureComponent> structureComponents, Random rand, int x, int z, Rotation rotation) {
+    public StructureSlayerVillagePieces placeBuilding(List<StructureComponent> structureComponents, Random rand, int x, int z, Rotation rotation) {
         if (Math.abs(x - this.startPiece.getBoundingBox().minX) <= this.startPiece.radius && Math.abs(z - this.startPiece.getBoundingBox().minZ) <= this.startPiece.radius) {
             StructureSlayerVillagePieces building = this.generateBuilding();
             if (building != null) {
@@ -164,7 +164,7 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 
     //Adds road to start generation
 	@Nullable
-    public StructureComponent generateAndAddRoad(List<StructureComponent> structureComponents, Random rand, int x, int z, Rotation rotation) {
+    public StructureComponent placeRoad(List<StructureComponent> structureComponents, Random rand, int x, int z, Rotation rotation) {
         if (Math.abs(x - this.startPiece.getBoundingBox().minX) <= this.startPiece.radius && Math.abs(z - this.startPiece.getBoundingBox().minZ) <= this.startPiece.radius) {
 			StructureSlayerVillagePieces.Road road = this.generateRoad(structureComponents, rand, x, z, rotation);
 			if (road != null) {
@@ -360,12 +360,12 @@ public class StructureSlayerVillagePieces extends StructureComponentTemplate {
 
 		@Override
 		public void buildComponent(StructureComponent start, List<StructureComponent> structureComponents, Random rand) {
-			this.generateAndAddBuilding(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minZ, this.getRotation());
-			this.generateAndAddBuilding(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minZ, this.getRotation().add(Rotation.CLOCKWISE_180));
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.NONE);
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.CLOCKWISE_90);
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.CLOCKWISE_180);
-			this.generateAndAddRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.COUNTERCLOCKWISE_90);
+			this.placeBuilding(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minZ, this.getRotation());
+			this.placeBuilding(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.minZ, this.getRotation().add(Rotation.CLOCKWISE_180));
+			this.placeRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.NONE);
+			this.placeRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.CLOCKWISE_90);
+			this.placeRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.CLOCKWISE_180);
+			this.placeRoad(structureComponents, rand, this.boundingBox.maxX, this.boundingBox.maxZ, Rotation.COUNTERCLOCKWISE_90);
 		}
 
 	}

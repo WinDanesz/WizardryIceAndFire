@@ -5,32 +5,26 @@ import com.windanesz.ifspellpack.client.IFSPGuiHandler;
 import com.windanesz.ifspellpack.entity.ISlayerMerchant;
 import com.windanesz.ifspellpack.entity.SlayerMerchantTrade;
 import com.windanesz.ifspellpack.entity.SlayerMerchantTradeList;
-import com.windanesz.ifspellpack.registry.IFSPSchools;
-import com.windanesz.ifspellpack.school.School;
-import electroblob.wizardry.constants.Tier;
-import electroblob.wizardry.registry.WizardryItems;
 import electroblob.wizardry.registry.WizardrySounds;
-import electroblob.wizardry.spell.Spell;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.INpc;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
-public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerchant, INpc {
+public abstract class EntityAbstractSlayerMerchant extends EntityCreature implements ISlayerMerchant, INpc {
 
 	public static final String TRADE_RESET_TIME_KEY = "TradeResetTime";
 	public static final String HAS_TRADES_ON_COOLDOWN_KEY = "HasTradesOnCooldown";
 	public static final String TRADES_KEY = "Trades";
-	public static final int TRADE_RESET_TIMER = 200;
-	//public static final int TRADE_RESET_TIMER = 12000;
 	@Nullable
 	private SlayerMerchantTradeList trades;
 	@Nullable
@@ -38,9 +32,33 @@ public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerch
 	private long tradeResetTime;
 	private boolean hasTradesOnCooldown;
 
-	public EntitySlayerMerchant(World worldIn) {
+	public EntityAbstractSlayerMerchant(World worldIn) {
 		super(worldIn);
-		this.setTrades(this.initializeTrades());
+	}
+
+	@Override
+	protected void initEntityAI(){
+		super.initEntityAI();
+		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(1, new EntityAITradePlayer(this));
+		this.tasks.addTask(1, new EntityAILookAtTradePlayer(this));
+		this.tasks.addTask(4, new EntityAIRestrictOpenDoor(this));
+		this.tasks.addTask(5, new EntityAIOpenDoor(this, true));
+		this.tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.6D));
+		this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
+		this.tasks.addTask(7, new EntityAIWander(this, 0.6D));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
+	}
+
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5);
+	}
+
+	@Override
+	public boolean isOnSameTeam(Entity entityIn) {
+		return super.isOnSameTeam(entityIn) || entityIn instanceof EntityAbstractSlayerMerchant;
 	}
 
 	@Override
@@ -61,54 +79,30 @@ public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerch
 	@Nullable
 	@Override
 	public SlayerMerchantTradeList getTrades() {
+		if (this.trades == null) {
+			this.trades = this.initializeTrades();
+		}
 		return this.trades;
 	}
 
+	@Nullable
 	@Override
-	public void setTrades(@Nullable SlayerMerchantTradeList recipes) {
-		this.trades = recipes;
+	public void setTrades(SlayerMerchantTradeList trades) {
+		this.trades = trades;
 	}
+
+	abstract public SlayerMerchantTradeList initializeTrades();
 
 	@Override
 	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if(this.isEntityAlive() && !this.isTrading() && !this.isChild() && !player.isSneaking() && this.getAttackTarget() != player){
-			//if(!this.world.isRemote){
+			if(!this.world.isRemote){
 				this.setCustomer(player);
 				player.openGui(IFSpellPack.MODID, IFSPGuiHandler.SLAYER_TRADE, world, this.getEntityId(), 0, 0);
-			//}
+			}
 			return true;
 		}
 		return super.processInteract(player, hand);
-	}
-
-	public SlayerMerchantTradeList initializeTrades() {
-		SlayerMerchantTradeList trades = new SlayerMerchantTradeList();
-		List<Spell> spells = School.getSpells(IFSPSchools.SLAYER);
-		for (Spell spell : spells) {
-			int cost = this.costForTier(spell.getTier());
-			ItemStack book = new ItemStack(WizardryItems.spell_book, 1, spell.metadata());
-			trades.add(new SlayerMerchantTrade(book, cost));
-		}
-		return trades;
-	}
-
-	public int costForTier(Tier tier) {
-/*		if (tier == Tier.NOVICE) {
-			return 5;
-		}
-		else if (tier == Tier.APPRENTICE) {
-			return 10;
-		}
-		else if (tier == Tier.ADVANCED) {
-			return 20;
-		}
-		else if (tier == Tier.MASTER) {
-			return 50;
-		}
-		else {
-			return 5;
-		}*/
-		return 0;
 	}
 
 	@Override
@@ -116,9 +110,13 @@ public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerch
 		recipe.incrementCurrentTradeUses();
 		this.livingSoundTime = -this.getTalkInterval();
 		this.playSound(WizardrySounds.ENTITY_WIZARD_YES, this.getSoundVolume(), this.getSoundPitch());
+		int i = 3 + this.rand.nextInt(4);
+		if (!this.world.isRemote) {
+			this.world.spawnEntity(new EntityXPOrb(this.world, this.posX, this.posY + 0.5D, this.posZ, i));
+		}
 		if (recipe.isTradeDisabled()) {
 			this.hasTradesOnCooldown = true;
-			this.tradeResetTime = this.world.getTotalWorldTime() + TRADE_RESET_TIMER;
+			this.tradeResetTime = this.world.getTotalWorldTime() + IFSpellPack.settings.tradeResetTimer;
 		}
 		//Trade achievement?
 	}
@@ -133,6 +131,7 @@ public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerch
 					//Reset all trades, even the ones not on cooldown
 					trade.setCurrentTradeUses(0);
 				}
+				this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200, 0));
 				this.playSound(WizardrySounds.ENTITY_WIZARD_TRADING, this.getSoundVolume(), this.getSoundPitch());
 			}
 		}
@@ -178,4 +177,67 @@ public class EntitySlayerMerchant extends EntityCreature implements ISlayerMerch
 			this.trades = new SlayerMerchantTradeList(nbttagcompound);
 		}
 	}
+
+	public static class EntityAILookAtTradePlayer extends EntityAIWatchClosest {
+
+		private final EntityAbstractSlayerMerchant merchant;
+
+		public EntityAILookAtTradePlayer(EntityAbstractSlayerMerchant merchant) {
+			super(merchant, EntityPlayer.class, 8.0F);
+			this.merchant = merchant;
+		}
+
+		@Override
+		public boolean shouldExecute() {
+			if (this.merchant.isTrading()) {
+				this.closestEntity = this.merchant.getCustomer();
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
+	public static class EntityAITradePlayer extends EntityAIBase {
+
+		private final EntityAbstractSlayerMerchant merchant;
+
+		public EntityAITradePlayer(EntityAbstractSlayerMerchant merchant) {
+			this.merchant = merchant;
+			this.setMutexBits(5);
+		}
+
+		@Override
+		public boolean shouldExecute(){
+			if (!this.merchant.isEntityAlive()) {
+				return false;
+			} else if (this.merchant.isInWater()) {
+				return false;
+			} else if (!this.merchant.onGround) {
+				return false;
+			} else if (this.merchant.velocityChanged) {
+				return false;
+			} else {
+				EntityPlayer entityplayer = this.merchant.getCustomer();
+				if (entityplayer == null) {
+					return false;
+				} else if (this.merchant.getDistanceSq(entityplayer) > 16.0D) {
+					return false;
+				} else {
+					return entityplayer.openContainer != null;
+				}
+			}
+		}
+
+		@Override
+		public void startExecuting(){
+			this.merchant.getNavigator().clearPath();
+		}
+
+		@Override
+		public void resetTask(){
+			this.merchant.setCustomer(null);
+		}
+	}
+
 }
