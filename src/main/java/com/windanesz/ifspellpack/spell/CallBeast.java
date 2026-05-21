@@ -8,7 +8,7 @@ import com.windanesz.ifspellpack.accessor.AccessorEntityTameable;
 import com.windanesz.ifspellpack.network.S2CPacketCallBeast;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.registry.IFSPItems;
-import com.windanesz.ifspellpack.world.EntityPosData;
+import com.windanesz.ifspellpack.world.WorldData;
 import electroblob.wizardry.data.IStoredVariable;
 import electroblob.wizardry.data.Persistence;
 import electroblob.wizardry.data.WizardData;
@@ -152,7 +152,7 @@ public class CallBeast extends Spell {
 									return true;
 								}
 							} else {
-								EntityPosData entityPosData = EntityPosData.get(world);
+								WorldData entityPosData = WorldData.get(world);
 								if (entityPosData != null) {
 									BlockPos pos = entityPosData.getEntityPos(uuid);
 									if (pos == null) {

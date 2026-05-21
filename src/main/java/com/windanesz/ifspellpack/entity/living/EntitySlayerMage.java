@@ -1,8 +1,8 @@
 package com.windanesz.ifspellpack.entity.living;
 
 import com.google.common.base.Predicate;
+import com.windanesz.ifspellpack.entity.ai.EntityAIAttackHybrid;
 import electroblob.wizardry.Wizardry;
-import electroblob.wizardry.entity.living.EntityAIAttackSpell;
 import electroblob.wizardry.entity.living.ISpellCaster;
 import electroblob.wizardry.entity.living.ISummonedCreature;
 import electroblob.wizardry.registry.Spells;
@@ -10,14 +10,17 @@ import electroblob.wizardry.registry.WizardryPotions;
 import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.AllyDesignationSystem;
 import electroblob.wizardry.util.ParticleBuilder;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -26,21 +29,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class EntityMageSlayerMerchant extends EntityAbstractSlayerMerchant implements ISpellCaster {
+public abstract class EntitySlayerMage extends EntityAbstractSlayerMerchant implements ISpellCaster {
 
-	private final EntityAIAttackSpell<EntityMageSlayerMerchant> spellCastingAI = new EntityAIAttackSpell<>(this, 0.5D, 14.0F, 30, 50);
+	private final EntityAIAttackHybrid<EntitySlayerMage> spellCastingAI = new EntityAIAttackHybrid<>(this, this.getMovementSpeed(), 14.0F, 10, 50);
 
-	private static final DataParameter<Integer> HEAL_COOLDOWN = EntityDataManager.createKey(EntityMageSlayerMerchant.class, DataSerializers.VARINT);
-	private static final DataParameter<String> CONTINUOUS_SPELL = EntityDataManager.createKey(EntityMageSlayerMerchant.class, DataSerializers.STRING);
-	private static final DataParameter<Integer> SPELL_COUNTER = EntityDataManager.createKey(EntityMageSlayerMerchant.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> HEAL_COOLDOWN = EntityDataManager.createKey(EntitySlayerMage.class, DataSerializers.VARINT);
+	private static final DataParameter<String> CONTINUOUS_SPELL = EntityDataManager.createKey(EntitySlayerMage.class, DataSerializers.STRING);
+	private static final DataParameter<Integer> SPELL_COUNTER = EntityDataManager.createKey(EntitySlayerMage.class, DataSerializers.VARINT);
 
 	protected Predicate<Entity> targetSelector;
 	protected List<Spell> spells = new ArrayList<>();
 	protected float healFactor = 1f;
 
-	public EntityMageSlayerMerchant(World worldIn) {
+	public EntitySlayerMage(World worldIn) {
 		super(worldIn);
-		this.tasks.addTask(0, spellCastingAI);
+		this.tasks.addTask(3, this.spellCastingAI);
 	}
 
 	@Override
@@ -55,8 +58,13 @@ public abstract class EntityMageSlayerMerchant extends EntityAbstractSlayerMerch
 			return false;
 		};
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 0,
-				false, true, this.targetSelector));
+		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 0, false, true, this.targetSelector));
+	}
+
+	@Override
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 	}
 
 	@Override
@@ -97,6 +105,48 @@ public abstract class EntityMageSlayerMerchant extends EntityAbstractSlayerMerch
 	}
 
 	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		float f = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+		int i = 0;
+		if (entityIn instanceof EntityLivingBase) {
+			f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase)entityIn).getCreatureAttribute());
+			i += EnchantmentHelper.getKnockbackModifier(this);
+		}
+		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
+		if (flag) {
+			if (i > 0 && entityIn instanceof EntityLivingBase) {
+				((EntityLivingBase)entityIn).knockBack(this, (float)i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), -MathHelper.cos(this.rotationYaw * 0.017453292F));
+				this.motionX *= 0.6D;
+				this.motionZ *= 0.6D;
+			}
+			int j = EnchantmentHelper.getFireAspectModifier(this);
+			if (j > 0) {
+				entityIn.setFire(j * 4);
+			}
+			if (entityIn instanceof EntityPlayer) {
+				EntityPlayer entityplayer = (EntityPlayer)entityIn;
+				ItemStack itemstack = this.getHeldItemMainhand();
+				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
+				if (!itemstack.isEmpty() && !itemstack1.isEmpty() && itemstack.getItem().canDisableShield(itemstack, itemstack1, entityplayer, this) && itemstack1.getItem().isShield(itemstack1, entityplayer)) {
+					float f1 = 0.25F + (float)EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
+					if (this.rand.nextFloat() < f1) {
+						entityplayer.getCooldownTracker().setCooldown(itemstack1.getItem(), 100);
+						this.world.setEntityState(entityplayer, (byte)30);
+					}
+				}
+			}
+			this.applyEnchantments(this, entityIn);
+		}
+		return flag;
+	}
+
+	@Nonnull
+	@Override
+	public List<Spell> getSpells() {
+		return this.spells;
+	}
+
+	@Override
 	public int getAimingError(EnumDifficulty difficulty){
 		// Being more intelligent than skeletons, wizards are a little more accurate.
 		switch(difficulty){
@@ -110,6 +160,7 @@ public abstract class EntityMageSlayerMerchant extends EntityAbstractSlayerMerch
 	@Override
 	public void onLivingUpdate(){
 		super.onLivingUpdate();
+		this.updateArmSwingProgress();
 		// Still better to store this to a local variable as it's almost certainly more efficient.
 		int healCooldown = this.getHealCooldown();
 		// This is now done slightly differently because isPotionActive doesn't work on client here, meaning that when

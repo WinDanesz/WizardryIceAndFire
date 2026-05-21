@@ -31,6 +31,6 @@ public class EntityArchivist extends EntityAbstractSlayerMerchant {
 	@Override
 	protected void initEntityAI() {
 		super.initEntityAI();
-		this.tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityLivingBase.class, entity -> entity instanceof IMob, (float) this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue(), this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 1.2, this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 1.4));
+		this.tasks.addTask(1, new EntityAIAvoidEntity<>(this, EntityLivingBase.class, entity -> entity instanceof IMob, (float)this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).getAttributeValue(), this.getMovementSpeed() * 1.2, this.getMovementSpeed() * 1.4));
 	}
 }

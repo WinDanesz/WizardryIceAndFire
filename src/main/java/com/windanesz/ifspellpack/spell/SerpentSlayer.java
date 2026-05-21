@@ -66,9 +66,9 @@ public class SerpentSlayer extends Spell {
 			trident.shoot(direction.getXOffset(), direction.getYOffset(), direction.getZOffset(), velocity, 1f);
 			trident.setDamage(damage);
 			trident.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
-			((AccessorEntityTideTrident) trident).ifspellpack$setSpell(true);
-			((AccessorEntityTideTrident) trident).ifspellpack$setDamageMultiplier(damageMultiplier);
-			((AccessorEntityTideTrident) trident).ifspellpack$setBurnDuration(fireDuration);
+			((AccessorEntityTideTrident)trident).ifspellpack$setSpell(true);
+			((AccessorEntityTideTrident)trident).ifspellpack$setDamageMultiplier(damageMultiplier);
+			((AccessorEntityTideTrident)trident).ifspellpack$setBurnDuration(fireDuration);
 			if (!world.isRemote) {
 				world.spawnEntity(trident);
 			}

@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.entity.construct.EntityDragonSkullOmen;
 import com.windanesz.ifspellpack.entity.construct.EntityDreadArmy;
 import com.windanesz.ifspellpack.entity.living.*;
 import com.windanesz.ifspellpack.entity.projectile.*;
@@ -29,16 +30,21 @@ public class IFSPEntities {
 		IForgeRegistry<EntityEntry> registry = event.getRegistry();
 
 		//construct
+		registry.register(createEntry(EntityDragonSkullOmen.class, "dragon_skull_omen", TrackingType.CONSTRUCT).build());
 		registry.register(createEntry(EntityDreadArmy.class, "dread_army", TrackingType.CONSTRUCT).build());
 
 		//living
 		registry.register(createEntry(EntityArchivist.class, "archivist", TrackingType.LIVING).egg(0, 0).build());
+		registry.register(createEntry(EntityCultistAcolyte.class, "cultist_acolyte", TrackingType.LIVING).egg(0, 0).build());
+		registry.register(createEntry(EntityCultistDisciple.class, "cultist_disciple", TrackingType.LIVING).egg(0, 0).build());
+		registry.register(createEntry(EntityCultistPriest.class, "cultist_priest", TrackingType.LIVING).egg(0, 0).build());
 		registry.register(createEntry(EntityDreadBeastMinion.class, "dread_beast_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadGhoulMinion.class, "dread_ghoul_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadHorseMinion.class, "dread_horse_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadKnightMinion.class, "dread_knight_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadScuttlerMinion.class, "dread_scuttler_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityDreadThrallMinion.class, "dread_thrall_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntityFireDragonMinion.class, "fire_dragon_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityLightwardBattlemage.class, "lightward_battlemage", TrackingType.LIVING).egg(0, 0).build());
 		registry.register(createEntry(EntitySkeletalFireDragon.class, "skeletal_fire_dragon", TrackingType.LIVING).build());
 		registry.register(createEntry(EntitySkeletalIceDragon.class, "skeletal_ice_dragon", TrackingType.LIVING).build());
@@ -48,6 +54,7 @@ public class IFSPEntities {
 		registry.register(createEntry(EntityMyrmexSwarmerMinion.class, "myrmex_swarmer_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityMyrmexWorkerMinion.class, "myrmex_worker_minion", TrackingType.LIVING).build());
 		registry.register(createEntry(EntityPixieMinion.class, "pixie_minion", TrackingType.LIVING).build());
+		registry.register(createEntry(EntitySlayerMaster.class, "slayer_master", TrackingType.LIVING).egg(0, 0).build());
 		registry.register(createEntry(EntityTrollMinion.class, "troll_minion", TrackingType.LIVING).build());
 
 		//projectile

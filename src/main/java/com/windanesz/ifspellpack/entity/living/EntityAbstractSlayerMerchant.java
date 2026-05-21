@@ -34,6 +34,7 @@ public abstract class EntityAbstractSlayerMerchant extends EntityCreature implem
 
 	public EntityAbstractSlayerMerchant(World worldIn) {
 		super(worldIn);
+		this.setSize(0.6f, 1.8f);
 	}
 
 	@Override
@@ -44,9 +45,9 @@ public abstract class EntityAbstractSlayerMerchant extends EntityCreature implem
 		this.tasks.addTask(1, new EntityAILookAtTradePlayer(this));
 		this.tasks.addTask(4, new EntityAIRestrictOpenDoor(this));
 		this.tasks.addTask(5, new EntityAIOpenDoor(this, true));
-		this.tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, 0.6D));
+		this.tasks.addTask(6, new EntityAIMoveTowardsRestriction(this, this.getAIMoveSpeed()));
 		this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
-		this.tasks.addTask(7, new EntityAIWander(this, 0.6D));
+		this.tasks.addTask(7, new EntityAIWander(this, this.getAIMoveSpeed()));
 		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
 	}
 
@@ -59,6 +60,10 @@ public abstract class EntityAbstractSlayerMerchant extends EntityCreature implem
 	@Override
 	public boolean isOnSameTeam(Entity entityIn) {
 		return super.isOnSameTeam(entityIn) || entityIn instanceof EntityAbstractSlayerMerchant;
+	}
+
+	public double getMovementSpeed() {
+		return this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getBaseValue();
 	}
 
 	@Override

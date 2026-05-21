@@ -9,8 +9,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import javax.annotation.Nonnull;
-
 @GameRegistry.ObjectHolder(IFSpellPack.MODID)
 @Mod.EventBusSubscriber
 public class IFSPBlocks {
@@ -30,6 +28,6 @@ public class IFSPBlocks {
 	public static void register(RegistryEvent.Register<Block> event) {
 		IForgeRegistry<Block> registry = event.getRegistry();
 		registerBlock(registry, "ice_spikes", ICE_SPIKES);
-
 	}
+
 }

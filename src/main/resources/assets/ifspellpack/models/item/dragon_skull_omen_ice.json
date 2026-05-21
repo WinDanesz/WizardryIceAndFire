@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ifspellpack:items/dragon_skull_omen_ice"
+  }
+}

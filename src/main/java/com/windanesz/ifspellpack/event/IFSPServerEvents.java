@@ -86,6 +86,7 @@ public class IFSPServerEvents {
 				for (int i : BaubleType.RING.getValidSlots()) {
 					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(i))) {
 						target.addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 1));
+						break;
 					}
 				}
 			}
@@ -147,7 +148,7 @@ public class IFSPServerEvents {
 		EntityLivingBase entity = event.getEntityLiving();
 		DamageSource source = event.getSource();
 		//Slayer Tracker
-		if (SlayerTracker.isEntityValid(entity) && source.getTrueSource() instanceof EntityPlayer) {
+		if (source.getTrueSource() instanceof EntityPlayer && SlayerTracker.isEntityValid(entity)) {
 			EntityPlayer player = (EntityPlayer)source.getTrueSource();
 			WizardData data = WizardData.get(player);
 			if (data != null) {

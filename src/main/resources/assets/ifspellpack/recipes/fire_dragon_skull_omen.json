@@ -1,0 +1,21 @@
+{
+  "type": "ifspellpack:skull_omen",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "iceandfire:fire_dragon_blood"
+    },
+    "b": {
+      "item": "iceandfire:dragon_skull",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "ifspellpack:dragon_skull_omen",
+    "data": 0
+  }
+}

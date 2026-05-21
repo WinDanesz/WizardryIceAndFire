@@ -36,7 +36,7 @@ public final class IFSPItems {
 	public static final Item BODY_REINFORCED_CHITINOUS_PLATING = new ItemBodyReinforcedChitinousPlating();
 	public static final Item CHARM_DOVAHKRIID = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DRAGON_EYE = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
-	public static final Item CHARM_DRAGON_TRANSFORM_BLOCK= new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
+	public static final Item CHARM_DRAGON_TRANSFORM_BLOCK = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DREAD_HEART = new ItemChargedArtefact(EnumRarity.EPIC, ItemArtefact.Type.CHARM, 10000, new HashSet<>(Arrays.asList(IafItemRegistry.dread_shard)), 100, 50);
 	public static final Item CHARM_DWARVEN_GEARBOX = new ItemArtefactIFSP(EnumRarity.RARE, ItemArtefact.Type.CHARM);
 	public static final Item CHARM_DWARVEN_POCKET_FORGE = new ItemCharmDwarvenPocketForge();
@@ -59,6 +59,8 @@ public final class IFSPItems {
 
 	//Misc Items
 
+	public static final Item DRAGON_SKULL_OMEN = new ItemDragonSkullOmen();
+	public static final Item DRAGONBONE_DAGGER = new ItemDragonboneDagger(IafItemRegistry.boneTools);
 	public static final Item DREAD_STEEL_CLOTH = new ItemIFSP();
 	public static final Item DREAD_STEEL_INGOT = new ItemIFSP();
 	public static final Item DREAD_STEEL_NUGGET = new ItemIFSP();
@@ -108,6 +110,8 @@ public final class IFSPItems {
 
 		//Misc Items
 
+		ItemRegistry.registerItem(registry, "dragon_skull_omen", IFSpellPack.MODID, DRAGON_SKULL_OMEN);
+		ItemRegistry.registerItem(registry, "dragonbone_dagger", IFSpellPack.MODID, DRAGONBONE_DAGGER);
 		ItemRegistry.registerItem(registry, "dread_steel_cloth", IFSpellPack.MODID, DREAD_STEEL_CLOTH);
 		ItemRegistry.registerItem(registry, "dread_steel_ingot", IFSpellPack.MODID, DREAD_STEEL_INGOT);
 		ItemRegistry.registerItem(registry,"dread_steel_nugget", IFSpellPack.MODID, DREAD_STEEL_NUGGET);

@@ -26,11 +26,15 @@ enchantment.ifspellpack:silver_lining=Silver Lining
 
         # Construct
 
+entity.ifspellpack:dragon_skull_omen.name=Dragon Skull Omen
 entity.ifspellpack:dread_army.name=Dread Army
 
         # Living
 
 entity.ifspellpack:archivist.name=Archivist
+entity.ifspellpack:cultist_acolyte.name=Cultist Acolyte
+entity.ifspellpack:cultist_disciple.name=Cultist Disciple
+entity.ifspellpack:cultist_priest.name=Cultist Priest
 entity.ifspellpack:dread_beast_minion.name=Dread Beast
 entity.ifspellpack:dread_ghoul_minion.name=Dread Ghoul
 entity.ifspellpack:dread_horse_minion.name=Dread Horse
@@ -46,6 +50,7 @@ entity.ifspellpack:pixie_minion.name=Pixie
 entity.ifspellpack:skeletal_fire_dragon.name=Skeletal Fire Dragon
 entity.ifspellpack:skeletal_ice_dragon.name=Skeletal Ice Dragon
 entity.ifspellpack:skeletal_lightning_dragon.name=Skeletal Lightning Dragon
+entity.ifspellpack:slayer_master.name=Slayer Master
 entity.ifspellpack:troll_minion.name=Troll
 
         # Projectile
@@ -66,7 +71,7 @@ item.ifspellpack:amulet_damned.desc=Killing certain creatures with dread lich sk
 item.ifspellpack:amulet_dragon_slayer.name=Dragon Slayer Amulet
 item.ifspellpack:amulet_dragon_slayer.desc=Grants 10%% increased damage to and reduced damage from dragons.
 item.ifspellpack:amulet_lightward.name=Lightward Amulet
-item.ifspellpack:amulet_lightward.desc=The blessing provided by this amulet reduces damage taken from and increasing damage dealt to dread creatures by 10%%.
+item.ifspellpack:amulet_lightward.desc=The blessing provided by this amulet reduces damage taken from and increases damage dealt to dread creatures by 10%%.
 item.ifspellpack:body_fire_dragon_core.name=Fire Dragon Core
 item.ifspellpack:body_fire_dragon_core.desc=Draconic and fire spells are 20%% more potent. Charge this with fire dragon hearts to activate it.
 item.ifspellpack:body_ice_dragon_core.name=Ice Dragon Core
@@ -120,6 +125,9 @@ item.ifspellpack:ring_stinger.desc=Your melee attacks sting targets, inflicting 
 
         # Misc Item
 
+
+item.ifspellpack:dragon_skull_omen.name=Dragon Skull Omen
+item.ifspellpack:dragonbone_dagger.name=Dragonbone Dagger
 item.ifspellpack:dread_steel_cloth.name=Dread Steel Cloth
 item.ifspellpack:dread_steel_ingot.name=Dread Steel Ingot
 item.ifspellpack:dread_steel_nugget.name=Dread Steel Nugget

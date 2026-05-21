@@ -1,5 +1,8 @@
 package com.windanesz.ifspellpack.world;
 
+import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
+import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import com.github.alexthe666.iceandfire.entity.EntitySeaSerpent;
 import com.windanesz.ifspellpack.IFSpellPack;
 import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.data.IStoredVariable;
@@ -11,6 +14,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.*;
 
@@ -38,12 +42,27 @@ public class SlayerTracker {
 		}
 	}
 
+	//Entity.getEntityString is protected so this does the same thing
 	public static boolean isEntityValid(Entity entity) {
-		return VALID_ENTITIES.containsKey(EntityList.getKey(entity).toString());
+		ResourceLocation resourceLocation = EntityList.getKey(entity);
+		return resourceLocation != null && VALID_ENTITIES.containsKey(resourceLocation.toString());
 	}
 
 	public static int getPoints(Entity entity) {
-		return VALID_ENTITIES.get(EntityList.getKey(entity).toString());
+		int points = VALID_ENTITIES.get(EntityList.getKey(entity).toString());
+		if (IFSpellPack.settings.shouldSlayerKillsScale) {
+			if (entity instanceof EntityDragonBase) {
+				EntityDragonBase dragon = (EntityDragonBase)entity;
+				points *= dragon.getDragonStage();
+			} else if (entity instanceof EntitySeaSerpent) {
+				EntitySeaSerpent serpent = (EntitySeaSerpent)entity;
+				points *= (int)Math.ceil(serpent.getSeaSerpentScale());
+			} else if (entity instanceof EntityDeathWorm) {
+				EntityDeathWorm deathWorm = (EntityDeathWorm)entity;
+				points *= (int)Math.ceil(deathWorm.getScale());
+			}
+		}
+		return points;
 	}
 
 }

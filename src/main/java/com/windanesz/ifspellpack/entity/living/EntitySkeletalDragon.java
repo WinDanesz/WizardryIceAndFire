@@ -34,6 +34,8 @@ import java.util.UUID;
 
 public abstract class EntitySkeletalDragon extends EntityDragonBase implements ISummonedCreature {
 
+	public static final String MODEL_DEAD_TIME_KEY = "ModelDeadTime";
+
 	private static final DataParameter<Boolean> SPAWN_PARTICLES = EntityDataManager.createKey(EntitySkeletalDragon.class, DataSerializers.BOOLEAN);
 
 	public static final float[] growth_stage_1 = new float[]{1F, 3F};
@@ -158,12 +160,14 @@ public abstract class EntitySkeletalDragon extends EntityDragonBase implements I
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
 		super.writeEntityToNBT(nbttagcompound);
 		this.writeNBTDelegate(nbttagcompound);
+		nbttagcompound.setInteger(MODEL_DEAD_TIME_KEY, this.getModelDeadTime());
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound){
 		super.readEntityFromNBT(nbttagcompound);
 		this.readNBTDelegate(nbttagcompound);
+		this.setModelDeadTime(nbttagcompound.getInteger(MODEL_DEAD_TIME_KEY));
 	}
 
 	@Override
@@ -192,22 +196,22 @@ public abstract class EntitySkeletalDragon extends EntityDragonBase implements I
 	}
 
 
-	@Override protected boolean canDespawn(){
-		return getCaster() == null && getOwnerId() == null;
+	@Override protected boolean canDespawn() {
+		return this.getCaster() == null && this.getOwnerId() == null;
 	}
 
 	@Override
-	public boolean getCanSpawnHere(){
+	public boolean getCanSpawnHere() {
 		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL;
 	}
 
 	@Override
-	public boolean canAttackClass(Class<? extends EntityLivingBase> entityType){
+	public boolean canAttackClass(Class<? extends EntityLivingBase> entityType) {
 		return !EntityFlying.class.isAssignableFrom(entityType);
 	}
 
 	@Override
-	public ITextComponent getDisplayName(){
+	public ITextComponent getDisplayName() {
 		if(getCaster() != null){
 			return new TextComponentTranslation(NAMEPLATE_TRANSLATION_KEY, getCaster().getName(),
 					new TextComponentTranslation("entity." + this.getEntityString() + ".name"));
@@ -217,7 +221,7 @@ public abstract class EntitySkeletalDragon extends EntityDragonBase implements I
 	}
 
 	@Override
-	public boolean hasCustomName(){
+	public boolean hasCustomName() {
 		return Wizardry.settings.summonedCreatureNames && getCaster() != null;
 	}
 

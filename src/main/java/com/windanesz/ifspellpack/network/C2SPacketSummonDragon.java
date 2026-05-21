@@ -2,7 +2,7 @@ package com.windanesz.ifspellpack.network;
 
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.spell.CallDragon;
-import com.windanesz.ifspellpack.world.EntityPosData;
+import com.windanesz.ifspellpack.world.WorldData;
 import electroblob.wizardry.data.WizardData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
@@ -49,7 +49,7 @@ public class C2SPacketSummonDragon implements IMessageHandler<C2SPacketSummonDra
 									player.sendStatusMessage(new TextComponentTranslation("spell.ifspellpack:call_dragon.no_space", entity.getDisplayName()), true);
 								}
 							} else {
-								EntityPosData entityPosData = EntityPosData.get(world);
+								WorldData entityPosData = WorldData.get(world);
 								if (entityPosData != null) {
 									BlockPos pos = entityPosData.getEntityPos(uuid);
 									if (pos == null) {

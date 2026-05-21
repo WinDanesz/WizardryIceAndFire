@@ -10,11 +10,14 @@ import com.github.alexthe666.iceandfire.entity.*;
 import com.windanesz.ifspellpack.CommonProxy;
 import com.windanesz.ifspellpack.client.particle.ParticleAllureAppearance;
 import com.windanesz.ifspellpack.client.particle.ParticleMenace;
+import com.windanesz.ifspellpack.client.renderer.entity.construct.RenderDragonSkullOmen;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhide;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerDragonhideNext;
 import com.windanesz.ifspellpack.client.renderer.entity.layer.LayerSentinelShell;
+import com.windanesz.ifspellpack.client.renderer.entity.living.RenderAbstractCultist;
 import com.windanesz.ifspellpack.client.renderer.entity.living.RenderSkeletalDragon;
-import com.windanesz.ifspellpack.client.renderer.entity.living.RenderSlayerMerchant;
+import com.windanesz.ifspellpack.client.renderer.entity.living.RenderAbstractSlayerMerchant;
+import com.windanesz.ifspellpack.entity.construct.EntityDragonSkullOmen;
 import com.windanesz.ifspellpack.entity.construct.EntityDreadArmy;
 import com.windanesz.ifspellpack.entity.living.*;
 import com.windanesz.ifspellpack.entity.projectile.*;
@@ -68,16 +71,21 @@ public class ClientProxy extends CommonProxy {
 
 		//construct
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadArmy.class, RenderNothing::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityDragonSkullOmen.class, manager -> new RenderDragonSkullOmen(manager, FIRE_DRAGON_MODEL, ICE_DRAGON_MODEL, LIGHTNING_DRAGON_MODEL));
 
 		//living
-		RenderingRegistry.registerEntityRenderingHandler(EntityArchivist.class, RenderSlayerMerchant::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityArchivist.class, RenderAbstractSlayerMerchant::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCultistAcolyte.class, RenderAbstractCultist::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCultistDisciple.class, RenderAbstractCultist::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityCultistPriest.class, RenderAbstractCultist::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadBeastMinion.class, RenderDreadBeast::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadGhoulMinion.class, RenderDreadGhoul::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadHorseMinion.class, RenderDreadHorse::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadKnightMinion.class, RenderDreadKnight::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadScuttlerMinion.class, RenderDreadScuttler::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreadThrallMinion.class, RenderDreadThrall::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityLightwardBattlemage.class, RenderSlayerMerchant::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityFireDragonMinion.class,  manager -> new RenderDragonBase(manager, FIRE_DRAGON_MODEL, 0));
+		RenderingRegistry.registerEntityRenderingHandler(EntityLightwardBattlemage.class, RenderAbstractSlayerMerchant::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityMyrmexSentinelMinion.class, manager -> new RenderMyrmexBase(manager, new ModelMyrmexSentinel(), 0.85F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMyrmexSoldierMinion.class, manager -> new RenderMyrmexBase(manager, new ModelMyrmexSoldier(), 0.75F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMyrmexSwarmerMinion.class, manager -> new RenderMyrmexBase(manager, new ModelMyrmexRoyal(), 0.25F));
@@ -86,6 +94,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalFireDragon.class, manager -> new RenderSkeletalDragon(manager, FIRE_DRAGON_MODEL, 0));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalIceDragon.class, manager -> new RenderSkeletalDragon(manager, ICE_DRAGON_MODEL, 1));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySkeletalLightningDragon.class, manager -> new RenderSkeletalDragon(manager, LIGHTNING_DRAGON_MODEL, 2));
+		RenderingRegistry.registerEntityRenderingHandler(EntitySlayerMaster.class, RenderAbstractSlayerMerchant::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityTrollMinion.class, RenderTroll::new);
 
 		//projectile

@@ -1,15 +1,13 @@
 package com.windanesz.ifspellpack.mixin.minecraft;
 
 import com.windanesz.ifspellpack.accessor.AccessorEntityTameable;
-import com.windanesz.ifspellpack.world.EntityPosData;
+import com.windanesz.ifspellpack.world.WorldData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.entity.player.EntityPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
 public abstract class MixinEntity {
@@ -21,7 +19,7 @@ public abstract class MixinEntity {
 		if (entity instanceof EntityTameable) {
 			EntityTameable entityTameable = (EntityTameable) entity;
 			if (((AccessorEntityTameable) entityTameable).ifspellpack$shouldSavePos() && !entity.isDead) {
-				EntityPosData.get(entity.world).addEntity(entityTameable.getUniqueID(), entityTameable.getPosition());
+				WorldData.get(entity.world).addEntity(entityTameable.getUniqueID(), entityTameable.getPosition());
 			}
 		}
 	}
@@ -32,7 +30,7 @@ public abstract class MixinEntity {
 		if (entity instanceof EntityTameable) {
 			EntityTameable entityTameable = (EntityTameable) entity;
 			if (((AccessorEntityTameable) entityTameable).ifspellpack$shouldSavePos()) {
-				EntityPosData.get(entity.world).removeEntity(entity.getUniqueID());
+				WorldData.get(entity.world).removeEntity(entity.getUniqueID());
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
+import com.windanesz.ifspellpack.item.ItemDragonSkullOmen;
 import electroblob.wizardry.item.IMultiTexturedItem;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -21,7 +22,7 @@ public final class IFSPModels {
 
 	@SubscribeEvent
 	public static void register(ModelRegistryEvent event) {
-
+		registerMultiTexturedModel((ItemDragonSkullOmen)IFSPItems.DRAGON_SKULL_OMEN);
 		// Automatic item model registry
 		for (Item item : Item.REGISTRY) {
 			if (item.getRegistryName().getNamespace().equals(IFSpellPack.MODID)) {

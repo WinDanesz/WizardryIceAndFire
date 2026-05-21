@@ -43,11 +43,15 @@ public class EntityAIAttackHybrid<T extends EntityLiving & ISpellCaster> extends
 
 	@Override
 	public boolean shouldExecute() {
-		EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
-		if (entitylivingbase == null) {
+		EntityLivingBase target = this.attacker.getAttackTarget();
+		if (target == null) {
 			return false;
-		} else {
-			this.target = entitylivingbase;
+		}
+		else if (!target.isEntityAlive()) {
+			return false;
+		}
+		else {
+			this.target = target;
 			return true;
 		}
 	}
@@ -73,6 +77,7 @@ public class EntityAIAttackHybrid<T extends EntityLiving & ISpellCaster> extends
 
 	@Override
 	public void updateTask() {
+		this.meleeCooldown--;
 		double distanceSq = this.attacker.getDistanceSq(this.target.posX, this.target.posY, this.target.posZ);
 		boolean targetIsVisible = this.attacker.getEntitySenses().canSee(this.target);
 		if (targetIsVisible) {
@@ -80,15 +85,18 @@ public class EntityAIAttackHybrid<T extends EntityLiving & ISpellCaster> extends
 		} else {
 			this.seeTime = 0;
 		}
-		if (distanceSq <= (double)this.maxAttackDistance && this.seeTime >= 20) {
+		if (distanceSq <= (double)this.maxAttackDistance && this.seeTime >= 20 && this.spellCooldown <= 0) {
 			this.attacker.getNavigator().clearPath();
 		} else {
 			this.attacker.getNavigator().tryMoveToEntityLiving(this.target, this.speed);
 		}
 		this.attacker.getLookHelper().setLookPositionWithEntity(this.target, 30.0F, 30.0F);
+		//If the caster is currently casting a continuous spell
 		if (this.continuousSpellTimer > 0){
 			this.continuousSpellTimer--;
 			if (distanceSq > (double)this.maxAttackDistance || !targetIsVisible || MinecraftForge.EVENT_BUS.post(new SpellCastEvent.Tick(SpellCastEvent.Source.NPC, attacker.getContinuousSpell(), attacker, attacker.getModifiers(), this.continuousSpellDuration - this.continuousSpellTimer)) || !attacker.getContinuousSpell().cast(attacker.world, attacker, EnumHand.MAIN_HAND, this.continuousSpellDuration - this.continuousSpellTimer, target, attacker.getModifiers())	|| this.continuousSpellTimer == 0){
+				MinecraftForge.EVENT_BUS.post(new SpellCastEvent.Finish(SpellCastEvent.Source.NPC, attacker.getContinuousSpell(), this.attacker, this.attacker.getModifiers(), this.continuousSpellDuration - this.continuousSpellTimer));
+				attacker.getContinuousSpell().finishCasting(this.attacker.world, this.attacker, this.attacker.posX, this.attacker.posY, this.attacker.posZ, null, this.continuousSpellDuration - this.continuousSpellTimer, this.attacker.getModifiers());
 				this.continuousSpellTimer = 0;
 				this.spellCooldown = attacker.getContinuousSpell().getCooldown() + this.baseCooldown;
 				setContinuousSpellAndNotify(Spells.none, new SpellModifiers());
@@ -96,8 +104,9 @@ public class EntityAIAttackHybrid<T extends EntityLiving & ISpellCaster> extends
 				MinecraftForge.EVENT_BUS.post(new SpellCastEvent.Post(SpellCastEvent.Source.NPC, attacker.getContinuousSpell(),
 						attacker, attacker.getModifiers()));
 			}
+		//If the caster is off cooldown to cast a spell
 		} else if (--this.spellCooldown == 0) {
-			if (distanceSq > (double)this.maxAttackDistance || !targetIsVisible){
+			if (distanceSq > (double) this.maxAttackDistance || !targetIsVisible) {
 				return;
 			}
 			double dx = target.posX - attacker.posX;
@@ -110,7 +119,7 @@ public class EntityAIAttackHybrid<T extends EntityLiving & ISpellCaster> extends
 						spell = spells.get(attacker.world.rand.nextInt(spells.size()));
 						SpellModifiers modifiers = attacker.getModifiers();
 						if (spell != null && attemptCastSpell(spell, modifiers)) {
-							attacker.rotationYaw = (float)(Math.atan2(dz, dx) * 180.0D / Math.PI) - 90.0F;
+							attacker.rotationYaw = (float) (Math.atan2(dz, dx) * 180.0D / Math.PI) - 90.0F;
 							return;
 						} else {
 							spells.remove(spell);
@@ -118,13 +127,16 @@ public class EntityAIAttackHybrid<T extends EntityLiving & ISpellCaster> extends
 					}
 				}
 			}
+		//If the caster is not casting a continuous spell and cannot cast a spell
+		} else if (this.spellCooldown >= 0)	{
+			double distance = this.attacker.getDistanceSq(target);
+			this.checkAndPerformMelee(this.target, distance);
 		} else if (this.spellCooldown < 0) {
 			this.spellCooldown = this.baseCooldown;
 		}
 	}
 
 	private boolean attemptCastSpell(Spell spell, SpellModifiers modifiers) {
-		// If anything stops the spell working at this point, nothing else happens.
 		if (MinecraftForge.EVENT_BUS.post(new SpellCastEvent.Pre(SpellCastEvent.Source.NPC, spell, attacker, modifiers))) {
 			return false;
 		}
@@ -143,6 +155,19 @@ public class EntityAIAttackHybrid<T extends EntityLiving & ISpellCaster> extends
 			return true;
 		}
 		return false;
+	}
+
+	protected void checkAndPerformMelee(EntityLivingBase enemy, double distToEnemySqr) {
+		double distance = this.getAttackReachSqr(enemy);
+		if (distToEnemySqr <= distance && this.meleeCooldown <= 0) {
+			this.meleeCooldown = 20;
+			this.attacker.swingArm(EnumHand.MAIN_HAND);
+			this.attacker.attackEntityAsMob(enemy);
+		}
+	}
+
+	protected double getAttackReachSqr(EntityLivingBase target) {
+		return this.attacker.width * 2.0F * this.attacker.width * 2.0F + target.width;
 	}
 
 }

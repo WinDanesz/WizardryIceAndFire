@@ -1,6 +1,6 @@
 package com.windanesz.ifspellpack.client.renderer.entity.living;
 
-import com.windanesz.ifspellpack.entity.living.EntityAbstractSlayerMerchant;
+import com.windanesz.ifspellpack.entity.living.EntityAbstractCultist;
 import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.client.model.ModelWizard;
 import net.minecraft.client.renderer.entity.RenderBiped;
@@ -11,21 +11,21 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderSlayerMerchant extends RenderBiped<EntityAbstractSlayerMerchant> {
+public class RenderAbstractCultist extends RenderBiped<EntityAbstractCultist> {
 
 	static final ResourceLocation[] TEXTURES = new ResourceLocation[6];
 
-	public RenderSlayerMerchant(RenderManager renderManager){
+	public RenderAbstractCultist(RenderManager renderManager) {
 		super(renderManager, new ModelWizard(), 0.5F);
-		for(int i = 0; i < 6; i++){
-			TEXTURES[i] = new ResourceLocation(Wizardry.MODID, "textures/entity/wizard/wizard_" + i + ".png");
+		for (int i = 0; i < 6; i++) {
+			TEXTURES[i] = new ResourceLocation(Wizardry.MODID, "textures/entity/evil_wizard/evil_wizard_" + i + ".png");
 		}
 		// Just using the default without overriding models, since the armour sets its own model anyway.
 		this.addLayer(new LayerBipedArmor(this));
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityAbstractSlayerMerchant merchant){
+	protected ResourceLocation getEntityTexture(EntityAbstractCultist merchant) {
 		return TEXTURES[0];
 	}
 
