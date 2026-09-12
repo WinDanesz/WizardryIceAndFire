@@ -7,7 +7,7 @@ import com.windanesz.ifspellpack.entity.ISlayerMerchant;
 import com.windanesz.ifspellpack.inventory.ContainerDwarvenPocketForge;
 import com.windanesz.ifspellpack.inventory.ContainerSlayerMerchant;
 import com.windanesz.ifspellpack.inventory.InventoryDwarvenPocketForge;
-import com.windanesz.ifspellpack.network.S2CPacketGuiSlayerMerchantSync;
+import com.windanesz.ifspellpack.network.s2c.S2CPacketGuiSlayerMerchantSync;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

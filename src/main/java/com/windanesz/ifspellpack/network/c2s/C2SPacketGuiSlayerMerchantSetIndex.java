@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.network;
+package com.windanesz.ifspellpack.network.c2s;
 
 import com.windanesz.ifspellpack.inventory.ContainerSlayerMerchant;
 import io.netty.buffer.ByteBuf;
@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class C2SPacketGuiSlayerMerchantReset implements IMessageHandler<C2SPacketGuiSlayerMerchantReset.Message, IMessage> {
+public class C2SPacketGuiSlayerMerchantSetIndex implements IMessageHandler<C2SPacketGuiSlayerMerchantSetIndex.Message, IMessage> {
 
 	@Override
 	public IMessage onMessage(Message message, MessageContext ctx){
@@ -17,6 +17,7 @@ public class C2SPacketGuiSlayerMerchantReset implements IMessageHandler<C2SPacke
 			player.getServerWorld().addScheduledTask(() -> {
 				Container container = player.openContainer;
 				if (container instanceof ContainerSlayerMerchant) {
+					((ContainerSlayerMerchant)container).setCurrentRecipeIndex(message.selectedTrade);
 					((ContainerSlayerMerchant)container).resetTrade();
 				}
 			});
@@ -26,15 +27,23 @@ public class C2SPacketGuiSlayerMerchantReset implements IMessageHandler<C2SPacke
 
 	public static class Message implements IMessage {
 
+		private int selectedTrade;
+
 		public Message(){
+		}
+
+		public Message(int selectedTrade){
+			this.selectedTrade = selectedTrade;
 		}
 
 		@Override
 		public void fromBytes(ByteBuf buf){
+			this.selectedTrade = buf.readInt();
 		}
 
 		@Override
 		public void toBytes(ByteBuf buf){
+			buf.writeInt(this.selectedTrade);
 		}
 	}
 }

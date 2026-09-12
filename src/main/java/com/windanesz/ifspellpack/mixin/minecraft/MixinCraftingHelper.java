@@ -12,9 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(CraftingHelper.class)
 public abstract class MixinCraftingHelper {
 
-	@Inject(method = "Lnet/minecraftforge/common/crafting/CraftingHelper;init()V", at = @At("TAIL"), remap = false)
+/*
+	@Inject(method = "Lnet/minecraftforge/common/crafting/CraftingHelper;init()V", at = @At("TAIL"))
 	private void injectCraftingHelper(CallbackInfo info) {
 		CraftingHelper.register(new ResourceLocation(IFSpellPack.MODID, "skull_omen"), RecipeDragonSkullOmen::factory);
 	}
+*/
 
 }

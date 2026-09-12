@@ -1,7 +1,8 @@
 package com.windanesz.ifspellpack.registry;
 
 import com.windanesz.ifspellpack.IFSpellPack;
-import com.windanesz.ifspellpack.network.*;
+import com.windanesz.ifspellpack.network.c2s.*;
+import com.windanesz.ifspellpack.network.s2c.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -24,6 +25,7 @@ public class IFSPPackets {
 		registerMessage(S2CPacketCallDragon.class, S2CPacketCallDragon.Message.class);
 		registerMessage(S2CPacketGuiSlayerMerchantSync.class, S2CPacketGuiSlayerMerchantSync.Message.class);
 		registerMessage(S2CPacketLiveWire.class, S2CPacketLiveWire.Message.class);
+		registerMessage(S2CPacketTeleport.class, S2CPacketTeleport.Message.class);
 	}
 
 	private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> packet, Class<REQ> message) {

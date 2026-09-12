@@ -3,6 +3,7 @@ package com.windanesz.ifspellpack.registry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.recipe.RecipeDragonSkullOmen;
+import com.windanesz.ifspellpack.recipe.RecipeDragonSkullOmenFactory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;

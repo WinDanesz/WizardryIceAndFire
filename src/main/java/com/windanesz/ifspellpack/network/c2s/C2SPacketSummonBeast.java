@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.network;
+package com.windanesz.ifspellpack.network.c2s;
 
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.spell.CallBeast;

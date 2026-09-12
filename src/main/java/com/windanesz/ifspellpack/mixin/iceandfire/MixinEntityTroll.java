@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.mixin.iceandfire;
 
 import com.github.alexthe666.iceandfire.entity.EntityTroll;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.windanesz.ifspellpack.accessor.AccessorEntityTroll;
 import com.windanesz.ifspellpack.entity.ai.TrollAIRestrictSun;
 import com.windanesz.ifspellpack.entity.living.EntityTrollMinion;
@@ -25,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinEntityTroll extends EntityMob implements AccessorEntityTroll {
 
 	@Unique
+	@SuppressWarnings("all")
 	private static final DataParameter<Boolean> SUNLIGHT_IMMUNE = EntityDataManager.createKey(EntityTroll.class, DataSerializers.BOOLEAN);
 
 	public MixinEntityTroll(World worldIn) {
@@ -47,14 +49,20 @@ public abstract class MixinEntityTroll extends EntityMob implements AccessorEnti
 		troll.tasks.addTask(2, new TrollAIRestrictSun(troll));
 	}
 
-	@Redirect(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isDaytime()Z", ordinal = 1))
+	//Seems to work, but leaving the redirect commented in case
+	@ModifyExpressionValue(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isDaytime()Z", ordinal = 1))
+	private boolean modifyIsDayTime(boolean original) {
+		return original && !this.ifspellpack$isSunlightImmune();
+	}
+
+/*	@Redirect(method = "onLivingUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isDaytime()Z", ordinal = 1))
 	private boolean redirectIsDayTime(World world) {
 		return world.isDaytime() && !this.ifspellpack$isSunlightImmune();
-	}
+	}*/
 
 	@Inject(method = "entityInit()V", at = @At("TAIL"))
 	private void injectEntityInit(CallbackInfo info) {
-		System.out.println("Injecting entity init for troll sunlight immunity");
+		//System.out.println("Injecting entity init for troll sunlight immunity");
 		this.dataManager.register(SUNLIGHT_IMMUNE, false);
 	}
 

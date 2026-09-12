@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.network;
+package com.windanesz.ifspellpack.network.s2c;
 
 import electroblob.wizardry.util.ParticleBuilder;
 import io.netty.buffer.ByteBuf;

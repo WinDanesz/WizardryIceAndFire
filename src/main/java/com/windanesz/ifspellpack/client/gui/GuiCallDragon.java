@@ -1,7 +1,7 @@
 package com.windanesz.ifspellpack.client.gui;
 
 import com.windanesz.ifspellpack.IFSpellPack;
-import com.windanesz.ifspellpack.network.C2SPacketSummonDragon;
+import com.windanesz.ifspellpack.network.c2s.C2SPacketSummonDragon;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.spell.CallDragon;
 import electroblob.wizardry.client.DrawingUtils;

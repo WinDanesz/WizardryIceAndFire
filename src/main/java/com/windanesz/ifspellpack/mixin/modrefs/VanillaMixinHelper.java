@@ -17,7 +17,7 @@ public class VanillaMixinHelper {
 		double d = 0;
 		if (player.isPotionActive(IFSPPotions.MYRMEX_BLESSING)) {
 			if (entity instanceof EntityLivingBase) {
-				EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
+				EntityLivingBase entityLivingBase = (EntityLivingBase)entity;
 				if (entityLivingBase.getCreatureAttribute() != EnumCreatureAttribute.ARTHROPOD || entityLivingBase instanceof EntityDeathWorm) {
 					d += (player.getActivePotionEffect(IFSPPotions.MYRMEX_BLESSING).getAmplifier() + 1) * PotionMyrmexBlessing.DAMAGE_INCREASE;
 				}

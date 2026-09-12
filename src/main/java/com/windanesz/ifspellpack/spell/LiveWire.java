@@ -3,7 +3,7 @@ package com.windanesz.ifspellpack.spell;
 import com.github.alexthe666.iceandfire.entity.ChainEntityProperties;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
-import com.windanesz.ifspellpack.network.S2CPacketLiveWire;
+import com.windanesz.ifspellpack.network.s2c.S2CPacketLiveWire;
 import electroblob.wizardry.item.SpellActions;
 import electroblob.wizardry.spell.Spell;
 import electroblob.wizardry.util.EntityUtils;

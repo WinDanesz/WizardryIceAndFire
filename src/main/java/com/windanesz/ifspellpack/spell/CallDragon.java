@@ -4,7 +4,7 @@ import com.github.alexthe666.iceandfire.entity.*;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.accessor.AccessorEntityTameable;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
-import com.windanesz.ifspellpack.network.S2CPacketCallDragon;
+import com.windanesz.ifspellpack.network.s2c.S2CPacketCallDragon;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import com.windanesz.ifspellpack.world.WorldData;
 import electroblob.wizardry.data.IStoredVariable;

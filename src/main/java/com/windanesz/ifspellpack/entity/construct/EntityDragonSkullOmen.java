@@ -73,8 +73,6 @@ public class EntityDragonSkullOmen extends EntityDragonSkull implements IEntityO
 								players.removeIf(player -> player != this.getOwner());
 							}
 							if (!players.isEmpty()) {
-//								int x = (24 + this.rand.nextInt(24)) * (this.rand.nextBoolean() ? 1 : -1);
-//								int z = (24 + this.rand.nextInt(24)) * (this.rand.nextBoolean() ? 1 : -1);
 								double angle = this.rand.nextDouble() * 2 * Math.PI;
 								int x = (int)((24 + this.rand.nextInt(24)) * Math.cos(angle));
 								int z = (int)((24 + this.rand.nextInt(24)) * Math.sin(angle));

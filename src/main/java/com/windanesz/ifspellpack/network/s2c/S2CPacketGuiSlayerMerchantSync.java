@@ -1,19 +1,11 @@
-package com.windanesz.ifspellpack.network;
+package com.windanesz.ifspellpack.network.s2c;
 
 import com.windanesz.ifspellpack.IFSpellPack;
-import com.windanesz.ifspellpack.client.gui.GuiSlayerMerchant;
 import com.windanesz.ifspellpack.entity.ISlayerMerchant;
 import com.windanesz.ifspellpack.entity.SlayerMerchantTradeList;
-import electroblob.wizardry.util.ParticleBuilder;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.GuiMerchant;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IMerchant;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.village.MerchantRecipeList;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;

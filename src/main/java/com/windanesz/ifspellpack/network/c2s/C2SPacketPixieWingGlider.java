@@ -1,9 +1,11 @@
-package com.windanesz.ifspellpack.network;
+package com.windanesz.ifspellpack.network.c2s;
 
 import baubles.api.BaublesApi;
 import com.windanesz.ifspellpack.item.ItemChargedArtefact;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import electroblob.wizardry.item.ItemArtefact;
+import electroblob.wizardry.packet.PacketCastSpell;
+import electroblob.wizardry.packet.WizardryPacketHandler;
 import electroblob.wizardry.registry.Spells;
 import electroblob.wizardry.util.SpellModifiers;
 import io.netty.buffer.ByteBuf;
@@ -22,7 +24,10 @@ public class C2SPacketPixieWingGlider implements IMessageHandler<C2SPacketPixieW
 			player.getServerWorld().addScheduledTask(() -> {
 				if (ItemArtefact.isArtefactActive(player, IFSPItems.BODY_PIXIE_WING_GLIDER)) {
 					if (player.isCreative() || ItemChargedArtefact.consumeCharge(BaublesApi.getBaublesHandler(player).getStackInSlot(5))) {
-						Spells.glide.cast(player.world, player, EnumHand.MAIN_HAND, player.ticksExisted, new SpellModifiers());
+						Spells.glide.cast(player.world, player, EnumHand.MAIN_HAND, message.ticksInUse, new SpellModifiers());
+						//Do I need this?
+/*						IMessage msg = new PacketCastSpell.Message(player.getEntityId(), EnumHand.MAIN_HAND, Spells.glide, new SpellModifiers());
+						WizardryPacketHandler.net.sendToDimension(msg, player.world.provider.getDimension());*/
 					}
 				}
 			});
@@ -33,15 +38,23 @@ public class C2SPacketPixieWingGlider implements IMessageHandler<C2SPacketPixieW
 
 	public static class Message implements IMessage {
 
+		private int ticksInUse;
+
 		public Message(){
+		}
+
+		public Message(int ticksInUse){
+			this.ticksInUse = ticksInUse;
 		}
 
 		@Override
 		public void fromBytes(ByteBuf buf){
+			this.ticksInUse = buf.readInt();
 		}
 
 		@Override
 		public void toBytes(ByteBuf buf){
+			buf.writeInt(this.ticksInUse);
 		}
 	}
 }

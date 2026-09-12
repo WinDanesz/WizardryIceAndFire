@@ -1,5 +1,6 @@
 package com.windanesz.ifspellpack.entity.living;
 
+import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.DifficultyInstance;
@@ -51,11 +52,8 @@ public class EntityCultistPriest extends EntityCultistMage {
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		if (this.shouldSpawnDragon()) {
-			EntityFireDragonMinion dragon = new EntityFireDragonMinion(this.world);
+			EntityFireDragon dragon = new EntityFireDragon(this.world);
 			dragon.setPositionAndRotation(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-			if (this.isInPatrol()) {
-				dragon.setShouldDespawn(true);
-			}
 			dragon.setOwnerId(this.getUniqueID());
 			dragon.growDragon(this.getDragonAge());
 			dragon.setGender(this.rand.nextBoolean());

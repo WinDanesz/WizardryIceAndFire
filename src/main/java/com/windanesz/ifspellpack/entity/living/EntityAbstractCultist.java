@@ -1,6 +1,7 @@
 package com.windanesz.ifspellpack.entity.living;
 
 import com.google.common.base.Predicate;
+import com.windanesz.ifspellpack.entity.IPatroller;
 import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.entity.living.ISummonedCreature;
 import electroblob.wizardry.registry.WizardrySounds;
@@ -26,7 +27,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public abstract class EntityAbstractCultist extends EntityMob {
+public abstract class EntityAbstractCultist extends EntityMob /*implements IPatroller*/ {
 
 	// 0 == Fire, 1 == Ice, 2 == Lightning
 	public static final String ELEMENT_VARIANT_KEY = "ElementVariant";

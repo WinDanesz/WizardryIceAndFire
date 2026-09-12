@@ -44,6 +44,7 @@ public class IFSPLoadingPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader {
 	@Override
 	public List<String> getMixinConfigs() {
 		List<String> configs = new ArrayList<>();
+		//System.out.println("[IFSP] getMixinConfigs called"); THIS WORKS
 		configs.add("ifspellpack.minecraft.mixins.json");
 		return configs;
 	}

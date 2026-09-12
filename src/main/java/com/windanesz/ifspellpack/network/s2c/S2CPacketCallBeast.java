@@ -1,4 +1,4 @@
-package com.windanesz.ifspellpack.network;
+package com.windanesz.ifspellpack.network.s2c;
 
 import com.windanesz.ifspellpack.client.gui.GuiCallBeast;
 import io.netty.buffer.ByteBuf;

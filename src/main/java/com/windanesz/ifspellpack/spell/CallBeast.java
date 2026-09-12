@@ -5,7 +5,8 @@ import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
 import com.github.alexthe666.iceandfire.entity.EntityHippogryph;
 import com.windanesz.ifspellpack.IFSpellPack;
 import com.windanesz.ifspellpack.accessor.AccessorEntityTameable;
-import com.windanesz.ifspellpack.network.S2CPacketCallBeast;
+import com.windanesz.ifspellpack.network.s2c.S2CPacketCallBeast;
+import com.windanesz.ifspellpack.network.s2c.S2CPacketTeleport;
 import com.windanesz.ifspellpack.registry.IFSPPackets;
 import com.windanesz.ifspellpack.registry.IFSPItems;
 import com.windanesz.ifspellpack.world.WorldData;
@@ -24,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.network.play.server.SPacketEntityTeleport;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -32,6 +34,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 import java.util.*;
 
@@ -115,7 +119,7 @@ public class CallBeast extends Spell {
 						}
 					}
 				}
-				if (mounts.size() == 0) {
+				if (mounts.isEmpty()) {
 					caster.sendStatusMessage(new TextComponentTranslation("spell." + this.getUnlocalisedName() + ".no_beasts"), true);
 				} else {
 					if (artefact) {
@@ -216,7 +220,14 @@ public class CallBeast extends Spell {
 		if (pos == null) {
 			return false;
 		}
-		entity.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+		//Why does it smear when it teleports?
+		entity.setPositionAndUpdate(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+/*		entity.setLocationAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, entity.rotationYaw, entity.rotationPitch);
+		if (player instanceof EntityPlayerMP) {
+			((EntityPlayerMP)player).connection.sendPacket(new SPacketEntityTeleport(entity));
+		}*/
+/*		IMessage packet = new S2CPacketTeleport.Message(entity.getEntityId(), entity.posX, entity.posY, entity.posZ);
+		IFSPPackets.net.sendToAllTracking(packet, entity);*/
 		return true;
 	}
 

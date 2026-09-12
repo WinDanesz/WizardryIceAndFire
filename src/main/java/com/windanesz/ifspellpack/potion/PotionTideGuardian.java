@@ -16,9 +16,9 @@ public class PotionTideGuardian extends PotionMagicEffect {
 
     @Override
     public void performEffect(EntityLivingBase entitylivingbase, int strength) {
-        entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 50));
+        entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 1, 0, true, true));
         if (entitylivingbase.isWet()) {
-            entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 50, strength));
+            entitylivingbase.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 1, strength, true, true));
         }
     }
 
